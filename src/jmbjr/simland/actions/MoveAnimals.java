@@ -17,6 +17,7 @@ import jmbjr.simland.AnimalProperties;
 import jmbjr.simland.FieldPanel;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Field;
+import jmbjr.simland.entities.Rester;
 
 
 public class MoveAnimals implements Action<Entity> {
@@ -98,21 +99,21 @@ public class MoveAnimals implements Action<Entity> {
     @Override
     public void perform(final ActionContext<Entity> context) throws InterruptedException {
 	final Field field = context.getActor().asType(Field.class);
-	final Set<Animal> people = field.getEntitiesOfType(Animal.class);
-	people.stream().filter(notMarkedAsType(Animal.class)).forEach(person -> {
+	final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
+	animals.stream().filter(notMarkedAsType(Rester.class)).forEach(animal -> {
 	    // Get correct move angle
 	    double moveAngle;
 		// Move randomly
-		moveAngle = randomDirection(person);
-	    person.setAngle(moveAngle);
+		moveAngle = randomDirection(animal);
+	    animal.setAngle(moveAngle);
 
 	    // Calculate move delta
-	    final double moveDist = person.getSpeed();
+	    final double moveDist = animal.getSpeed();
 	    final Point moveDelta = new Point((int) (moveDist * Math.cos(moveAngle)),
 		    (int) (moveDist * Math.sin(moveAngle)));
 
 	    // Original values
-	    final Point pos = person.getPosition();
+	    final Point pos = animal.getPosition();
 	    final int size = AnimalProperties.getSize();
 
 	    // Apply bounded move delta
@@ -121,7 +122,7 @@ public class MoveAnimals implements Action<Entity> {
 
 	    if (pos.x != x || pos.y != y) {
 		// Update if changed
-		person.setPosition(new Point(x, y));
+		animal.setPosition(new Point(x, y));
 	    }
 	});
     }

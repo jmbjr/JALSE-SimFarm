@@ -24,6 +24,7 @@ import jmbjr.simland.actions.MoveAnimals;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Plant;
+import jmbjr.simland.entities.Roamer;
 import jmbjr.simland.entities.TransformationListener;
 
 @SuppressWarnings("serial")
@@ -37,7 +38,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
     private static void drawElement(final Graphics g, final Animal person) {
 	final Point position = person.getPosition();
 	final int size = AnimalProperties.getSize();
-	g.setColor(Color.BLUE);
+	g.setColor(Color.BLACK);
 	g.fillOval(position.x - 2, position.y - 2, size + 4, size + 4);
 	g.setColor(person.getColour());
 	g.fillOval(position.x, position.y, size, size);
@@ -53,7 +54,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	// Size to field size
 	setPreferredSize(getField().getSize());
 	// Set black background
-	setBackground(Color.GREEN);
+	setBackground(new Color(20,100,40));
 	// Listener for key events
 	setFocusable(true);
 	addMouseListener(this);
@@ -76,7 +77,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 //	person.addAttributeListener(Carrier.INFECTION_PERCENTAGE_TYPE, new InfectionListener());
 //	person.addAttributeListener(Infected.HUNGER_PERCENTAGE_TYPE, new StarvationListener());
 	person.addEntityTypeListener(new TransformationListener());
-	person.markAsType(Animal.class);
+	person.markAsType(Roamer.class);
     }
 
     public void adjustPopulation() {

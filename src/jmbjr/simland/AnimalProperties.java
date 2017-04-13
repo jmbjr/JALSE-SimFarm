@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Animal;
+import jmbjr.simland.entities.Roamer;
 
 public class AnimalProperties {
 
@@ -37,7 +38,7 @@ public class AnimalProperties {
 
     static {
 	props.put(Animal.class, new PersonProperties(Color.WHITE, 75, 3.0));
-
+	props.put(Roamer.class, new PersonProperties(new Color(100,50,15), 75, 3.0));
     }
 
     public static Color getColour(final Class<? extends Entity> type) {
