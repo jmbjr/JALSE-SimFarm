@@ -6,6 +6,7 @@ import static jalse.misc.Identifiable.not;
 
 import java.awt.Point;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -122,7 +123,12 @@ public class MoveAnimals implements Action<Entity> {
 
 	    if (pos.x != x || pos.y != y) {
 		// Update if changed
-		animal.setPosition(new Point(x, y));
+	    Random rand = new Random();		
+	    int randInt = rand.nextInt(1000);
+	    if (randInt > 750) {
+	    	animal.setPosition(new Point(x, y));
+	    }
+		
 	    }
 	});
     }
