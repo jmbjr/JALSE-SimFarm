@@ -24,6 +24,7 @@ import jmbjr.simland.actions.MoveAnimals;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Plant;
+import jmbjr.simland.entities.Rester;
 import jmbjr.simland.entities.Roamer;
 import jmbjr.simland.entities.TransformationListener;
 
