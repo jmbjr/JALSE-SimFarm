@@ -27,13 +27,13 @@ public class AnimalProperties {
 	}
     }
 
-    private static final int SIZE = 16;
+    private static final int SIZE = 50;
 
     private static AtomicLong infectionTime = new AtomicLong(Double.doubleToLongBits(5));
 
     private static AtomicLong starveTime = new AtomicLong(Double.doubleToLongBits(10));
 
-    private static AtomicInteger population = new AtomicInteger(100);
+    private static AtomicInteger population = new AtomicInteger(3);
 
     private static Map<Class<?>, PersonProperties> props = new HashMap<>();
 

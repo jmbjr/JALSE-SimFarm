@@ -3,6 +3,7 @@ package jmbjr.simland;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,9 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -39,16 +43,14 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 
     private static void drawElement(final Graphics g, final Animal animal) {
 	final Point position = animal.getPosition();
-	//final int size = AnimalProperties.getSize();
-	int size = animal.getSize();
-    
-	g.setColor(Color.BLACK);
-	g.fillOval(position.x - 2, position.y - 2, size + 4, size + 4);
-	g.setColor(animal.getColour());
-	g.fillOval(position.x, position.y, size, size);
+	int size = animal.getSize();    
+
+	g.drawImage(image, position.x - 2, position.y - 2, size,size, null);
     }
 
     private final JALSE jalse;
+    private static BufferedImage image;
+    
 
     public FieldPanel() {
 	// Manually ticked JALSE
@@ -64,6 +66,11 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	addMouseListener(this);
 	// Start ticking and rendering (30 FPS)
 	new Timer(TICK_INTERVAL, this).start();
+	try {
+		image = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
     }
 
     @Override
@@ -80,7 +87,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	person.setAngle(randomAngle());
 	person.addEntityTypeListener(new TransformationListener());
 	person.markAsType(Roamer.class);
-	person.setSize(3);
+	person.setSize(15);
     }
 
     public void adjustPopulation() {
@@ -188,5 +195,6 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	    addAnimalAtRandomPosition();
 	}
     }
+    
 }
 

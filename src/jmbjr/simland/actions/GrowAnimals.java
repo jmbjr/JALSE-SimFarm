@@ -26,7 +26,7 @@ public class GrowAnimals implements Action<Entity> {
 			Random rand = new Random();
 			int randInt = rand.nextInt(1000);
 			System.out.println(animal.getSize() + ":" + randInt);
-			int newSize = (randInt > 990) ? animal.getSize()+1:animal.getSize();	
+			int newSize = (randInt > 500) ? animal.getSize()+1:animal.getSize();	
 			animal.setSize(Math.min(newSize,AnimalProperties.getSize()));
 		    
 		});
