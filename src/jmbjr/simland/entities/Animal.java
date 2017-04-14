@@ -9,7 +9,10 @@ import jalse.entities.annotations.SetAttribute;
 
 public interface Animal extends Entity {
 
-    @GetAttribute
+	@GetAttribute
+	int getSize();
+	
+	@GetAttribute
     double getAngle();
 
     @GetAttribute
@@ -23,6 +26,9 @@ public interface Animal extends Entity {
 
     @GetAttribute
     double getSpeed();
+    
+    @SetAttribute
+    void setSize(int size);
 
     @SetAttribute
     void setAngle(double angle);

@@ -20,6 +20,7 @@ import jalse.DefaultJALSE;
 import jalse.JALSE;
 import jalse.entities.Entities;
 import jalse.entities.Entity;
+import jmbjr.simland.actions.GrowAnimals;
 import jmbjr.simland.actions.MoveAnimals;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Animal;
@@ -36,12 +37,14 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
     public static final int WIDTH = 700;
     public static final int HEIGHT = 500;
 
-    private static void drawElement(final Graphics g, final Animal person) {
-	final Point position = person.getPosition();
-	final int size = AnimalProperties.getSize();
+    private static void drawElement(final Graphics g, final Animal animal) {
+	final Point position = animal.getPosition();
+	//final int size = AnimalProperties.getSize();
+	int size = animal.getSize();
+    
 	g.setColor(Color.BLACK);
 	g.fillOval(position.x - 2, position.y - 2, size + 4, size + 4);
-	g.setColor(person.getColour());
+	g.setColor(animal.getColour());
 	g.fillOval(position.x, position.y, size, size);
     }
 
@@ -75,10 +78,9 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	final Animal person = getField().newEntity(Animal.class);
 	person.setPosition(randomPosition());
 	person.setAngle(randomAngle());
-//	person.addAttributeListener(Carrier.INFECTION_PERCENTAGE_TYPE, new InfectionListener());
-//	person.addAttributeListener(Infected.HUNGER_PERCENTAGE_TYPE, new StarvationListener());
 	person.addEntityTypeListener(new TransformationListener());
 	person.markAsType(Roamer.class);
+	person.setSize(3);
     }
 
     public void adjustPopulation() {
@@ -106,8 +108,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	final Field field = jalse.newEntity(Field.ID, Field.class);
 	field.setSize(new Dimension(WIDTH, HEIGHT));
 	field.scheduleForActor(new MoveAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
-
-	// Create randomly-placed healthy people
+	field.scheduleForActor(new GrowAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	reset();
     }
 
@@ -118,8 +119,24 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
     @Override
     public void mouseClicked(final MouseEvent e) {
 	// Add animal at random position
-//	final Point point = e.getPoint();
-//	final int size = AnimalProperties.getSize();
+	final Point point = e.getPoint();
+	//final int size = AnimalProperties.getSize();
+	
+	getField().streamAnimals().filter(a -> {
+	    final Point pos = a.getPosition();
+	    int size = a.getSize();
+	    return pos.x - 5 <= point.x && pos.x + size + 5 >= point.x && pos.y - 5 <= point.y
+		    && pos.y + size + 5 >= point.y;
+	}).forEach(a -> {
+	    // toggle rest state
+	    if (!a.isMarkedAsType(Rester.class)) {
+	    	a.markAsType(Rester.class);
+	    } else {
+	    	a.markAsType(Roamer.class);
+	    	a.unmarkAsType(Rester.class);
+	    }
+	});
+	
 	addPersonAtRandomPosition();
     }
 
