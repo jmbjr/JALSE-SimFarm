@@ -20,5 +20,5 @@ public interface Field extends Entity {
     void setSize(Dimension size);
 
     @StreamEntities
-    Stream<Animal> streamPeople();
+    Stream<Animal> streamAnimals();
 }

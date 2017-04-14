@@ -141,7 +141,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	super.paintComponent(g);
 
 	// Draw people
-	getField().streamPeople().forEach(p -> drawElement(g, p));
+	getField().streamAnimals().forEach(a ->  drawElement(g, a));
 
 	// Sync (Linux fix)
 	Toolkit.getDefaultToolkit().sync();
