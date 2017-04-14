@@ -74,7 +74,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	repaint();
     }
 
-    private void addPersonAtRandomPosition() {
+    private void addAnimalAtRandomPosition() {
 	final Animal person = getField().newEntity(Animal.class);
 	person.setPosition(randomPosition());
 	person.setAngle(randomAngle());
@@ -88,19 +88,19 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	int count = getField().getEntityCount();
 	// Increase population
 	while (count < population) {
-	    addPersonAtRandomPosition();
+	    addAnimalAtRandomPosition();
 	    count++;
 	}
 	// Decrease population
 	while (count > population) {
-	    removeRandomPerson();
+	    removeRandomAnimal();
 	    count--;
 	}
     }
 
     public void adjustSightRange(final Class<? extends Animal> type) {
 	final int sightRange = AnimalProperties.getSightRange(type);
-	getField().streamEntitiesOfType(type).forEach(p -> p.setSightRange(sightRange));
+	getField().streamEntitiesOfType(type).forEach(a -> a.setSightRange(sightRange));
     }
 
     private void createEntities() {
@@ -137,7 +137,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	    }
 	});
 	
-	addPersonAtRandomPosition();
+	addAnimalAtRandomPosition();
     }
 
     @Override
@@ -175,7 +175,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	return new Point(size + rand.nextInt(WIDTH), size + rand.nextInt(HEIGHT));
     }
 
-    private void removeRandomPerson() {
+    private void removeRandomAnimal() {
 	Entities.randomEntity(getField()).ifPresent(Entity::kill);
     }
 
@@ -185,7 +185,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	// Create randomly-placed healthy people
 	final int population = AnimalProperties.getPopulation();
 	for (int i = 0; i < population; i++) {
-	    addPersonAtRandomPosition();
+	    addAnimalAtRandomPosition();
 	}
     }
 }
