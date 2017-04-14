@@ -30,11 +30,11 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Plant;
 import jmbjr.simland.entities.Rester;
-import jmbjr.simland.entities.Roamer;
+import jmbjr.simland.entities.Grazer;
 import jmbjr.simland.entities.TransformationListener;
 
 @SuppressWarnings("serial")
-public class FieldPanel extends JPanel implements ActionListener, MouseListener {
+public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 
     public static final int TICK_INTERVAL = 1000 / 30;
 
@@ -52,7 +52,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
     private static BufferedImage image;
     
 
-    public FieldPanel() {
+    public FarmPanel() {
 	// Manually ticked JALSE
 	jalse = new DefaultJALSE.Builder().setManualEngine().build();
 	// Create data model
@@ -86,7 +86,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	person.setPosition(randomPosition());
 	person.setAngle(randomAngle());
 	person.addEntityTypeListener(new TransformationListener());
-	person.markAsType(Roamer.class);
+	person.markAsType(Grazer.class);
 	person.setSize(15);
     }
 
@@ -139,7 +139,7 @@ public class FieldPanel extends JPanel implements ActionListener, MouseListener 
 	    if (!a.isMarkedAsType(Rester.class)) {
 	    	a.markAsType(Rester.class);
 	    } else {
-	    	a.markAsType(Roamer.class);
+	    	a.markAsType(Grazer.class);
 	    	a.unmarkAsType(Rester.class);
 	    }
 	});

@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Rester;
-import jmbjr.simland.entities.Roamer;
+import jmbjr.simland.entities.Grazer;
 
 public class AnimalProperties {
 
@@ -39,7 +39,7 @@ public class AnimalProperties {
 
     static {
 	props.put(Animal.class, new PersonProperties(Color.WHITE, 75, 3.0));
-	props.put(Roamer.class, new PersonProperties(new Color(100,50,15), 75, 3.0));
+	props.put(Grazer.class, new PersonProperties(new Color(100,50,15), 75, 3.0));
 	props.put(Rester.class, new PersonProperties(new Color(40,30,20), 75, 3.0));
     }
 

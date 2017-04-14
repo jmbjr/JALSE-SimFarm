@@ -9,7 +9,7 @@ import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.AnimalProperties;
-import jmbjr.simland.FieldPanel;
+import jmbjr.simland.FarmPanel;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Rester;

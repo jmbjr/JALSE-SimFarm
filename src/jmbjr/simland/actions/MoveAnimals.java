@@ -15,7 +15,7 @@ import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.AnimalProperties;
-import jmbjr.simland.FieldPanel;
+import jmbjr.simland.FarmPanel;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Rester;
@@ -118,8 +118,8 @@ public class MoveAnimals implements Action<Entity> {
 	    final int size = AnimalProperties.getSize();
 
 	    // Apply bounded move delta
-	    final int x = bounded(pos.x + moveDelta.x, 0, FieldPanel.WIDTH - size);
-	    final int y = bounded(pos.y + moveDelta.y, 0, FieldPanel.HEIGHT - size);
+	    final int x = bounded(pos.x + moveDelta.x, 0, FarmPanel.WIDTH - size);
+	    final int y = bounded(pos.y + moveDelta.y, 0, FarmPanel.HEIGHT - size);
 
 	    if (pos.x != x || pos.y != y) {
 		// Update if changed
