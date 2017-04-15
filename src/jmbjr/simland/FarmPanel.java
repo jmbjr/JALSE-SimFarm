@@ -81,18 +81,20 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	repaint();
     }
 
-    
-    private void addAnimalAtRandomPosition() {
-    	addAnimalAtRandomPosition(Child.class);
+    private void addAnimalAtSpecificPosition(Point pos) {
+    	addAnimalAtPosition(Child.class, pos);
     }
     
-    private void addAnimalAtRandomPosition(Class<? extends Animal> maturity) {
+    private void addAnimalAtRandomPosition() {
+    	addAnimalAtPosition(Child.class, randomPosition());
+    }
+    
+    private void addAnimalAtPosition(Class<? extends Animal> maturity, Point position) {
 		final Animal animal = getField().newEntity(Animal.class);
-		animal.setPosition(randomPosition());
+		animal.setPosition(position);
 		animal.setAngle(randomAngle());
 		animal.addEntityTypeListener(new TransformationListener());
 		animal.markAsType(maturity);
-		GrowAnimals.checkIfAdult(animal);
     }
 
     public void adjustPopulation() {
@@ -132,9 +134,9 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(final MouseEvent e) {
 	// Add animal at random position
-    // eventually this should bring up Animal Info
-	
-	addAnimalAtRandomPosition();
+	final Point point = e.getPoint();
+
+	addAnimalAtSpecificPosition(point);
     }
 
     @Override
@@ -183,7 +185,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	final int population = FarmAnimalProperties.getPopulation();
 	for (int i = 0; i < population; i++) {
 	    if (i < 2)  //create two full grown animals
-	    	addAnimalAtRandomPosition(Adult.class);
+	    	addAnimalAtPosition(Adult.class, randomPosition());
 	    else
 	    	addAnimalAtRandomPosition();
 	}
