@@ -169,7 +169,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     }
 
     private Point randomPosition() {
-	final int size = FarmAnimalProperties.getSize();
+	final int size = FarmAnimalProperties.getMaxSize();
 	final Random rand = ThreadLocalRandom.current();
 	return new Point(size + rand.nextInt(WIDTH), size + rand.nextInt(HEIGHT));
     }

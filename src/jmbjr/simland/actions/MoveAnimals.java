@@ -120,7 +120,7 @@ public class MoveAnimals implements Action<Entity> {
 
 	    // Original values
 	    final Point pos = animal.getPosition();
-	    final int size = FarmAnimalProperties.getSize();
+	    final int size = FarmAnimalProperties.getMaxSize();
 
 	    // Apply bounded move delta
 	    final int x = bounded(pos.x + moveDelta.x, 0, FarmPanel.WIDTH - size);

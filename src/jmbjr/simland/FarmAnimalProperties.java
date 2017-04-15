@@ -35,10 +35,6 @@ public class FarmAnimalProperties {
     
     private static final int SIZE_CHILD = 15;
 
-    private static AtomicLong infectionTime = new AtomicLong(Double.doubleToLongBits(5));
-
-    private static AtomicLong starveTime = new AtomicLong(Double.doubleToLongBits(10));
-
     private static AtomicInteger population = new AtomicInteger(3);
 
     private static Map<Class<?>, AnimalProperties> props = new HashMap<>();
@@ -50,12 +46,7 @@ public class FarmAnimalProperties {
 	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD));
 	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
     }
-
-
-    public static double getInfectionTime() {
-	return Double.longBitsToDouble(infectionTime.get());
-    }
-    
+   
 	public static int getHealth(Class<? extends Entity> type) {
 		return  props.get(type).health.get();
 	}
@@ -68,7 +59,7 @@ public class FarmAnimalProperties {
 	return props.get(type).sightRange.get();
     }
 
-    public static int getSize() {
+    public static int getMaxSize() {
 	return SIZE_ADULT;
     }
     
@@ -84,15 +75,6 @@ public class FarmAnimalProperties {
 	return Double.longBitsToDouble(props.get(type).speed.get());
     }
 
-    public static double getStarveTime() {
-	return Double.longBitsToDouble(starveTime.get());
-    }
-
-
-
-    public static void setInfectionTime(final double infectionTime) {
-	FarmAnimalProperties.infectionTime.set(Double.doubleToLongBits(infectionTime));
-    }
 
     public static void setPopulation(final int population) {
 	FarmAnimalProperties.population.set(population);
@@ -101,10 +83,6 @@ public class FarmAnimalProperties {
 
     public static void setSpeed(final Class<? extends Animal> type, final double speed) {
 	props.get(type).speed.set(Double.doubleToLongBits(speed));
-    }
-
-    public static void setStarveTime(final double starveTime) {
-	FarmAnimalProperties.starveTime.set(Double.doubleToLongBits(starveTime));
     }
 
 
