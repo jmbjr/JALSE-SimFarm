@@ -9,7 +9,7 @@ import jalse.entities.annotations.SetAttribute;
 public interface Animal extends Entity {
 
 	@GetAttribute
-	int getHealth();
+	int getStamina();
 	
 	@GetAttribute
 	int getSize();
@@ -27,7 +27,7 @@ public interface Animal extends Entity {
     double getSpeed();
 
     @SetAttribute
-    void setHealth(int health);
+    void setStamina(int stamina);
     
     @SetAttribute
     void setSize(int size);

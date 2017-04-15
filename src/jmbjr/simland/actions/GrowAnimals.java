@@ -12,7 +12,7 @@ import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Child;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.Rester;
+import jmbjr.simland.entities.Sleeper;
 
 import java.util.Random;
 
@@ -22,9 +22,9 @@ public class GrowAnimals implements Action<Entity> {
 	public void perform(ActionContext<Entity> context) throws InterruptedException {
 		final Field field = context.getActor().asType(Field.class);
 		final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
-		animals.stream().filter(notMarkedAsType(Rester.class)).forEach(animal -> {
+		animals.stream().filter(notMarkedAsType(Sleeper.class)).forEach(animal -> {
 
-			int newSize = (new Random().nextInt(1000) > 900) ? animal.getSize()+1:animal.getSize();	
+			int newSize = (new Random().nextInt(1000) > 980) ? animal.getSize()+1:animal.getSize();	
 			//ensure that we don't set animal size past max size
 			animal.setSize(Math.min(newSize,FarmAnimalProperties.getMaxSize()));
 		    checkIfAdult(animal);

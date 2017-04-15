@@ -9,8 +9,8 @@ import jalse.entities.Entity;
 import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Child;
-import jmbjr.simland.entities.Rester;
-import jmbjr.simland.entities.Grazer;
+import jmbjr.simland.entities.Sleeper;
+import jmbjr.simland.entities.Waker;
 
 public class FarmAnimalProperties {
 
@@ -18,14 +18,14 @@ public class FarmAnimalProperties {
 
 	private final AtomicInteger sightRange;
 	private final AtomicLong speed;
-	private final AtomicInteger health;
+	private final AtomicInteger stamina;
 	private final AtomicInteger size;
 	
 
-	AnimalProperties(final int sightRange, final double speed, final int health, final int size) {
+	AnimalProperties(final int sightRange, final double speed, final int stamina, final int size) {
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
-	    this.health = new AtomicInteger(health);
+	    this.stamina = new AtomicInteger(stamina);
 	    this.size = new AtomicInteger(size);
 	}
 
@@ -41,14 +41,14 @@ public class FarmAnimalProperties {
 
     static {
 	props.put(Animal.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
-	props.put(Grazer.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
-	props.put(Rester.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT/2));
+	props.put(Waker.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
+	props.put(Sleeper.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT/2));
 	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD));
 	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
     }
    
-	public static int getHealth(Class<? extends Entity> type) {
-		return  props.get(type).health.get();
+	public static int getStamina(Class<? extends Entity> type) {
+		return  props.get(type).stamina.get();
 	}
 	
     public static int getPopulation() {
