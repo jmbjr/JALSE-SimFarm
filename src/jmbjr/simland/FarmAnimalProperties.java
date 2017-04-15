@@ -21,15 +21,15 @@ public class FarmAnimalProperties {
 	private final AtomicReference<Color> colour;
 	private final AtomicInteger sightRange;
 	private final AtomicLong speed;
-	private final AtomicLong health;
+	private final AtomicInteger health;
 	private final AtomicInteger size;
 	
 
-	AnimalProperties(final Color colour, final int sightRange, final double speed, final double health, final int size) {
+	AnimalProperties(final Color colour, final int sightRange, final double speed, final int health, final int size) {
 	    this.colour = new AtomicReference<>(colour);
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
-	    this.health = new AtomicLong(Double.doubleToLongBits(health));
+	    this.health = new AtomicInteger(health);
 	    this.size = new AtomicInteger(size);
 	}
 
@@ -64,7 +64,7 @@ public class FarmAnimalProperties {
     }
     
 	public static int getHealth(Class<? extends Entity> type) {
-		return (int) props.get(type).health.get();
+		return  props.get(type).health.get();
 	}
 	
     public static int getPopulation() {

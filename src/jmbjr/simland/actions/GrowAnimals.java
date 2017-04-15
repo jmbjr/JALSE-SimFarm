@@ -25,6 +25,7 @@ public class GrowAnimals implements Action<Entity> {
 		animals.stream().filter(notMarkedAsType(Rester.class)).forEach(animal -> {
 
 			int newSize = (new Random().nextInt(1000) > 900) ? animal.getSize()+1:animal.getSize();	
+			//System.out.println(newSize + " / " + animal.getSize());
 			animal.setSize(Math.min(newSize,FarmAnimalProperties.getSize()));
 		    checkIfAdult(animal);
 			
