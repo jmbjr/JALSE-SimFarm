@@ -21,12 +21,18 @@ public class FarmAnimalProperties {
 	private final AtomicReference<Color> colour;
 	private final AtomicInteger sightRange;
 	private final AtomicLong speed;
+	private final AtomicLong health;
+	private final AtomicInteger size;
+	
 
-	AnimalProperties(final Color colour, final int sightRange, final double speed) {
+	AnimalProperties(final Color colour, final int sightRange, final double speed, final double health, final int size) {
 	    this.colour = new AtomicReference<>(colour);
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
+	    this.health = new AtomicLong(Double.doubleToLongBits(health));
+	    this.size = new AtomicInteger(size);
 	}
+
     }
 
     private static final int SIZE_ADULT = 50;
@@ -42,11 +48,11 @@ public class FarmAnimalProperties {
     private static Map<Class<?>, AnimalProperties> props = new HashMap<>();
 
     static {
-	props.put(Animal.class, new AnimalProperties(Color.WHITE, 75, 3.0));
-	props.put(Grazer.class, new AnimalProperties(new Color(100,50,15), 75, 3.0));
-	props.put(Rester.class, new AnimalProperties(new Color(40,30,20), 75, 3.0));
-	props.put(Child.class, new AnimalProperties(new Color(0,0,0), 500, 6.0));
-	props.put(Adult.class, new AnimalProperties(new Color(0,0,0), 75, 3.0));
+	props.put(Animal.class, new AnimalProperties(Color.WHITE, 75, 3.0,100, SIZE_ADULT));
+	props.put(Grazer.class, new AnimalProperties(new Color(100,50,15), 75, 3.0,100, SIZE_ADULT));
+	props.put(Rester.class, new AnimalProperties(new Color(40,30,20), 75, 3.0,100, SIZE_ADULT/2));
+	props.put(Child.class, new AnimalProperties(new Color(0,0,0), 500, 6.0,100, SIZE_CHILD));
+	props.put(Adult.class, new AnimalProperties(new Color(0,0,0), 75, 3.0,100, SIZE_ADULT));
     }
 
     public static Color getColour(final Class<? extends Entity> type) {
@@ -56,7 +62,11 @@ public class FarmAnimalProperties {
     public static double getInfectionTime() {
 	return Double.longBitsToDouble(infectionTime.get());
     }
-
+    
+	public static int getHealth(Class<? extends Entity> type) {
+		return (int) props.get(type).health.get();
+	}
+	
     public static int getPopulation() {
 	return population.get();
     }
@@ -67,6 +77,10 @@ public class FarmAnimalProperties {
 
     public static int getSize() {
 	return SIZE_ADULT;
+    }
+    
+    public static int getSize(final Class<? extends Entity> type) {
+	return props.get(type).size.get();
     }
 
     public static int getSizeChild() {
@@ -80,7 +94,6 @@ public class FarmAnimalProperties {
     public static double getStarveTime() {
 	return Double.longBitsToDouble(starveTime.get());
     }
-
 
 
 
@@ -100,5 +113,6 @@ public class FarmAnimalProperties {
     public static void setStarveTime(final double starveTime) {
 	FarmAnimalProperties.starveTime.set(Double.doubleToLongBits(starveTime));
     }
+
 
 }

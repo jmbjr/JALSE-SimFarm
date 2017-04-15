@@ -27,7 +27,9 @@ import jalse.entities.Entity;
 import jmbjr.simland.actions.GrowAnimals;
 import jmbjr.simland.actions.MoveAnimals;
 import jmbjr.simland.entities.Field;
+import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
+import jmbjr.simland.entities.Child;
 import jmbjr.simland.entities.Rester;
 import jmbjr.simland.entities.Grazer;
 import jmbjr.simland.entities.TransformationListener;
@@ -82,16 +84,15 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 
     
     private void addAnimalAtRandomPosition() {
-    	addAnimalAtRandomPosition(FarmAnimalProperties.getSizeChild());
+    	addAnimalAtRandomPosition(Child.class);
     }
     
-    private void addAnimalAtRandomPosition(int animalSize) {
+    private void addAnimalAtRandomPosition(Class<? extends Animal> maturity) {
 		final Animal animal = getField().newEntity(Animal.class);
 		animal.setPosition(randomPosition());
 		animal.setAngle(randomAngle());
 		animal.addEntityTypeListener(new TransformationListener());
-		animal.markAsType(Grazer.class);
-		animal.setSize(animalSize);
+		animal.markAsType(maturity);
 		GrowAnimals.checkIfAdult(animal);
     }
 
@@ -198,7 +199,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	final int population = FarmAnimalProperties.getPopulation();
 	for (int i = 0; i < population; i++) {
 	    if (i < 2)  //create two full grown animals
-	    	addAnimalAtRandomPosition(FarmAnimalProperties.getSize());
+	    	addAnimalAtRandomPosition(Adult.class);
 	    else
 	    	addAnimalAtRandomPosition();
 	}
