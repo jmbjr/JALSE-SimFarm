@@ -1,6 +1,5 @@
 package jmbjr.simland.entities;
 
-import java.awt.Color;
 import java.awt.Point;
 
 import jalse.entities.Entity;
@@ -19,9 +18,6 @@ public interface Animal extends Entity {
     double getAngle();
 
     @GetAttribute
-    Color getColour();
-
-    @GetAttribute
     Point getPosition();
 
     @GetAttribute
@@ -38,9 +34,6 @@ public interface Animal extends Entity {
 
     @SetAttribute
     void setAngle(double angle);
-
-    @SetAttribute
-    void setColour(Color colour);
 
     @SetAttribute
     void setPosition(Point position);

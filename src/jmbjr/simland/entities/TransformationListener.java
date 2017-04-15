@@ -12,7 +12,6 @@ public class TransformationListener implements EntityTypeListener {
 	final Animal animal = event.getEntity().asType(Animal.class);
 	final Class<? extends Entity> type = event.getTypeChange();
 
-	animal.setColour(FarmAnimalProperties.getColour(type));
 	animal.setSightRange(FarmAnimalProperties.getSightRange(type));
 	animal.setSpeed(FarmAnimalProperties.getSpeed(type));
 	animal.setHealth(FarmAnimalProperties.getHealth(type));
