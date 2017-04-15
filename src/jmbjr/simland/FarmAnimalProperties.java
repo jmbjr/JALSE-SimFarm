@@ -8,7 +8,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import jalse.entities.Entity;
+import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
+import jmbjr.simland.entities.Child;
 import jmbjr.simland.entities.Rester;
 import jmbjr.simland.entities.Grazer;
 
@@ -43,6 +45,8 @@ public class FarmAnimalProperties {
 	props.put(Animal.class, new AnimalProperties(Color.WHITE, 75, 3.0));
 	props.put(Grazer.class, new AnimalProperties(new Color(100,50,15), 75, 3.0));
 	props.put(Rester.class, new AnimalProperties(new Color(40,30,20), 75, 3.0));
+	props.put(Child.class, new AnimalProperties(new Color(0,0,0), 500, 6.0));
+	props.put(Adult.class, new AnimalProperties(new Color(0,0,0), 75, 3.0));
     }
 
     public static Color getColour(final Class<? extends Entity> type) {
