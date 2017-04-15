@@ -27,7 +27,9 @@ public class AnimalProperties {
 	}
     }
 
-    private static final int SIZE = 50;
+    private static final int SIZE_ADULT = 50;
+    
+    private static final int SIZE_CHILD = 15;
 
     private static AtomicLong infectionTime = new AtomicLong(Double.doubleToLongBits(5));
 
@@ -60,7 +62,11 @@ public class AnimalProperties {
     }
 
     public static int getSize() {
-	return SIZE;
+	return SIZE_ADULT;
+    }
+
+    public static int getSizeChild() {
+	return SIZE_CHILD;
     }
 
     public static double getSpeed(final Class<? extends Entity> type) {
@@ -90,4 +96,5 @@ public class AnimalProperties {
     public static void setStarveTime(final double starveTime) {
 	AnimalProperties.starveTime.set(Double.doubleToLongBits(starveTime));
     }
+
 }

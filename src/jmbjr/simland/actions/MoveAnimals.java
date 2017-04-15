@@ -16,9 +16,12 @@ import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.AnimalProperties;
 import jmbjr.simland.FarmPanel;
+import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
+import jmbjr.simland.entities.Child;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Rester;
+
 
 
 public class MoveAnimals implements Action<Entity> {
@@ -47,26 +50,22 @@ public class MoveAnimals implements Action<Entity> {
 	return Math.atan2(dy, dx);
     }
 
-    private static Double directionToHealthyAndBite(final Animal person, final Set<Animal> people) {
+    private static Double directionToAdult(final Animal child, final Set<Animal> people) {
 	// Find closest healthy person in sight
-	final Optional<Animal> closestHealthy = getClosestPersonOfType(person, people, Animal.class);
+	final Optional<Animal> closestAdult = getClosestPersonOfType(child, people, Adult.class);
 
 	// Check can see any
-	if (!closestHealthy.isPresent()) {
-	    return randomDirection(person);
+	if (!closestAdult.isPresent()) {
+	    return randomDirection(child);
 	}
 
 	// Healthy person
-	final Animal healthy = closestHealthy.get();
+	final Animal adult = closestAdult.get();
 
 	// Towards
-	final Point personPos = person.getPosition();
-	final int dx = healthy.getPosition().x - personPos.x;
-	final int dy = healthy.getPosition().y - personPos.y;
-
-	// Check in range of biting
-	final int size = AnimalProperties.getSize();
-
+	final Point childPos = child.getPosition();
+	final int dx = adult.getPosition().x - childPos.x;
+	final int dy = adult.getPosition().y - childPos.y;
 
 	// Convert
 	return Math.atan2(dy, dx);
@@ -105,7 +104,13 @@ public class MoveAnimals implements Action<Entity> {
 	    // Get correct move angle
 	    double moveAngle;
 		// Move randomly
-		moveAngle = randomDirection(animal);
+	    if (animal.isMarkedAsType(Child.class)) {
+	    	// Move towards adult
+	    	moveAngle = directionToAdult(animal, animals);
+	    } else {
+	    	moveAngle = randomDirection(animal);
+	    }
+	    
 	    animal.setAngle(moveAngle);
 
 	    // Calculate move delta
