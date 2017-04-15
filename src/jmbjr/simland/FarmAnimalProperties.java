@@ -12,15 +12,15 @@ import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Rester;
 import jmbjr.simland.entities.Grazer;
 
-public class AnimalProperties {
+public class FarmAnimalProperties {
 
-    private static class PersonProperties {
+    private static class AnimalProperties {
 
 	private final AtomicReference<Color> colour;
 	private final AtomicInteger sightRange;
 	private final AtomicLong speed;
 
-	PersonProperties(final Color colour, final int sightRange, final double speed) {
+	AnimalProperties(final Color colour, final int sightRange, final double speed) {
 	    this.colour = new AtomicReference<>(colour);
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
@@ -37,12 +37,12 @@ public class AnimalProperties {
 
     private static AtomicInteger population = new AtomicInteger(3);
 
-    private static Map<Class<?>, PersonProperties> props = new HashMap<>();
+    private static Map<Class<?>, AnimalProperties> props = new HashMap<>();
 
     static {
-	props.put(Animal.class, new PersonProperties(Color.WHITE, 75, 3.0));
-	props.put(Grazer.class, new PersonProperties(new Color(100,50,15), 75, 3.0));
-	props.put(Rester.class, new PersonProperties(new Color(40,30,20), 75, 3.0));
+	props.put(Animal.class, new AnimalProperties(Color.WHITE, 75, 3.0));
+	props.put(Grazer.class, new AnimalProperties(new Color(100,50,15), 75, 3.0));
+	props.put(Rester.class, new AnimalProperties(new Color(40,30,20), 75, 3.0));
     }
 
     public static Color getColour(final Class<? extends Entity> type) {
@@ -81,11 +81,11 @@ public class AnimalProperties {
 
 
     public static void setInfectionTime(final double infectionTime) {
-	AnimalProperties.infectionTime.set(Double.doubleToLongBits(infectionTime));
+	FarmAnimalProperties.infectionTime.set(Double.doubleToLongBits(infectionTime));
     }
 
     public static void setPopulation(final int population) {
-	AnimalProperties.population.set(population);
+	FarmAnimalProperties.population.set(population);
     }
 
 
@@ -94,7 +94,7 @@ public class AnimalProperties {
     }
 
     public static void setStarveTime(final double starveTime) {
-	AnimalProperties.starveTime.set(Double.doubleToLongBits(starveTime));
+	FarmAnimalProperties.starveTime.set(Double.doubleToLongBits(starveTime));
     }
 
 }

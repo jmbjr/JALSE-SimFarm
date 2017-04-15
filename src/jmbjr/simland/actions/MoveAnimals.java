@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.AnimalProperties;
+import jmbjr.simland.FarmAnimalProperties;
 import jmbjr.simland.FarmPanel;
 import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
@@ -120,7 +120,7 @@ public class MoveAnimals implements Action<Entity> {
 
 	    // Original values
 	    final Point pos = animal.getPosition();
-	    final int size = AnimalProperties.getSize();
+	    final int size = FarmAnimalProperties.getSize();
 
 	    // Apply bounded move delta
 	    final int x = bounded(pos.x + moveDelta.x, 0, FarmPanel.WIDTH - size);

@@ -3,7 +3,7 @@ package jmbjr.simland.entities;
 import jalse.entities.Entity;
 import jalse.entities.EntityTypeEvent;
 import jalse.entities.EntityTypeListener;
-import jmbjr.simland.AnimalProperties;
+import jmbjr.simland.FarmAnimalProperties;
 
 public class TransformationListener implements EntityTypeListener {
 
@@ -12,8 +12,8 @@ public class TransformationListener implements EntityTypeListener {
 	final Animal animal = event.getEntity().asType(Animal.class);
 	final Class<? extends Entity> type = event.getTypeChange();
 
-	animal.setColour(AnimalProperties.getColour(type));
-	animal.setSightRange(AnimalProperties.getSightRange(type));
-	animal.setSpeed(AnimalProperties.getSpeed(type));
+	animal.setColour(FarmAnimalProperties.getColour(type));
+	animal.setSightRange(FarmAnimalProperties.getSightRange(type));
+	animal.setSpeed(FarmAnimalProperties.getSpeed(type));
     }
 }

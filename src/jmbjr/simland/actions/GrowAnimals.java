@@ -7,7 +7,7 @@ import java.util.Set;
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.AnimalProperties;
+import jmbjr.simland.FarmAnimalProperties;
 import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Child;
@@ -24,15 +24,15 @@ public class GrowAnimals implements Action<Entity> {
 		final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
 		animals.stream().filter(notMarkedAsType(Rester.class)).forEach(animal -> {
 
-			int newSize = (new Random().nextInt(1000) > 950) ? animal.getSize()+1:animal.getSize();	
-			animal.setSize(Math.min(newSize,AnimalProperties.getSize()));
+			int newSize = (new Random().nextInt(1000) > 900) ? animal.getSize()+1:animal.getSize();	
+			animal.setSize(Math.min(newSize,FarmAnimalProperties.getSize()));
 		    checkIfAdult(animal);
 			
 		});
 	    }
 	public static void checkIfAdult(Animal animal) {
 
-		if (animal.getSize() >= AnimalProperties.getSize()) {
+		if (animal.getSize() >= FarmAnimalProperties.getSize()) {
 			//adult
 			animal.markAsType(Adult.class);
 			animal.unmarkAsType(Child.class);

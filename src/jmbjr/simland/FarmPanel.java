@@ -82,7 +82,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 
     
     private void addAnimalAtRandomPosition() {
-    	addAnimalAtRandomPosition(AnimalProperties.getSizeChild());
+    	addAnimalAtRandomPosition(FarmAnimalProperties.getSizeChild());
     }
     
     private void addAnimalAtRandomPosition(int animalSize) {
@@ -96,7 +96,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     }
 
     public void adjustPopulation() {
-	final int population = AnimalProperties.getPopulation();
+	final int population = FarmAnimalProperties.getPopulation();
 	int count = getField().getEntityCount();
 	// Increase population
 	while (count < population) {
@@ -111,7 +111,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     }
 
     public void adjustSightRange(final Class<? extends Animal> type) {
-	final int sightRange = AnimalProperties.getSightRange(type);
+	final int sightRange = FarmAnimalProperties.getSightRange(type);
 	getField().streamEntitiesOfType(type).forEach(a -> a.setSightRange(sightRange));
     }
 
@@ -182,7 +182,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     }
 
     private Point randomPosition() {
-	final int size = AnimalProperties.getSize();
+	final int size = FarmAnimalProperties.getSize();
 	final Random rand = ThreadLocalRandom.current();
 	return new Point(size + rand.nextInt(WIDTH), size + rand.nextInt(HEIGHT));
     }
@@ -195,10 +195,10 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Kill them all
 	getField().killEntities();
 	// Create randomly-placed healthy people
-	final int population = AnimalProperties.getPopulation();
+	final int population = FarmAnimalProperties.getPopulation();
 	for (int i = 0; i < population; i++) {
 	    if (i < 2)  //create two full grown animals
-	    	addAnimalAtRandomPosition(AnimalProperties.getSize());
+	    	addAnimalAtRandomPosition(FarmAnimalProperties.getSize());
 	    else
 	    	addAnimalAtRandomPosition();
 	}
