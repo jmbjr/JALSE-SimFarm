@@ -31,8 +31,6 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Child;
-import jmbjr.simland.entities.Rester;
-import jmbjr.simland.entities.Grazer;
 import jmbjr.simland.entities.TransformationListener;
 
 @SuppressWarnings("serial")
@@ -134,23 +132,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(final MouseEvent e) {
 	// Add animal at random position
-	final Point point = e.getPoint();
-	//final int size = AnimalProperties.getSize();
-	
-	getField().streamAnimals().filter(a -> {
-	    final Point pos = a.getPosition();
-	    int size = a.getSize();
-	    return pos.x - 5 <= point.x && pos.x + size + 5 >= point.x && pos.y - 5 <= point.y
-		    && pos.y + size + 5 >= point.y;
-	}).forEach(a -> {
-	    // toggle rest state
-	    if (!a.isMarkedAsType(Rester.class)) {
-	    	a.markAsType(Rester.class);
-	    } else {
-	    	a.markAsType(Grazer.class);
-	    	a.unmarkAsType(Rester.class);
-	    }
-	});
+    // eventually this should bring up Animal Info
 	
 	addAnimalAtRandomPosition();
     }
