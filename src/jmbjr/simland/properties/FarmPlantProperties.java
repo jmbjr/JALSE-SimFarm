@@ -1,4 +1,4 @@
-package jmbjr.simland;
+package jmbjr.simland.properties;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,12 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import jalse.entities.Entity;
-import jmbjr.simland.entities.Adult;
-import jmbjr.simland.entities.Animal;
-import jmbjr.simland.entities.Child;
-import jmbjr.simland.entities.Grass;
-import jmbjr.simland.entities.Sleeper;
-import jmbjr.simland.entities.Waker;
+import jmbjr.simland.entities.animals.Adult;
+import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.entities.animals.Sleeper;
+import jmbjr.simland.entities.animals.Waker;
+import jmbjr.simland.entities.plants.Grass;
 
 public class FarmPlantProperties {
 

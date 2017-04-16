@@ -1,4 +1,4 @@
-package jmbjr.simland.entities;
+package jmbjr.simland.entities.animals;
 
 import java.awt.Point;
 

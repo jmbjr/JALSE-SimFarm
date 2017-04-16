@@ -1,15 +1,15 @@
-package jmbjr.simland.actions;
+package jmbjr.simland.actions.animals;
 
 import java.util.Set;
 
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.FarmAnimalProperties;
-import jmbjr.simland.entities.Adult;
-import jmbjr.simland.entities.Animal;
-import jmbjr.simland.entities.Child;
 import jmbjr.simland.entities.Field;
+import jmbjr.simland.entities.animals.Adult;
+import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.properties.FarmAnimalProperties;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package jmbjr.simland;
+package jmbjr.simland.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,18 +24,20 @@ import jalse.DefaultJALSE;
 import jalse.JALSE;
 import jalse.entities.Entities;
 import jalse.entities.Entity;
-import jmbjr.simland.actions.SleepAnimals;
-import jmbjr.simland.actions.AgeAnimals;
-import jmbjr.simland.actions.GrowAnimals;
-import jmbjr.simland.actions.GrowPlants;
-import jmbjr.simland.actions.MoveAnimals;
+import jmbjr.simland.actions.animals.AgeAnimals;
+import jmbjr.simland.actions.animals.GrowAnimals;
+import jmbjr.simland.actions.animals.MoveAnimals;
+import jmbjr.simland.actions.animals.SleepAnimals;
+import jmbjr.simland.actions.plants.GrowPlants;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.Grass;
-import jmbjr.simland.entities.Plant;
-import jmbjr.simland.entities.Adult;
-import jmbjr.simland.entities.Animal;
-import jmbjr.simland.entities.Child;
-import jmbjr.simland.entities.TransformationListener;
+import jmbjr.simland.entities.animals.Adult;
+import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.entities.listeners.TransformationListener;
+import jmbjr.simland.entities.plants.Grass;
+import jmbjr.simland.entities.plants.Plant;
+import jmbjr.simland.properties.FarmAnimalProperties;
+import jmbjr.simland.properties.FarmPlantProperties;
 
 @SuppressWarnings("serial")
 public class FarmPanel extends JPanel implements ActionListener, MouseListener {

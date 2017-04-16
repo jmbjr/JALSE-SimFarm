@@ -1,9 +1,12 @@
-package jmbjr.simland.entities;
+package jmbjr.simland.entities.listeners;
 
 import jalse.entities.Entity;
 import jalse.entities.EntityTypeEvent;
 import jalse.entities.EntityTypeListener;
-import jmbjr.simland.FarmAnimalProperties;
+import jmbjr.simland.entities.animals.Adult;
+import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.properties.FarmAnimalProperties;
 
 public class TransformationListener implements EntityTypeListener {
 

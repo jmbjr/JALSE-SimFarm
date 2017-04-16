@@ -3,6 +3,8 @@ package jmbjr.simland;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
+import jmbjr.simland.panels.FarmPanel;
+
 public class SimFarm {
 
     public static void main(final String[] args) {

@@ -1,4 +1,4 @@
-package jmbjr.simland.actions;
+package jmbjr.simland.actions.animals;
 
 import static jalse.entities.Entities.notMarkedAsType;
 
@@ -7,10 +7,10 @@ import java.util.Set;
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.Waker;
-import jmbjr.simland.entities.Sleeper;
+import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Sleeper;
+import jmbjr.simland.entities.animals.Waker;
 
 import java.util.Random;
 

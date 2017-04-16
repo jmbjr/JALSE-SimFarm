@@ -1,4 +1,4 @@
-package jmbjr.simland.actions;
+package jmbjr.simland.actions.animals;
 
 import static jalse.entities.Entities.isMarkedAsType;
 import static jalse.entities.Entities.notMarkedAsType;
@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.FarmAnimalProperties;
-import jmbjr.simland.FarmPanel;
-import jmbjr.simland.entities.Adult;
-import jmbjr.simland.entities.Animal;
-import jmbjr.simland.entities.Child;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.Sleeper;
+import jmbjr.simland.entities.animals.Adult;
+import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.entities.animals.Sleeper;
+import jmbjr.simland.panels.FarmPanel;
+import jmbjr.simland.properties.FarmAnimalProperties;
 
 
 
