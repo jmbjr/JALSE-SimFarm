@@ -8,9 +8,7 @@ import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.FarmAnimalProperties;
-import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
-import jmbjr.simland.entities.Child;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.Sleeper;
 
@@ -27,21 +25,7 @@ public class GrowAnimals implements Action<Entity> {
 			int newSize = (new Random().nextInt(1000) > 980) ? animal.getSize()+1:animal.getSize();	
 			//ensure that we don't set animal size past max size
 			animal.setSize(Math.min(newSize,FarmAnimalProperties.getMaxSize()));
-		    checkIfAdult(animal);
-			
 		});
 	    }
-	public static void checkIfAdult(Animal animal) {
-
-		if (animal.getSize() >= FarmAnimalProperties.getMaxSize()) {
-			//adult
-			animal.markAsType(Adult.class);
-			animal.unmarkAsType(Child.class);
-		} else {
-			//child
-			animal.markAsType(Child.class);
-			animal.unmarkAsType(Adult.class);
-		}
-	}
-	
 }
+

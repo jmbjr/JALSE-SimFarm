@@ -20,13 +20,15 @@ public class FarmAnimalProperties {
 	private final AtomicLong speed;
 	private final AtomicInteger stamina;
 	private final AtomicInteger size;
+	private final AtomicInteger age;
 	
 
-	AnimalProperties(final int sightRange, final double speed, final int stamina, final int size) {
+	AnimalProperties(final int sightRange, final double speed, final int stamina, final int size, final int age) {
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
 	    this.stamina = new AtomicInteger(stamina);
 	    this.size = new AtomicInteger(size);
+	    this.age = new AtomicInteger(age);
 	}
 
     }
@@ -34,17 +36,21 @@ public class FarmAnimalProperties {
     private static final int SIZE_ADULT = 50;
     
     private static final int SIZE_CHILD = 15;
+    
+    private static final int AGE_ADULT = 100;
 
     private static AtomicInteger population = new AtomicInteger(3);
 
     private static Map<Class<?>, AnimalProperties> props = new HashMap<>();
 
     static {
-	props.put(Animal.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
-	props.put(Waker.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
-	props.put(Sleeper.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT/2));
-	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD));
-	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT));
+    	//note: need to rethink how this works. in TransformationListener, we call these selectively.
+    	//probably a better way to do this.
+	props.put(Animal.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 0));
+	props.put(Waker.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 0));
+	props.put(Sleeper.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT/2, 0));
+	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD, 0));
+	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 100));
     }
    
 	public static int getStamina(Class<? extends Entity> type) {
@@ -63,10 +69,18 @@ public class FarmAnimalProperties {
 	return SIZE_ADULT;
     }
     
+    public static int getAdultAge() {
+    	return AGE_ADULT;
+    }
+    
     public static int getSize(final Class<? extends Entity> type) {
 	return props.get(type).size.get();
     }
-
+    
+    public static int getAge(final Class<? extends Entity> type) {
+	return props.get(type).age.get();
+    }
+    
     public static int getSizeChild() {
 	return SIZE_CHILD;
     }

@@ -23,7 +23,6 @@ public class SleepAnimals implements Action<Entity> {
 		animals.stream().filter(notMarkedAsType(Sleeper.class)).forEach(animal -> {
 
 			int newStamina = (new Random().nextInt(1000) > 500) ? animal.getStamina()-1:animal.getStamina();	
-			System.out.println("Stamina:" + newStamina + " / " + animal.getStamina());
 			animal.setStamina(Math.max(newStamina,0));
 		    checkIfSleeping(animal);
 		});
@@ -31,7 +30,6 @@ public class SleepAnimals implements Action<Entity> {
 		animals.stream().filter(notMarkedAsType(Waker.class)).forEach(animal -> {
 		if (animal.isMarkedAsType(Sleeper.class)) {
 			int newEnergy= (new Random().nextInt(1000) > 500) ? animal.getStamina()+1:animal.getStamina();	
-			System.out.println("Sleeping:" + newEnergy + " / " + animal.getStamina());
 			animal.setStamina(Math.min(newEnergy,100));
 			
 			checkIfWaking(animal);

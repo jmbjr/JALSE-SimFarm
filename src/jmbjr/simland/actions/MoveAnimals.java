@@ -103,11 +103,15 @@ public class MoveAnimals implements Action<Entity> {
 	animals.stream().filter(notMarkedAsType(Sleeper.class)).forEach(animal -> {
 	    // Get correct move angle
 	    double moveAngle;
+	    
+	    
 		// Move randomly
 	    if (animal.isMarkedAsType(Child.class)) {
 	    	// Move towards adult
+	    	System.out.println(animal.getID() + " is moving to adult");
 	    	moveAngle = directionToAdult(animal, animals);
 	    } else {
+	    	System.out.println(animal.getID() + " is randomly moving");
 	    	moveAngle = randomDirection(animal);
 	    }
 	    
