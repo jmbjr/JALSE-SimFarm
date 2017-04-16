@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="C:/dev/JALSE/JALSE/build/libs/JALSE-1.1.11-SNAPSHOT.jar" sourcepath="/JALSE"/>
 	<classpathentry kind="lib" path="C:/dev/JALSE/JALSE/build/libs/JALSE-1.1.11-SNAPSHOT-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/dev/JALSE/JALSE/build/libs/JALSE-1.1.11-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
