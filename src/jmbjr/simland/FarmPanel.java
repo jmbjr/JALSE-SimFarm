@@ -82,20 +82,25 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	repaint();
     }
 
+    private void addAnimalAtRandomPosition(String name) {
+    	addAnimalAtPosition(Child.class, randomPosition(), name);
+    }
+    
     private void addAnimalAtSpecificPosition(Point pos) {
-    	addAnimalAtPosition(Child.class, pos);
+    	addAnimalAtPosition(Child.class, pos, "Cow");
     }
     
     private void addAnimalAtRandomPosition() {
-    	addAnimalAtPosition(Child.class, randomPosition());
+    	addAnimalAtPosition(Child.class, randomPosition(), "Cow");
     }
     
-    private void addAnimalAtPosition(Class<? extends Animal> maturity, Point position) {
+    private void addAnimalAtPosition(Class<? extends Animal> maturity, Point position, String name) {
 		final Animal animal = getField().newEntity(Animal.class);
 		animal.setPosition(position);
 		animal.setAngle(randomAngle());
 		animal.addEntityTypeListener(new TransformationListener());
 		animal.markAsType(maturity);
+		animal.setName(name);
     }
 
     public void adjustPopulation() {
@@ -187,9 +192,9 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	final int population = FarmAnimalProperties.getPopulation();
 	for (int i = 0; i < population; i++) {
 	    if (i < 2)  //create two full grown animals
-	    	addAnimalAtPosition(Adult.class, randomPosition());
+	    	addAnimalAtPosition(Adult.class, randomPosition(),"Cow" + i);
 	    else
-	    	addAnimalAtRandomPosition();
+	    	addAnimalAtRandomPosition("Kid");
 	}
     }
     

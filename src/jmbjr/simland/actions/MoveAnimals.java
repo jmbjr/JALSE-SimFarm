@@ -108,10 +108,8 @@ public class MoveAnimals implements Action<Entity> {
 		// Move randomly
 	    if (animal.isMarkedAsType(Child.class)) {
 	    	// Move towards adult
-	    	System.out.println(animal.getID() + " is moving to adult");
 	    	moveAngle = directionToAdult(animal, animals);
 	    } else {
-	    	System.out.println(animal.getID() + " is randomly moving");
 	    	moveAngle = randomDirection(animal);
 	    }
 	    

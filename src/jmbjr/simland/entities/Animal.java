@@ -22,7 +22,10 @@ public interface Animal extends Entity {
 
     @GetAttribute
     Point getPosition();
-
+    
+    @GetAttribute
+    String getName();
+    
     @GetAttribute
     int getSightRange();
 
@@ -44,6 +47,9 @@ public interface Animal extends Entity {
     @SetAttribute
     void setPosition(Point position);
 
+    @SetAttribute
+    void setName(String name);
+    
     @SetAttribute
     void setSightRange(int range);
 
