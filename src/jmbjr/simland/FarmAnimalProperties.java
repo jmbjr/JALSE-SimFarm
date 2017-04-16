@@ -46,9 +46,9 @@ public class FarmAnimalProperties {
     static {
     	//note: need to rethink how this works. in TransformationListener, we call these selectively.
     	//probably a better way to do this.
-	props.put(Animal.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 0));
-	props.put(Waker.class, new AnimalProperties( 500, 3.0,100, SIZE_ADULT, 0));
-	props.put(Sleeper.class, new AnimalProperties( 500, 3.0,100, SIZE_ADULT/2, 0));
+	//props.put(Animal.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 0));
+	//props.put(Waker.class, new AnimalProperties( 500, 3.0,100, SIZE_ADULT, 0));
+	//props.put(Sleeper.class, new AnimalProperties( 500, 3.0,100, SIZE_ADULT/2, 0));
 	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD, 0));
 	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 100));
     }
