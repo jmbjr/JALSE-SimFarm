@@ -21,4 +21,7 @@ public interface Field extends Entity {
 
     @StreamEntities
     Stream<Animal> streamAnimals();
+    
+    @StreamEntities
+    Stream<Plant> streamPlants();   
 }
