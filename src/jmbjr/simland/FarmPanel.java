@@ -27,8 +27,11 @@ import jalse.entities.Entity;
 import jmbjr.simland.actions.SleepAnimals;
 import jmbjr.simland.actions.AgeAnimals;
 import jmbjr.simland.actions.GrowAnimals;
+import jmbjr.simland.actions.GrowPlants;
 import jmbjr.simland.actions.MoveAnimals;
 import jmbjr.simland.entities.Field;
+import jmbjr.simland.entities.Grass;
+import jmbjr.simland.entities.Plant;
 import jmbjr.simland.entities.Adult;
 import jmbjr.simland.entities.Animal;
 import jmbjr.simland.entities.Child;
@@ -42,16 +45,27 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     public static final int WIDTH = 700;
     public static final int HEIGHT = 500;
 
+    
+    //should there just be a single drawElement method? 
+    private static void drawElement(final Graphics g, final Plant plant) {
+	final Point position = plant.getPosition();
+	int size = plant.getSize(); 
+	int age = plant.getAge();
+
+	g.drawImage(imgGrass[age], position.x - 2, position.y - 2, size,size, null);
+    }
+
     private static void drawElement(final Graphics g, final Animal animal) {
 	final Point position = animal.getPosition();
 	int size = animal.getSize();    
 
-	g.drawImage(image, position.x - 2, position.y - 2, size,size, null);
+	g.drawImage(imgAnimal, position.x - 2, position.y - 2, size,size, null);
+	
     }
 
     private final JALSE jalse;
-    private static BufferedImage image;
-    
+    private static BufferedImage imgAnimal;
+    private static BufferedImage[] imgGrass = new BufferedImage[10];
 
     public FarmPanel() {
 	// Manually ticked JALSE
@@ -68,7 +82,11 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Start ticking and rendering (30 FPS)
 	new Timer(TICK_INTERVAL, this).start();
 	try {
-		image = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
+		imgAnimal = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
+		for (int g = 0; g < FarmPlantProperties.getAgeGrassMax();g++) {
+			System.out.println(g + " C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png" );
+			imgGrass[g] = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png"));
+		}
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
@@ -81,7 +99,11 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Request repaint
 	repaint();
     }
-
+    
+    private void addGrassAtRandomPosition() {
+    	addPlantAtPosition(Grass.class, randomPosition(), "Grass");
+    }    
+    
     private void addAnimalAtRandomPosition(String name) {
     	addAnimalAtPosition(Child.class, randomPosition(), name);
     }
@@ -103,6 +125,16 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.setName(name);
     }
 
+    private void addPlantAtPosition(Class<? extends Plant> type, Point position, String name) {
+		final Plant plant = getField().newEntity(Plant.class);
+		plant.setPosition(position);
+		plant.addEntityTypeListener(new TransformationListener());
+		plant.markAsType(type);
+		plant.setAge(0);
+		plant.setSize(FarmPlantProperties.getSizeGrass());
+		plant.setName(name);
+    }
+    
     public void adjustPopulation() {
 	final int population = FarmAnimalProperties.getPopulation();
 	int count = getField().getEntityCount();
@@ -131,6 +163,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	field.scheduleForActor(new GrowAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new SleepAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new AgeAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
+	field.scheduleForActor(new GrowPlants(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	reset();
     }
 
@@ -163,7 +196,10 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Draw component as before
 	super.paintComponent(g);
 
-	// Draw people
+	//Draw Plants
+	getField().streamPlants().forEach(a ->  drawElement(g, a));
+	
+	// Draw Animals
 	getField().streamAnimals().forEach(a ->  drawElement(g, a));
 
 	// Sync (Linux fix)
@@ -189,12 +225,16 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Kill them all
 	getField().killEntities();
 	// Create randomly-placed healthy people
-	final int population = FarmAnimalProperties.getPopulation();
-	for (int i = 0; i < population; i++) {
+	final int animalPopulation = FarmAnimalProperties.getPopulation();
+	final int plantPopulation = FarmPlantProperties.getPopulation();
+	for (int i = 0; i < animalPopulation; i++) {
 	    if (i < 2)  //create two full grown animals
 	    	addAnimalAtPosition(Adult.class, randomPosition(),"Cow" + i);
 	    else
 	    	addAnimalAtRandomPosition("Kid");
+	}
+	for (int j = 0; j < plantPopulation; j++) {
+		addGrassAtRandomPosition();
 	}
     }
     

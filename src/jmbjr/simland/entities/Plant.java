@@ -13,4 +13,23 @@ public interface Plant extends Entity {
 
     @SetAttribute
     void setPosition(Point p);
+ 
+    
+    @GetAttribute
+    int getSize();
+
+    @SetAttribute
+    void setSize(int size);
+
+    @GetAttribute
+    int getAge();
+
+    @SetAttribute
+    void setAge(int age);
+    
+    @GetAttribute
+    String getName();
+
+    @SetAttribute
+    void setName(String name);
 }
