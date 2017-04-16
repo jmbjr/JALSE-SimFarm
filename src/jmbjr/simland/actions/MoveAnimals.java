@@ -29,26 +29,6 @@ public class MoveAnimals implements Action<Entity> {
     private static int bounded(final int value, final int min, final int max) {
 	return value < min ? min : value > max ? max : value;
     }
-
-    public static Double directionAwayFromInfected(final Animal animal, final Set<Animal> animals) {
-	// Find closest infected to hide from
-	final Optional<Animal> closestInfected = getClosestPersonOfType(animal, animals, Animal.class);
-
-	// Cannot see any
-	if (!closestInfected.isPresent()) {
-	    return randomDirection(animal);
-	}
-
-	final Point animalPos = animal.getPosition();
-	final Point closestPos = closestInfected.get().getPosition();
-
-	// Away
-	final int dx = animalPos.x - closestPos.x;
-	final int dy = animalPos.y - closestPos.y;
-
-	// Convert
-	return Math.atan2(dy, dx);
-    }
     
     private static Double distanceToAdult(final Animal child, final Optional <Animal> adult) {
     	double dx = adult.get().getPosition().x - child.getPosition().x;
@@ -58,7 +38,7 @@ public class MoveAnimals implements Action<Entity> {
 
     private static Double directionToAdult(final Animal child, final Set<Animal> people) {
 	// Find closest healthy person in sight
-	final Optional<Animal> closestAdult = getClosestPersonOfType(child, people, Adult.class);
+	final Optional<Animal> closestAdult = getClosestAnimalOfType(child, people, Adult.class);
 
 	// Check can see any
 	if (!closestAdult.isPresent()) {
@@ -77,23 +57,23 @@ public class MoveAnimals implements Action<Entity> {
 	return Math.atan2(dy, dx);
     }
 
-    private static Optional<Animal> getClosestPersonOfType(final Animal person, final Set<Animal> people,
+    private static Optional<Animal> getClosestAnimalOfType(final Animal animal, final Set<Animal> people,
 	    final Class<? extends Entity> type) {
-	final Point personPos = person.getPosition();
-	final Integer sightRange = person.getSightRange();
+	final Point animalPos = animal.getPosition();
+	final Integer sightRange = animal.getSightRange();
 	// Stream other entities of type
-	return people.stream().filter(not(person)).filter(isMarkedAsType(type)).filter(p -> {
+	return people.stream().filter(not(animal)).filter(isMarkedAsType(type)).filter(p -> {
 	    final Point pPos = p.getPosition();
 	    // Within range
-	    return Math.abs(pPos.x - personPos.x) <= sightRange && Math.abs(pPos.y - personPos.y) <= sightRange;
+	    return Math.abs(pPos.x - animalPos.x) <= sightRange && Math.abs(pPos.y - animalPos.y) <= sightRange;
 	}).collect(Collectors.minBy((a, b) -> {
 	    final Point aPos = a.getPosition();
 	    final Point bPos = b.getPosition();
 	    // Closest person
-	    final int d1 = (aPos.x - personPos.x) * (aPos.x - personPos.x)
-		    + (aPos.y - personPos.y) * (aPos.y - personPos.y);
-	    final int d2 = (bPos.x - personPos.x) * (bPos.x - personPos.x)
-		    + (bPos.y - personPos.y) * (bPos.y - personPos.y);
+	    final int d1 = (aPos.x - animalPos.x) * (aPos.x - animalPos.x)
+		    + (aPos.y - animalPos.y) * (aPos.y - animalPos.y);
+	    final int d2 = (bPos.x - animalPos.x) * (bPos.x - animalPos.x)
+		    + (bPos.y - animalPos.y) * (bPos.y - animalPos.y);
 	    return d1 - d2;
 	}));
     }
@@ -115,7 +95,7 @@ public class MoveAnimals implements Action<Entity> {
 		// Move randomly
 	    if (animal.isMarkedAsType(Child.class)) {
 	    	// Move towards adult if far enough away and random number says OK
-	    	double dist = distanceToAdult(animal, getClosestPersonOfType(animal, animals, Adult.class));
+	    	double dist = distanceToAdult(animal, getClosestAnimalOfType(animal, animals, Adult.class));
 	    	
 	    	if (dist > 4*FarmAnimalProperties.getMaxSize() && randInt > 100 )  //almost certaintly run to momma
 	    		moveAngle = directionToAdult(animal, animals);
