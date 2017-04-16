@@ -49,6 +49,12 @@ public class MoveAnimals implements Action<Entity> {
 	// Convert
 	return Math.atan2(dy, dx);
     }
+    
+    private static Double distanceToAdult(final Animal child, final Optional <Animal> adult) {
+    	double dx = adult.get().getPosition().x - child.getPosition().x;
+    	double dy = adult.get().getPosition().y - child.getPosition().y;
+    	return Math.sqrt(dx*dx + dy*dy);
+    }
 
     private static Double directionToAdult(final Animal child, final Set<Animal> people) {
 	// Find closest healthy person in sight
@@ -103,12 +109,20 @@ public class MoveAnimals implements Action<Entity> {
 	animals.stream().filter(notMarkedAsType(Sleeper.class)).forEach(animal -> {
 	    // Get correct move angle
 	    double moveAngle;
-	    
+	    Random rand = new Random();	
+	    int randInt = rand.nextInt(1000);
 	    
 		// Move randomly
 	    if (animal.isMarkedAsType(Child.class)) {
-	    	// Move towards adult
-	    	moveAngle = directionToAdult(animal, animals);
+	    	// Move towards adult if far enough away and random number says OK
+	    	double dist = distanceToAdult(animal, getClosestPersonOfType(animal, animals, Adult.class));
+	    	
+	    	if (dist > 4*FarmAnimalProperties.getMaxSize() && randInt > 100 )  //almost certaintly run to momma
+	    		moveAngle = directionToAdult(animal, animals);
+	    	else if (dist > 2*FarmAnimalProperties.getMaxSize() && randInt > 900) //if closer, less of a chance to keep running
+	    		moveAngle = directionToAdult(animal, animals);
+	    	else
+	    		moveAngle = randomDirection(animal);
 	    } else {
 	    	moveAngle = randomDirection(animal);
 	    }
@@ -130,8 +144,8 @@ public class MoveAnimals implements Action<Entity> {
 
 	    if (pos.x != x || pos.y != y) {
 		// Update if changed
-	    Random rand = new Random();		
-	    int randInt = rand.nextInt(1000);
+	    	
+	    
 	    if (randInt > 750) {
 	    	animal.setPosition(new Point(x, y));
 	    }
