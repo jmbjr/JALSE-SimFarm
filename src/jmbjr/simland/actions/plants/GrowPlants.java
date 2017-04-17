@@ -8,10 +8,8 @@ import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Sleeper;
 import jmbjr.simland.entities.plants.Plant;
-import jmbjr.simland.properties.FarmAnimalProperties;
 import jmbjr.simland.properties.FarmPlantProperties;
 
 import java.util.Random;

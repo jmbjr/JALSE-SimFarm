@@ -6,11 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import jalse.entities.Entity;
-import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.Child;
-import jmbjr.simland.entities.animals.Sleeper;
-import jmbjr.simland.entities.animals.Waker;
 import jmbjr.simland.entities.plants.Grass;
 
 public class FarmPlantProperties {
