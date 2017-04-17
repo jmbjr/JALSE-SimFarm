@@ -1,6 +1,7 @@
 package jmbjr.simland.entities.animals;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 
 import jalse.entities.Entity;
 import jalse.entities.annotations.GetAttribute;
@@ -23,6 +24,9 @@ public interface Animal extends Entity {
 	
 	@GetAttribute
     double getAngle();
+	
+	@GetAttribute
+	BufferedImage getImage();
 
     @GetAttribute
     Point getPosition();
@@ -47,6 +51,9 @@ public interface Animal extends Entity {
 
     @SetAttribute
     void setAngle(double angle);
+    
+    @SetAttribute
+    void setImage(BufferedImage image);
 
     @SetAttribute
     void setPosition(Point position);

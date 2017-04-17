@@ -26,6 +26,7 @@ public class TransformationListener implements EntityTypeListener {
 		animal.setSightRange(FarmAnimalProperties.getSightRange(type));
 		animal.setSpeed(FarmAnimalProperties.getSpeed(type));
 		animal.setStamina(FarmAnimalProperties.getStamina(type));
+		animal.setImage(FarmAnimalProperties.getImage(type));
 	}
     }
 }

@@ -1,9 +1,14 @@
 package jmbjr.simland.properties;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+
+import javax.imageio.ImageIO;
 
 import jalse.entities.Entity;
 import jmbjr.simland.entities.animals.Adult;
@@ -24,14 +29,16 @@ public class FarmAnimalProperties {
 	private final AtomicInteger stamina;
 	private final AtomicInteger size;
 	private final AtomicInteger age;
+	private final BufferedImage image;
 	
 
-	AnimalProperties(final int sightRange, final double speed, final int stamina, final int size, final int age) {
+	AnimalProperties(final int sightRange, final double speed, final int stamina, final int size, final int age, final BufferedImage image) {
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
 	    this.stamina = new AtomicInteger(stamina);
 	    this.size = new AtomicInteger(size);
 	    this.age = new AtomicInteger(age);
+	    this.image = image;
 	}
 
     }
@@ -47,10 +54,21 @@ public class FarmAnimalProperties {
     private static Map<Class<?>, AnimalProperties> props = new HashMap<>();
 
     static {
-	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD, 0));
-	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 100));
+    BufferedImage imgCow = null;
+	try {
+		imgCow = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD, 0, imgCow));
+	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 100, imgCow));
     }
    
+    public static BufferedImage getImage(Class<? extends Entity> type) {
+    	return props.get(type).image;
+    }
+    
 	public static int getStamina(Class<? extends Entity> type) {
 		return  props.get(type).stamina.get();
 	}

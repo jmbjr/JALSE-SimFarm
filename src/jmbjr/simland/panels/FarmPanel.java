@@ -72,12 +72,11 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	final Point position = animal.getPosition();
 	int size = animal.getSize();    
 
-	g.drawImage(imgAnimal, position.x - 2, position.y - 2, size,size, null);
+	g.drawImage(animal.getImage(), position.x - 2, position.y - 2, size,size, null);
 	
     }
 
     private final JALSE jalse;
-    private static BufferedImage imgAnimal;
     private static BufferedImage[] imgGrass = new BufferedImage[10];
 
     /**
@@ -101,7 +100,6 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Start ticking and rendering (30 FPS)
 	new Timer(TICK_INTERVAL, this).start();
 	try {
-		imgAnimal = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
 		for (int g = 0; g < FarmPlantProperties.getAgeGrassMax();g++) {
 			System.out.println(g + " C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png" );
 			imgGrass[g] = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png"));
