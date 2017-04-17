@@ -14,9 +14,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -31,7 +28,8 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
-import jmbjr.simland.entities.listeners.TransformationListener;
+import jmbjr.simland.entities.listeners.AnimalTransformationListener;
+import jmbjr.simland.entities.listeners.PlantTransformationListener;
 import jmbjr.simland.entities.plants.Grass;
 import jmbjr.simland.entities.plants.Plant;
 import jmbjr.simland.properties.FarmAnimalProperties;
@@ -64,8 +62,9 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	final Point position = plant.getPosition();
 	int size = plant.getSize(); 
 	int age = plant.getAge();
+	BufferedImage[] img = plant.getImage();
 
-	g.drawImage(imgGrass[age], position.x - 2, position.y - 2, size,size, null);
+	g.drawImage(img[age], position.x - 2, position.y - 2, size,size, null);
     }
 
     private static void drawElement(final Graphics g, final Animal animal) {
@@ -77,7 +76,6 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     }
 
     private final JALSE jalse;
-    private static BufferedImage[] imgGrass = new BufferedImage[10];
 
     /**
      * FarmPanel initialization. 
@@ -99,14 +97,6 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	addMouseListener(this);
 	// Start ticking and rendering (30 FPS)
 	new Timer(TICK_INTERVAL, this).start();
-	try {
-		for (int g = 0; g < FarmPlantProperties.getAgeGrassMax();g++) {
-			System.out.println(g + " C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png" );
-			imgGrass[g] = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png"));
-		}
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
     }
 
     @Override
@@ -133,7 +123,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		final Animal animal = getField().newEntity(Animal.class);
 		animal.setPosition(position);
 		animal.setAngle(randomAngle());
-		animal.addEntityTypeListener(new TransformationListener());
+		animal.addEntityTypeListener(new AnimalTransformationListener());
 		animal.markAsType(maturity);
 		animal.setName(name);
     }
@@ -141,7 +131,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private void addPlantAtPosition(Class<? extends Plant> type, Point position, String name) {
 		final Plant plant = getField().newEntity(Plant.class);
 		plant.setPosition(position);
-		plant.addEntityTypeListener(new TransformationListener());
+		plant.addEntityTypeListener(new PlantTransformationListener());
 		plant.markAsType(type);
 		plant.setAge(0);
 		plant.setSize(FarmPlantProperties.getSizeGrass());

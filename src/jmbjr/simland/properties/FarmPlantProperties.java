@@ -1,13 +1,18 @@
 package jmbjr.simland.properties;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.imageio.ImageIO;
+
 import jalse.entities.Entity;
-import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.plants.Grass;
+import jmbjr.simland.entities.plants.Plant;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -21,13 +26,15 @@ public class FarmPlantProperties {
 	private final AtomicInteger stamina;
 	private final AtomicInteger size;
 	private final AtomicInteger age;
+	private final BufferedImage[] image;
 	
 
-	PlantProperties(final double speed, final int stamina, final int size, final int age) {
+	PlantProperties(final double speed, final int stamina, final int size, final int age, final BufferedImage[] image) {
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
 	    this.stamina = new AtomicInteger(stamina);
 	    this.size = new AtomicInteger(size);
 	    this.age = new AtomicInteger(age);
+	    this.image = image;
 	}
 
     }
@@ -41,14 +48,22 @@ public class FarmPlantProperties {
     private static Map<Class<?>, PlantProperties> props = new HashMap<>();
 
     static {
-    	//note: need to rethink how this works. in TransformationListener, we call these selectively.
-    	//probably a better way to do this.
-	//props.put(Animal.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 0));
-	//props.put(Waker.class, new AnimalProperties( 500, 3.0,100, SIZE_ADULT, 0));
-	//props.put(Sleeper.class, new AnimalProperties( 500, 3.0,100, SIZE_ADULT/2, 0));
-	props.put(Grass.class, new PlantProperties(6.0,100, SIZE_GRASS, 0));
+    BufferedImage[] imgGrass = new BufferedImage[10];
+	try {
+		for (int g = 0; g < FarmPlantProperties.getAgeGrassMax();g++) {
+			System.out.println(g + " C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png" );
+			imgGrass[g] = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\plants\\grass"+g+".png"));
+		}
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	props.put(Grass.class, new PlantProperties(6.0,100, SIZE_GRASS, 0, imgGrass));
     }
-   
+
+    public static BufferedImage[] getImage(Class<? extends Entity> type) {
+    	return props.get(type).image;
+    }
+    
 	public static int getStamina(Class<? extends Entity> type) {
 		return  props.get(type).stamina.get();
 	}
@@ -83,7 +98,7 @@ public class FarmPlantProperties {
     }
 
 
-    public static void setSpeed(final Class<? extends Animal> type, final double speed) {
+    public static void setSpeed(final Class<? extends Plant> type, final double speed) {
 	props.get(type).speed.set(Double.doubleToLongBits(speed));
     }
 

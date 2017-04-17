@@ -1,6 +1,7 @@
 package jmbjr.simland.entities.plants;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 
 import jalse.entities.Entity;
 import jalse.entities.annotations.GetAttribute;
@@ -17,7 +18,12 @@ public interface Plant extends Entity {
 
     @SetAttribute
     void setPosition(Point p);
- 
+	
+	@GetAttribute
+	BufferedImage[] getImage();
+    
+    @SetAttribute
+    void setImage(BufferedImage[] image);
     
     @GetAttribute
     int getSize();
