@@ -24,6 +24,12 @@ import jmbjr.simland.properties.FarmAnimalProperties;
 
 
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * handle moving animals
+ * 
+ * 
+ */
 public class MoveAnimals implements Action<Entity> {
 
     private static int bounded(final int value, final int min, final int max) {

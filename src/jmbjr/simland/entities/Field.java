@@ -11,6 +11,10 @@ import jalse.entities.annotations.StreamEntities;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.plants.Plant;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * field class for main farm area
+ */
 public interface Field extends Entity {
 
     UUID ID = UUID.randomUUID();

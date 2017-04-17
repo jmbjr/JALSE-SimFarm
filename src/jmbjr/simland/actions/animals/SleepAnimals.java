@@ -14,6 +14,12 @@ import jmbjr.simland.entities.animals.Waker;
 
 import java.util.Random;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * handle putting animals to sleep and waking them up
+ * 
+ * future plan to separate into sleep and wake
+ */
 public class SleepAnimals implements Action<Entity> {
 
 	@Override
@@ -37,12 +43,18 @@ public class SleepAnimals implements Action<Entity> {
 		);
 	    
 	}
+	/**
+	 * @param animal
+	 * simple check to see if stamina is less than 0. if so, animal is asleep.
+	 * if animal goes to sleep, stamina is set to -50. Assume that stamina is increased while sleeping.
+	 * 
+	 * future plan: set sleeping threshold. maybe 30 or so. after this point, chance of sleeping is high.
+	 * then while sleeping, set a waking threshold. maybe 60 or so, after this point, chance of waking is high
+	 * then use constants to set threshold. 
+	 * update setStamina to enforce 0 to max stamina.
+	 * get rid of checks vs max stamina and 0
+	 */
 	public static void checkIfSleeping(Animal animal) {
-//ToDo: set sleeping threshold. maybe 30 or so. after this point, chance of sleeping is high.
-		//then while sleeping, set a waking threshold. maybe 60 or so, after this point, chance of waking is high
-		//then use constants to set threshold. 
-		//update setStamina to enforce 0 to max stamina.
-		//get rid of checks vs max stamina and 0
 		
 		if (!animal.isMarkedAsType(Sleeper.class) && animal.getStamina() <= 0) {
 			//rester/dead
@@ -51,13 +63,12 @@ public class SleepAnimals implements Action<Entity> {
 			animal.setStamina(-50);
 		} 
 	}
-	public static void checkIfWaking(Animal animal) {
-		//ToDo: set sleeping threshold. maybe 30 or so. after this point, chance of sleeping is high.
-				//then while sleeping, set a waking threshold. maybe 60 or so, after this point, chance of waking is high
-				//then use constants to set threshold. 
-				//update setStamina to enforce 0 to max stamina.
-				//get rid of checks vs max stamina and 0
-				
+	/**
+	 * @param animal
+	 * simple check to see if animal should wake up. will wake up if stamina > 0.
+	 * for now, stamina is immediately set to 100 (full recharge). should be variablized
+	 */
+	public static void checkIfWaking(Animal animal) {				
 				if (animal.isMarkedAsType(Sleeper.class) && animal.getStamina() > 0) {
 					//rester/dead
 					animal.unmarkAsType(Sleeper.class);
@@ -65,5 +76,4 @@ public class SleepAnimals implements Action<Entity> {
 					animal.setStamina(100);
 				} 
 			}
-	
 }

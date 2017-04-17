@@ -13,6 +13,10 @@ import jmbjr.simland.properties.FarmAnimalProperties;
 
 import java.util.Random;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * handle aging animals and converting from child->adult type
+ */
 public class AgeAnimals implements Action<Entity> {
 
 	@Override
@@ -27,14 +31,21 @@ public class AgeAnimals implements Action<Entity> {
 			
 		});
 	    }
+	/**
+	 * @param animal
+	 * change child entity to an adult if:
+	 * 1. is old enough
+	 * 2. is large enough
+	 * 
+	 * this function also allows reverting an adult back to a child if the above conditions are not met
+	 * this may or may not be a good idea long-term
+	 */
 	public static void checkIfAdult(Animal animal) {
-//animals can't be adults now. need to refactor logic
 		if (animal.getAge() >= FarmAnimalProperties.getAdultAge() && animal.getSize() >= FarmAnimalProperties.getMaxSize()) {
 			//grow into an adult
 			animal.markAsType(Adult.class);
 			animal.unmarkAsType(Child.class);
 		} else {
-			//means that we can make an adult a child if we revert the age. not sure if this is OK or not. leaving it for now
 			animal.markAsType(Child.class);
 			animal.unmarkAsType(Adult.class);
 		}

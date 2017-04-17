@@ -22,8 +22,6 @@ import javax.swing.Timer;
 
 import jalse.DefaultJALSE;
 import jalse.JALSE;
-import jalse.entities.Entities;
-import jalse.entities.Entity;
 import jmbjr.simland.actions.animals.AgeAnimals;
 import jmbjr.simland.actions.animals.GrowAnimals;
 import jmbjr.simland.actions.animals.MoveAnimals;
@@ -39,12 +37,25 @@ import jmbjr.simland.entities.plants.Plant;
 import jmbjr.simland.properties.FarmAnimalProperties;
 import jmbjr.simland.properties.FarmPlantProperties;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * Main class for displaying the farm entities
+ */
 @SuppressWarnings("serial")
 public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 
+    /**
+     * TICK_INTERVAL should always be divided by 30 (fps)
+     */
     public static final int TICK_INTERVAL = 1000 / 30;
 
+    /**
+     * WIDTH = farm width in pixels
+     */
     public static final int WIDTH = 700;
+    /**
+     * HEIGHT = farm height in pixels
+     */
     public static final int HEIGHT = 500;
 
     
@@ -69,6 +80,12 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private static BufferedImage imgAnimal;
     private static BufferedImage[] imgGrass = new BufferedImage[10];
 
+    /**
+     * FarmPanel initialization. 
+     * adds jalse instance, GUI listeners, sets background color,
+     * creates the timer, and loads up animal and plant images
+     * 
+     */
     public FarmPanel() {
 	// Manually ticked JALSE
 	jalse = new DefaultJALSE.Builder().setManualEngine().build();
@@ -113,11 +130,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private void addAnimalAtSpecificPosition(Point pos) {
     	addAnimalAtPosition(Child.class, pos, "Cow");
     }
-    
-    private void addAnimalAtRandomPosition() {
-    	addAnimalAtPosition(Child.class, randomPosition(), "Cow");
-    }
-    
+        
     private void addAnimalAtPosition(Class<? extends Animal> maturity, Point position, String name) {
 		final Animal animal = getField().newEntity(Animal.class);
 		animal.setPosition(position);
@@ -135,26 +148,6 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		plant.setAge(0);
 		plant.setSize(FarmPlantProperties.getSizeGrass());
 		plant.setName(name);
-    }
-    
-    public void adjustPopulation() {
-	final int population = FarmAnimalProperties.getPopulation();
-	int count = getField().getEntityCount();
-	// Increase population
-	while (count < population) {
-	    addAnimalAtRandomPosition();
-	    count++;
-	}
-	// Decrease population
-	while (count > population) {
-	    removeRandomAnimal();
-	    count--;
-	}
-    }
-
-    public void adjustSightRange(final Class<? extends Animal> type) {
-	final int sightRange = FarmAnimalProperties.getSightRange(type);
-	getField().streamEntitiesOfType(type).forEach(a -> a.setSightRange(sightRange));
     }
 
     private void createEntities() {
@@ -219,10 +212,9 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	return new Point(size + rand.nextInt(WIDTH), size + rand.nextInt(HEIGHT));
     }
 
-    private void removeRandomAnimal() {
-	Entities.randomEntity(getField()).ifPresent(Entity::kill);
-    }
-
+    /**
+     * resets simulation and creates all animal and plant entities
+     */
     public void reset() {
 	// Kill them all
 	getField().killEntities();

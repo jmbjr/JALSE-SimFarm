@@ -5,8 +5,16 @@ import javax.swing.JFrame;
 
 import jmbjr.simland.panels.FarmPanel;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * SimFarm entry point
+ */
 public class SimFarm {
 
+    /**
+     * @param args
+     * standard main method
+     */
     public static void main(final String[] args) {
 	// Create window and panel
 	final JFrame frame = new JFrame("JALSE-SimLand");

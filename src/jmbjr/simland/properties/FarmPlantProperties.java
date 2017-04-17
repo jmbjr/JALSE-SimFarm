@@ -9,6 +9,10 @@ import jalse.entities.Entity;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.plants.Grass;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * handles initializing and getting plant properties
+ */
 public class FarmPlantProperties {
 
     private static class PlantProperties {

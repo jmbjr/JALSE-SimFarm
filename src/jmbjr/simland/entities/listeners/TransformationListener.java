@@ -8,6 +8,11 @@ import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * attached to all animals. triggers when there's a type transformation
+ * used to set animal properties when creating animals or (d)evolving child/adult animals
+ */
 public class TransformationListener implements EntityTypeListener {
 
     @Override

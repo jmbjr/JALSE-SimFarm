@@ -14,6 +14,10 @@ import jmbjr.simland.properties.FarmPlantProperties;
 
 import java.util.Random;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * handles growing plants. occasionally increases the age by 1 up to max value
+ */
 public class GrowPlants implements Action<Entity> {
 
 	@Override

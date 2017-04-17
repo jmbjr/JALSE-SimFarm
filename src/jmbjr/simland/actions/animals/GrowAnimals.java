@@ -14,6 +14,12 @@ import jmbjr.simland.properties.FarmAnimalProperties;
 
 import java.util.Random;
 
+/**
+ * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
+ * handle growing animal sizes. skips growing if animals are asleep
+ * 
+ * future plans to base growing on eating and overall health level.
+ */
 public class GrowAnimals implements Action<Entity> {
 
 	@Override
