@@ -22,8 +22,6 @@ import jmbjr.simland.entities.animals.Sleeper;
 import jmbjr.simland.panels.FarmPanel;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
-
-
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
  * handle moving animals
@@ -37,9 +35,13 @@ public class MoveAnimals implements Action<Entity> {
     }
     
     private static Double distanceToAdult(final Animal child, final Optional <Animal> adult) {
-    	double dx = adult.get().getPosition().x - child.getPosition().x;
-    	double dy = adult.get().getPosition().y - child.getPosition().y;
-    	return Math.sqrt(dx*dx + dy*dy);
+    	if (adult.equals(Optional.empty())) 
+    		return (double) 0;
+    	else {
+	    	double dx = adult.get().getPosition().x - child.getPosition().x;
+	    	double dy = adult.get().getPosition().y - child.getPosition().y;
+	    	return Math.sqrt(dx*dx + dy*dy);
+    	}
     }
 
     private static Double directionToAdult(final Animal child, final Set<Animal> people) {
@@ -103,9 +105,9 @@ public class MoveAnimals implements Action<Entity> {
 	    	// Move towards adult if far enough away and random number says OK
 	    	double dist = distanceToAdult(animal, getClosestAnimalOfType(animal, animals, Adult.class));
 	    	
-	    	if (dist > 4*FarmAnimalProperties.getMaxSize() && randInt > 100 )  //almost certaintly run to momma
+	    	if (dist > 4*FarmAnimalProperties.getSizeAdult() && randInt > 100 )  //almost certaintly run to momma
 	    		moveAngle = directionToAdult(animal, animals);
-	    	else if (dist > 2*FarmAnimalProperties.getMaxSize() && randInt > 900) //if closer, less of a chance to keep running
+	    	else if (dist > 2*FarmAnimalProperties.getSizeAdult() && randInt > 900) //if closer, less of a chance to keep running
 	    		moveAngle = directionToAdult(animal, animals);
 	    	else
 	    		moveAngle = randomDirection(animal);
@@ -122,7 +124,7 @@ public class MoveAnimals implements Action<Entity> {
 
 	    // Original values
 	    final Point pos = animal.getPosition();
-	    final int size = FarmAnimalProperties.getMaxSize();
+	    final int size = FarmAnimalProperties.getSizeAdult();
 
 	    // Apply bounded move delta
 	    final int x = bounded(pos.x + moveDelta.x, 0, FarmPanel.WIDTH - size);

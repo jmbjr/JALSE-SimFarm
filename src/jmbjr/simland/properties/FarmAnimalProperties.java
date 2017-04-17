@@ -14,6 +14,7 @@ import jalse.entities.Entity;
 import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.entities.animals.Cow;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -48,6 +49,10 @@ public class FarmAnimalProperties {
     private static final int SIZE_CHILD = 15;
     
     private static final int AGE_ADULT = 100;
+    
+    private static final int AGE_CHILD = 0;
+    
+    private static final int MIN_AGE_ADULT = 50; //ensure that Children can't promote to an adult too young
 
     private static AtomicInteger population = new AtomicInteger(3);
 
@@ -61,8 +66,9 @@ public class FarmAnimalProperties {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	props.put(Child.class, new AnimalProperties( 500, 6.0,100, SIZE_CHILD, 0, imgCow));
-	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, 100, imgCow));
+	props.put(Cow.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
+	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
+	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, imgCow));
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {
@@ -71,6 +77,14 @@ public class FarmAnimalProperties {
     
 	public static int getStamina(Class<? extends Entity> type) {
 		return  props.get(type).stamina.get();
+	}
+
+	public static int getSize(Class<? extends Entity> type) {
+		return  props.get(type).size.get();
+	}
+
+	public static int getAge(Class<? extends Entity> type) {
+		return  props.get(type).age.get();
 	}
 	
     public static int getPopulation() {
@@ -81,22 +95,18 @@ public class FarmAnimalProperties {
 	return props.get(type).sightRange.get();
     }
 
-    public static int getMaxSize() {
+    public static int getSizeAdult() {
 	return SIZE_ADULT;
     }
+
+    public static int getMinAgeAdult() {
+    	return MIN_AGE_ADULT;
+    }
     
-    public static int getAdultAge() {
+    public static int getAgeAdult() {
     	return AGE_ADULT;
     }
-    
-    public static int getSize(final Class<? extends Entity> type) {
-	return props.get(type).size.get();
-    }
-    
-    public static int getAge(final Class<? extends Entity> type) {
-	return props.get(type).age.get();
-    }
-    
+        
     public static int getSizeChild() {
 	return SIZE_CHILD;
     }

@@ -34,20 +34,18 @@ public class AgeAnimals implements Action<Entity> {
 	/**
 	 * @param animal
 	 * change child entity to an adult if:
-	 * 1. is old enough
+	 * 1. is old enough (must be > getMinAgeAdult)
 	 * 2. is large enough
 	 * 
-	 * this function also allows reverting an adult back to a child if the above conditions are not met
-	 * this may or may not be a good idea long-term
+	 * NOTE: growing up is a one-way journey. only Children are checked.
 	 */
 	public static void checkIfAdult(Animal animal) {
-		if (animal.getAge() >= FarmAnimalProperties.getAdultAge() && animal.getSize() >= FarmAnimalProperties.getMaxSize()) {
-			//grow into an adult
-			animal.markAsType(Adult.class);
-			animal.unmarkAsType(Child.class);
-		} else {
-			animal.markAsType(Child.class);
-			animal.unmarkAsType(Adult.class);
+		if (animal.isMarkedAsType(Child.class)) {
+			if (animal.getAge() >= FarmAnimalProperties.getMinAgeAdult() && animal.getSize() >= FarmAnimalProperties.getSizeAdult()) {
+				//grow into an adult
+				animal.markAsType(Adult.class);
+				animal.unmarkAsType(Child.class);
+			} 
 		}
 	}
 	

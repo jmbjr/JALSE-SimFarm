@@ -28,6 +28,7 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
 import jmbjr.simland.entities.plants.Grass;
@@ -110,20 +111,18 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private void addGrassAtRandomPosition() {
     	addPlantAtPosition(Grass.class, randomPosition(), "Grass");
     }    
-    
-    private void addAnimalAtRandomPosition(String name) {
-    	addAnimalAtPosition(Child.class, randomPosition(), name);
-    }
+   
     
     private void addAnimalAtSpecificPosition(Point pos) {
-    	addAnimalAtPosition(Child.class, pos, "Cow");
+    	addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
     }
         
-    private void addAnimalAtPosition(Class<? extends Animal> maturity, Point position, String name) {
+    private void addAnimalAtPosition(Class<? extends Animal> species, Class<? extends Animal> maturity, Point position, String name) {
 		final Animal animal = getField().newEntity(Animal.class);
 		animal.setPosition(position);
 		animal.setAngle(randomAngle());
 		animal.addEntityTypeListener(new AnimalTransformationListener());
+		animal.markAsType(species);
 		animal.markAsType(maturity);
 		animal.setName(name);
     }
@@ -195,7 +194,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     }
 
     private Point randomPosition() {
-	final int size = FarmAnimalProperties.getMaxSize();
+	final int size = FarmAnimalProperties.getSizeAdult();
 	final Random rand = ThreadLocalRandom.current();
 	return new Point(size + rand.nextInt(WIDTH), size + rand.nextInt(HEIGHT));
     }
@@ -211,9 +210,9 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	final int plantPopulation = FarmPlantProperties.getPopulation();
 	for (int i = 0; i < animalPopulation; i++) {
 	    if (i < 2)  //create two full grown animals
-	    	addAnimalAtPosition(Adult.class, randomPosition(),"Cow" + i);
+	    	addAnimalAtPosition(Cow.class, Adult.class, randomPosition(),"COW" + i);
 	    else
-	    	addAnimalAtRandomPosition("Kid");
+	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
 	}
 	for (int j = 0; j < plantPopulation; j++) {
 		addGrassAtRandomPosition();
