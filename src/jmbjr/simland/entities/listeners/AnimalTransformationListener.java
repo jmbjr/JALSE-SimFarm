@@ -24,6 +24,15 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	
 	if (type.equals(Cow.class) || type.equals(Worm.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
 		animal.setImage(FarmAnimalProperties.getImage(type));
+		//this is dumb but if we let Child or Adult set stats, we don't get worm-specific stats
+		//so we do it here, which feels silly
+		if (type.equals(Worm.class)) {
+			animal.setSightRange(FarmAnimalProperties.getSightRange(type));
+			animal.setSpeed(FarmAnimalProperties.getSpeed(type));
+			animal.setStamina(FarmAnimalProperties.getStamina(type));
+			animal.setSize(FarmAnimalProperties.getSize(type));
+			animal.setAge(FarmAnimalProperties.getAge(type));
+		}
 	}
 
 	

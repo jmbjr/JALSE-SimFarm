@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.AntiAger;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Worm;
@@ -45,10 +46,14 @@ public class FarmAnimalProperties {
 
     }
 
+    //SIZES
     private static final int SIZE_ADULT = 50;
-    
     private static final int SIZE_CHILD = 15;
+    private static final int SIZE_WORM = 10;
+
     
+    
+    //AGES
     private static final int AGE_ADULT = 100;
     
     private static final int AGE_CHILD = 0;
@@ -70,9 +75,10 @@ public class FarmAnimalProperties {
 		e.printStackTrace();
 	}
 	props.put(Cow.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
-	props.put(Worm.class, new AnimalProperties( 75, 3.0,100, SIZE_CHILD, MIN_AGE_ADULT, imgWorm));
-	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
-	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, imgCow));
+	props.put(Worm.class, new AnimalProperties( 75, 2.0,100, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
+	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, null));
+	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, null));
+	props.put(AntiAger.class, new AnimalProperties( 75, 3.0, 100, SIZE_ADULT, MIN_AGE_ADULT, null));
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {

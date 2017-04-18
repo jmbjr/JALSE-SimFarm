@@ -29,10 +29,11 @@ import jmbjr.simland.actions.plants.GrowPlants;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.AntiAger;
+import jmbjr.simland.entities.animals.AntiGrower;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Grounder;
-import jmbjr.simland.entities.animals.Sleeper;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
@@ -128,8 +129,10 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.setAngle(randomAngle());
 		animal.addEntityTypeListener(new AnimalTransformationListener());
 		animal.markAsType(species);
-		if (species.equals(Worm.class))
+		if (species.equals(Worm.class)) {
 			animal.markAsType(Grounder.class); //need to generalize this
+			animal.markAsType(AntiGrower.class);
+		}
 		animal.markAsType(maturity);
 		animal.setName(name);
     }
@@ -191,7 +194,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Draw Ground Animals
 	getField().streamGrounders().forEach(a ->  drawElement(g, a));
 
-	// Draw Animals
+	// Draw Animals. ignore Grounders
 	getField().streamAnimals().filter(notMarkedAsType(Grounder.class)).forEach(a ->  drawElement(g, a));
 
 	// Sync (Linux fix)
@@ -224,7 +227,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	    else if (i == 3)
 	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
 	    else //fill with worms
-	    	addAnimalAtPosition(Worm.class, Child.class, randomPosition(),"WORM");
+	    	addAnimalAtPosition(Worm.class, AntiAger.class, randomPosition(),"WORM");
 	}
 	for (int j = 0; j < plantPopulation; j++) {
 		addGrassAtRandomPosition();
