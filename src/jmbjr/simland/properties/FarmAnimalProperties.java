@@ -15,6 +15,7 @@ import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.Worm;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -54,19 +55,22 @@ public class FarmAnimalProperties {
     
     private static final int MIN_AGE_ADULT = 50; //ensure that Children can't promote to an adult too young
 
-    private static AtomicInteger population = new AtomicInteger(3);
+    private static AtomicInteger population = new AtomicInteger(20);
 
     private static Map<Class<?>, AnimalProperties> props = new HashMap<>();
 
     static {
     BufferedImage imgCow = null;
+    BufferedImage imgWorm = null;
 	try {
 		imgCow = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
+		imgWorm = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\worm.png"));
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	props.put(Cow.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
+	props.put(Worm.class, new AnimalProperties( 75, 3.0,100, SIZE_CHILD, MIN_AGE_ADULT, imgWorm));
 	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
 	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, imgCow));
     }

@@ -1,5 +1,7 @@
 package jmbjr.simland.panels;
 
+import static jalse.entities.Entities.notMarkedAsType;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -29,6 +31,9 @@ import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.Grounder;
+import jmbjr.simland.entities.animals.Sleeper;
+import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
 import jmbjr.simland.entities.plants.Grass;
@@ -123,6 +128,8 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.setAngle(randomAngle());
 		animal.addEntityTypeListener(new AnimalTransformationListener());
 		animal.markAsType(species);
+		if (species.equals(Worm.class))
+			animal.markAsType(Grounder.class); //need to generalize this
 		animal.markAsType(maturity);
 		animal.setName(name);
     }
@@ -180,9 +187,12 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 
 	//Draw Plants
 	getField().streamPlants().forEach(a ->  drawElement(g, a));
-	
+
+	// Draw Ground Animals
+	getField().streamGrounders().forEach(a ->  drawElement(g, a));
+
 	// Draw Animals
-	getField().streamAnimals().forEach(a ->  drawElement(g, a));
+	getField().streamAnimals().filter(notMarkedAsType(Grounder.class)).forEach(a ->  drawElement(g, a));
 
 	// Sync (Linux fix)
 	Toolkit.getDefaultToolkit().sync();
@@ -211,8 +221,10 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	for (int i = 0; i < animalPopulation; i++) {
 	    if (i < 2)  //create two full grown animals
 	    	addAnimalAtPosition(Cow.class, Adult.class, randomPosition(),"COW" + i);
-	    else
+	    else if (i == 3)
 	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
+	    else //fill with worms
+	    	addAnimalAtPosition(Worm.class, Child.class, randomPosition(),"WORM");
 	}
 	for (int j = 0; j < plantPopulation; j++) {
 		addGrassAtRandomPosition();

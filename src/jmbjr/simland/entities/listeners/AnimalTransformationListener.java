@@ -7,6 +7,7 @@ import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
@@ -21,9 +22,10 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	final Animal animal = event.getEntity().asType(Animal.class);
 	final Class<? extends Entity> type = event.getTypeChange();
 	
-	if (type.equals(Cow.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
+	if (type.equals(Cow.class) || type.equals(Worm.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
 		animal.setImage(FarmAnimalProperties.getImage(type));
 	}
+
 	
 	//add listeners for Child.Class to set the stuff we are setting in FarmPanel like age, size, sightRange
 	if (type.equals(Adult.class) || type.equals(Child.class)) {
