@@ -18,7 +18,9 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
+import jmbjr.simland.entities.animals.Peeker;
 import jmbjr.simland.entities.animals.Sleeper;
+import jmbjr.simland.entities.animals.SoilWalker;
 import jmbjr.simland.panels.FarmPanel;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
@@ -94,7 +96,10 @@ public class MoveAnimals implements Action<Entity> {
     public void perform(final ActionContext<Entity> context) throws InterruptedException {
 	final Field field = context.getActor().asType(Field.class);
 	final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
-	animals.stream().filter(notMarkedAsType(Sleeper.class)).forEach(animal -> {
+	animals.stream()
+		.filter(notMarkedAsType(Sleeper.class))
+		.filter(notMarkedAsType(Peeker.class))
+		.forEach(animal -> {
 	    // Get correct move angle
 	    double moveAngle;
 	    Random rand = new Random();	

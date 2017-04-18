@@ -67,4 +67,10 @@ public interface Animal extends Entity {
     @SetAttribute
     void setSpeed(double speed);
 
+    @GetAttribute
+	boolean getVisibility();
+
+    @SetAttribute
+	void setVisibility(boolean b);
+
 }

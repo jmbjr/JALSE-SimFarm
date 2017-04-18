@@ -25,6 +25,7 @@ import jmbjr.simland.actions.animals.AgeAnimals;
 import jmbjr.simland.actions.animals.GrowAnimals;
 import jmbjr.simland.actions.animals.MoveAnimals;
 import jmbjr.simland.actions.animals.SleepAnimals;
+import jmbjr.simland.actions.animals.TunnelAnimals;
 import jmbjr.simland.actions.plants.GrowPlants;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Adult;
@@ -34,6 +35,7 @@ import jmbjr.simland.entities.animals.AntiGrower;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Grounder;
+import jmbjr.simland.entities.animals.SoilWalker;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
@@ -77,8 +79,9 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private static void drawElement(final Graphics g, final Animal animal) {
 	final Point position = animal.getPosition();
 	int size = animal.getSize();    
-
-	g.drawImage(animal.getImage(), position.x - 2, position.y - 2, size,size, null);
+	
+	if (animal.getVisibility()) //only draw if visible
+		g.drawImage(animal.getImage(), position.x - 2, position.y - 2, size,size, null);
 	
     }
 
@@ -132,6 +135,8 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		if (species.equals(Worm.class)) {
 			animal.markAsType(Grounder.class); //need to generalize this
 			animal.markAsType(AntiGrower.class);
+			animal.markAsType(SoilWalker.class);
+			animal.setVisibility(false);
 		}
 		animal.markAsType(maturity);
 		animal.setName(name);
@@ -156,6 +161,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	field.scheduleForActor(new SleepAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new AgeAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new GrowPlants(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
+	field.scheduleForActor(new TunnelAnimals(), 0, TICK_INTERVAL*3, TimeUnit.MILLISECONDS);
 	reset();
     }
 

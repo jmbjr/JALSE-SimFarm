@@ -7,6 +7,7 @@ import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.SoilWalker;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
@@ -24,6 +25,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	
 	if (type.equals(Cow.class) || type.equals(Worm.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
 		animal.setImage(FarmAnimalProperties.getImage(type));
+		animal.setVisibility(true); // really really need to pull this into Properties somehow.
 		//this is dumb but if we let Child or Adult set stats, we don't get worm-specific stats
 		//so we do it here, which feels silly
 		if (type.equals(Worm.class)) {
@@ -34,7 +36,6 @@ public class AnimalTransformationListener implements EntityTypeListener {
 			animal.setAge(FarmAnimalProperties.getAge(type));
 		}
 	}
-
 	
 	//add listeners for Child.Class to set the stuff we are setting in FarmPanel like age, size, sightRange
 	if (type.equals(Adult.class) || type.equals(Child.class)) {

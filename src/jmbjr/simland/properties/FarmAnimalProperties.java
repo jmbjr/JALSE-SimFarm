@@ -75,7 +75,7 @@ public class FarmAnimalProperties {
 		e.printStackTrace();
 	}
 	props.put(Cow.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
-	props.put(Worm.class, new AnimalProperties( 75, 2.0,100, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
+	props.put(Worm.class, new AnimalProperties( 75, 4.0,100, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
 	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, null));
 	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, null));
 	props.put(AntiAger.class, new AnimalProperties( 75, 3.0, 100, SIZE_ADULT, MIN_AGE_ADULT, null));
