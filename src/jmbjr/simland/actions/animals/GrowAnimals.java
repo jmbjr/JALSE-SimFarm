@@ -1,6 +1,7 @@
 package jmbjr.simland.actions.animals;
 
 import static jalse.entities.Entities.notMarkedAsType;
+import static jalse.entities.Entities.isMarkedAsType;
 
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.ability.UnGrower;
+import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.state.Sleeping;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
@@ -27,7 +28,7 @@ public class GrowAnimals implements Action<Entity> {
 	public void perform(ActionContext<Entity> context) throws InterruptedException {
 		final Field field = context.getActor().asType(Field.class);
 		final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
-		animals.stream().filter(notMarkedAsType(Sleeping.class)).filter(notMarkedAsType(UnGrower.class)).forEach(animal -> {
+		animals.stream().filter(notMarkedAsType(Sleeping.class)).filter(isMarkedAsType(Grower.class)).forEach(animal -> {
 
 			int newSize = (new Random().nextInt(1000) > 980) ? animal.getSize()+1:animal.getSize();	
 			//ensure that we don't set animal size past max size

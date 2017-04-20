@@ -31,7 +31,7 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Worm;
-import jmbjr.simland.entities.animals.ability.UnGrower;
+import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Unaging;
@@ -138,6 +138,10 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 			animal.markAsType(Tunneller.class);
 			animal.setVisibility(false);
 		}
+		//I feel like these should be listeners or something
+		//but for now, just use checkAndSetType in each ability class
+		Grower.checkAndSetType(animal);
+		
 		animal.markAsType(maturity);
 		animal.setName(name);
     }
