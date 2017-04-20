@@ -7,9 +7,12 @@ import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.properties.FarmAnimalProperties;
+
+import static jalse.entities.Entities.isMarkedAsType;
 
 import java.util.Random;
 
@@ -23,7 +26,7 @@ public class AgeAnimals implements Action<Entity> {
 	public void perform(ActionContext<Entity> context) throws InterruptedException {
 		final Field field = context.getActor().asType(Field.class);
 		final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
-		animals.stream().forEach(animal -> {
+		animals.stream().filter(isMarkedAsType(Ager.class)).forEach(animal -> {
 
 			int newAge = (new Random().nextInt(1000) > 200) ? animal.getAge()+1:animal.getAge();	
 			animal.setAge(newAge);

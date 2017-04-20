@@ -33,8 +33,8 @@ import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.ability.Tunneller;
+import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.age.Adult;
-import jmbjr.simland.entities.animals.age.Unaging;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
 import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
@@ -138,6 +138,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		}
 		//I feel like these should be listeners or something
 		//but for now, just use checkAndSetType in each ability class
+		Ager.checkAndSetType(animal);
 		Tunneller.checkAndSetType(animal);
 		Grower.checkAndSetType(animal);
 		
@@ -236,7 +237,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	    else if (i == 3)
 	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
 	    else //fill with worms
-	    	addAnimalAtPosition(Worm.class, Unaging.class, randomPosition(),"WORM");
+	    	addAnimalAtPosition(Worm.class, Child.class, randomPosition(),"WORM");
 	}
 	for (int j = 0; j < plantPopulation; j++) {
 		addGrassAtRandomPosition();
