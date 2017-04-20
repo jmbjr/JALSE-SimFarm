@@ -9,7 +9,7 @@ import jalse.entities.annotations.GetAttribute;
 import jalse.entities.annotations.SetAttribute;
 import jalse.entities.annotations.StreamEntities;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.Grounder;
+import jmbjr.simland.entities.drawlayer.GroundLayer;
 import jmbjr.simland.entities.plants.Plant;
 
 /**
@@ -33,5 +33,5 @@ public interface Field extends Entity {
     Stream<Plant> streamPlants();   
     
     @StreamEntities
-    Stream<Grounder> streamGrounders();   
+    Stream<GroundLayer> streamGrounders();   
 }

@@ -3,12 +3,12 @@ package jmbjr.simland.entities.listeners;
 import jalse.entities.Entity;
 import jalse.entities.EntityTypeEvent;
 import jalse.entities.EntityTypeListener;
-import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
-import jmbjr.simland.entities.animals.SoilWalker;
 import jmbjr.simland.entities.animals.Worm;
+import jmbjr.simland.entities.animals.ability.Tunneller;
+import jmbjr.simland.entities.animals.age.Adult;
+import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**

@@ -28,15 +28,15 @@ import jmbjr.simland.actions.animals.SleepAnimals;
 import jmbjr.simland.actions.animals.TunnelAnimals;
 import jmbjr.simland.actions.plants.GrowPlants;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.AntiAger;
-import jmbjr.simland.entities.animals.AntiGrower;
-import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
-import jmbjr.simland.entities.animals.Grounder;
-import jmbjr.simland.entities.animals.SoilWalker;
 import jmbjr.simland.entities.animals.Worm;
+import jmbjr.simland.entities.animals.ability.UnGrower;
+import jmbjr.simland.entities.animals.ability.Tunneller;
+import jmbjr.simland.entities.animals.age.Adult;
+import jmbjr.simland.entities.animals.age.Unaging;
+import jmbjr.simland.entities.drawlayer.GroundLayer;
+import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
 import jmbjr.simland.entities.plants.Grass;
@@ -133,9 +133,9 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.addEntityTypeListener(new AnimalTransformationListener());
 		animal.markAsType(species);
 		if (species.equals(Worm.class)) {
-			animal.markAsType(Grounder.class); //need to generalize this
-			animal.markAsType(AntiGrower.class);
-			animal.markAsType(SoilWalker.class);
+			animal.markAsType(GroundLayer.class); //need to generalize this
+			animal.markAsType(UnGrower.class);
+			animal.markAsType(Tunneller.class);
 			animal.setVisibility(false);
 		}
 		animal.markAsType(maturity);
@@ -201,7 +201,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	getField().streamGrounders().forEach(a ->  drawElement(g, a));
 
 	// Draw Animals. ignore Grounders
-	getField().streamAnimals().filter(notMarkedAsType(Grounder.class)).forEach(a ->  drawElement(g, a));
+	getField().streamAnimals().filter(notMarkedAsType(GroundLayer.class)).forEach(a ->  drawElement(g, a));
 
 	// Sync (Linux fix)
 	Toolkit.getDefaultToolkit().sync();
@@ -233,7 +233,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	    else if (i == 3)
 	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
 	    else //fill with worms
-	    	addAnimalAtPosition(Worm.class, AntiAger.class, randomPosition(),"WORM");
+	    	addAnimalAtPosition(Worm.class, Unaging.class, randomPosition(),"WORM");
 	}
 	for (int j = 0; j < plantPopulation; j++) {
 		addGrassAtRandomPosition();

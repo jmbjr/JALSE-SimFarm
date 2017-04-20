@@ -15,12 +15,12 @@ import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.Child;
-import jmbjr.simland.entities.animals.Peeker;
-import jmbjr.simland.entities.animals.Sleeper;
-import jmbjr.simland.entities.animals.SoilWalker;
+import jmbjr.simland.entities.animals.ability.Tunneller;
+import jmbjr.simland.entities.animals.age.Adult;
+import jmbjr.simland.entities.animals.age.Child;
+import jmbjr.simland.entities.animals.state.Peeking;
+import jmbjr.simland.entities.animals.state.Sleeping;
 import jmbjr.simland.panels.FarmPanel;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
@@ -97,8 +97,8 @@ public class MoveAnimals implements Action<Entity> {
 	final Field field = context.getActor().asType(Field.class);
 	final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
 	animals.stream()
-		.filter(notMarkedAsType(Sleeper.class))
-		.filter(notMarkedAsType(Peeker.class))
+		.filter(notMarkedAsType(Sleeping.class))
+		.filter(notMarkedAsType(Peeking.class))
 		.forEach(animal -> {
 	    // Get correct move angle
 	    double moveAngle;

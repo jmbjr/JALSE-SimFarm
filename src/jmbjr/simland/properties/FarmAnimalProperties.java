@@ -11,12 +11,12 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.imageio.ImageIO;
 
 import jalse.entities.Entity;
-import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.AntiAger;
-import jmbjr.simland.entities.animals.Child;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Worm;
+import jmbjr.simland.entities.animals.age.Adult;
+import jmbjr.simland.entities.animals.age.Unaging;
+import jmbjr.simland.entities.animals.age.Child;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -78,7 +78,7 @@ public class FarmAnimalProperties {
 	props.put(Worm.class, new AnimalProperties( 75, 4.0,100, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
 	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, null));
 	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, null));
-	props.put(AntiAger.class, new AnimalProperties( 75, 3.0, 100, SIZE_ADULT, MIN_AGE_ADULT, null));
+	props.put(Unaging.class, new AnimalProperties( 75, 3.0, 100, SIZE_ADULT, MIN_AGE_ADULT, null));
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {

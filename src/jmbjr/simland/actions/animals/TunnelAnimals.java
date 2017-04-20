@@ -6,11 +6,12 @@ import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.Adult;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.Child;
-import jmbjr.simland.entities.animals.Peeker;
-import jmbjr.simland.entities.animals.SoilWalker;
+import jmbjr.simland.entities.animals.ability.Tunneller;
+import jmbjr.simland.entities.animals.age.Adult;
+import jmbjr.simland.entities.animals.age.Child;
+import jmbjr.simland.entities.animals.state.Peeking;
+import jmbjr.simland.entities.animals.state.Tunnelling;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
 import java.util.Random;
@@ -24,15 +25,17 @@ public class TunnelAnimals implements Action<Entity> {
 	@Override
 	public void perform(ActionContext<Entity> context) throws InterruptedException {
 		final Field field = context.getActor().asType(Field.class);
-		final Set<SoilWalker> tunnellers = field.getEntitiesOfType(SoilWalker.class);
+		final Set<Tunneller> tunnellers = field.getEntitiesOfType(Tunneller.class);
 		tunnellers.stream().forEach(tunneller -> {
 
 			if (tunneller.getVisibility() && new Random().nextInt(1000) > 950) {
 				tunneller.setVisibility(false); //resume tunnelling
-				tunneller.unmarkAsType(Peeker.class);
+				tunneller.unmarkAsType(Peeking.class);
+				tunneller.markAsType(Tunnelling.class);
 			} else if (!tunneller.getVisibility() && new Random().nextInt(1000) > 990) {
 				tunneller.setVisibility(true); //pop up head for a while
-				tunneller.markAsType(Peeker.class);
+				tunneller.markAsType(Peeking.class);
+				tunneller.unmarkAsType(Tunnelling.class);
 			}
 			
 		});

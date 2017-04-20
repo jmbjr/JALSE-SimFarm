@@ -9,8 +9,8 @@ import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.Sleeper;
-import jmbjr.simland.entities.animals.Waker;
+import jmbjr.simland.entities.animals.state.Sleeping;
+import jmbjr.simland.entities.animals.state.NotSleeping;
 
 import java.util.Random;
 
@@ -26,15 +26,15 @@ public class SleepAnimals implements Action<Entity> {
 	public void perform(ActionContext<Entity> context) throws InterruptedException {
 		final Field field = context.getActor().asType(Field.class);
 		final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
-		animals.stream().filter(notMarkedAsType(Sleeper.class)).forEach(animal -> {
+		animals.stream().filter(notMarkedAsType(Sleeping.class)).forEach(animal -> {
 
 			int newStamina = (new Random().nextInt(1000) > 500) ? animal.getStamina()-1:animal.getStamina();	
 			animal.setStamina(Math.max(newStamina,0));
 		    checkIfSleeping(animal);
 		});
 
-		animals.stream().filter(notMarkedAsType(Waker.class)).forEach(animal -> {
-		if (animal.isMarkedAsType(Sleeper.class)) {
+		animals.stream().filter(notMarkedAsType(NotSleeping.class)).forEach(animal -> {
+		if (animal.isMarkedAsType(Sleeping.class)) {
 			int newEnergy= (new Random().nextInt(1000) > 500) ? animal.getStamina()+1:animal.getStamina();	
 			animal.setStamina(Math.min(newEnergy,100));
 			
@@ -56,10 +56,10 @@ public class SleepAnimals implements Action<Entity> {
 	 */
 	public static void checkIfSleeping(Animal animal) {
 		
-		if (!animal.isMarkedAsType(Sleeper.class) && animal.getStamina() <= 0) {
+		if (!animal.isMarkedAsType(Sleeping.class) && animal.getStamina() <= 0) {
 			//rester/dead
-			animal.markAsType(Sleeper.class);
-			animal.unmarkAsType(Waker.class);
+			animal.markAsType(Sleeping.class);
+			animal.unmarkAsType(NotSleeping.class);
 			animal.setStamina(-50);
 		} 
 	}
@@ -69,10 +69,10 @@ public class SleepAnimals implements Action<Entity> {
 	 * for now, stamina is immediately set to 100 (full recharge). should be variablized
 	 */
 	public static void checkIfWaking(Animal animal) {				
-				if (animal.isMarkedAsType(Sleeper.class) && animal.getStamina() > 0) {
+				if (animal.isMarkedAsType(Sleeping.class) && animal.getStamina() > 0) {
 					//rester/dead
-					animal.unmarkAsType(Sleeper.class);
-					animal.markAsType(Waker.class);
+					animal.unmarkAsType(Sleeping.class);
+					animal.markAsType(NotSleeping.class);
 					animal.setStamina(100);
 				} 
 			}
