@@ -1,6 +1,7 @@
 package jmbjr.simland.panels;
 
 import static jalse.entities.Entities.notMarkedAsType;
+import static jalse.entities.Entities.isMarkedAsType;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,7 +36,9 @@ import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.age.Adult;
+import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
+import jmbjr.simland.entities.drawlayer.PlantLayer;
 import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
@@ -132,18 +135,21 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.setAngle(randomAngle());
 		animal.addEntityTypeListener(new AnimalTransformationListener());
 		animal.markAsType(species);
+		animal.markAsType(maturity);
+		animal.setName(name);
+		
 		if (species.equals(Worm.class)) {
 			animal.markAsType(GroundLayer.class); //need to generalize this
 			animal.setVisibility(false);
 		}
 		//I feel like these should be listeners or something
 		//but for now, just use checkAndSetType in each ability class
+		GroundLayer.checkAndSetType(animal);
+		AnimalLayer.checkAndSetType(animal);
 		Ager.checkAndSetType(animal);
 		Tunneller.checkAndSetType(animal);
 		Grower.checkAndSetType(animal);
-		
-		animal.markAsType(maturity);
-		animal.setName(name);
+
     }
 
     private void addPlantAtPosition(Class<? extends Plant> type, Point position, String name) {
@@ -154,6 +160,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		plant.setAge(0);
 		plant.setSize(FarmPlantProperties.getSizeGrass());
 		plant.setName(name);
+		PlantLayer.checkAndSetType(plant);
     }
 
     private void createEntities() {
@@ -199,13 +206,13 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	super.paintComponent(g);
 
 	//Draw Plants
-	getField().streamPlants().forEach(a ->  drawElement(g, a));
+	getField().streamPlants().filter(isMarkedAsType(PlantLayer.class)).forEach(a ->  drawElement(g, a));
 
 	// Draw Ground Animals
-	getField().streamGrounders().forEach(a ->  drawElement(g, a));
+	getField().streamGrounders().filter(isMarkedAsType(GroundLayer.class)).forEach(a ->  drawElement(g, a));
 
 	// Draw Animals. ignore Grounders
-	getField().streamAnimals().filter(notMarkedAsType(GroundLayer.class)).forEach(a ->  drawElement(g, a));
+	getField().streamAnimals().filter(isMarkedAsType(AnimalLayer.class)).forEach(a ->  drawElement(g, a));
 
 	// Sync (Linux fix)
 	Toolkit.getDefaultToolkit().sync();
