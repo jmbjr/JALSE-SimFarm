@@ -1,6 +1,7 @@
 package jmbjr.simland.entities.drawlayer;
 
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 
 /**
@@ -13,7 +14,9 @@ public interface AnimalLayer extends Animal {
 	 * checks if animal should be a AnimalLayer
 	 */
 	public static void checkAndSetType(Animal animal) {
-		if (animal.isMarkedAsType(Cow.class)) {
+		if (animal.isMarkedAsType(Cow.class) ||
+			animal.isMarkedAsType(Chicken.class)) {
+			
 			animal.markAsType(AnimalLayer.class);
 		}
 	}

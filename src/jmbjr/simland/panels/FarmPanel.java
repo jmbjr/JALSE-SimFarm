@@ -30,6 +30,7 @@ import jmbjr.simland.actions.animals.TunnelAnimals;
 import jmbjr.simland.actions.plants.GrowPlants;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.animals.ability.Grower;
@@ -127,7 +128,13 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
    
     
     private void addAnimalAtSpecificPosition(Point pos) {
-    	addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
+	    Random rand = new Random();	
+	    int randInt = rand.nextInt(1000);
+	    if (randInt > 500) 
+	    	addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
+	    else
+	    	addAnimalAtPosition(Chicken.class, Child.class, pos, "Chicken");	    	
+	    		
     }
         
     private void addAnimalAtPosition(Class<? extends Animal> species, Class<? extends Animal> maturity, Point position, String name) {
@@ -241,6 +248,12 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	    	addAnimalAtPosition(Cow.class, Adult.class, randomPosition(),"COW" + i);
 	    else if (i == 3)
 	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
+	    else if (i >3 && i <= 5) {
+	    	addAnimalAtPosition(Chicken.class, Adult.class, randomPosition(), "CHICKEN");
+	    }
+	    else if (i >6 && i <= 7) {
+	    	addAnimalAtPosition(Chicken.class, Child.class, randomPosition(), "chick");
+	    }	    
 	    else //fill with worms
 	    	addAnimalAtPosition(Worm.class, Child.class, randomPosition(),"WORM");
 	}

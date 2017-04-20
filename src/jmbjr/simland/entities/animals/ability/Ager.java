@@ -1,6 +1,7 @@
 package jmbjr.simland.entities.animals.ability;
 
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 
 /**
@@ -14,7 +15,9 @@ public interface Ager extends Animal {
 	 * checks if animal should be a Ager
 	 */
 	public static void checkAndSetType(Animal animal) {
-		if (animal.isMarkedAsType(Cow.class)) {
+		if (animal.isMarkedAsType(Cow.class) ||
+			animal.isMarkedAsType(Chicken.class)) {
+			
 			animal.markAsType(Ager.class);
 		}
 	}

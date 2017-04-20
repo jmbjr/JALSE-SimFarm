@@ -1,6 +1,7 @@
 package jmbjr.simland.entities.animals.ability;
 
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 
 /**
@@ -15,7 +16,9 @@ public interface Grower extends Animal {
 	 * need a better way to do this, but this should work for now
 	 */
 	public static void checkAndSetType(Animal animal) {
-		if (animal.isMarkedAsType(Cow.class)) {
+		if (animal.isMarkedAsType(Cow.class)||
+			animal.isMarkedAsType(Chicken.class)) {
+			
 			animal.markAsType(Grower.class);
 		}
 	}

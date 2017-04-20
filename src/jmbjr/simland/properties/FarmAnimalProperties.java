@@ -12,9 +12,9 @@ import javax.imageio.ImageIO;
 
 import jalse.entities.Entity;
 import jmbjr.simland.entities.animals.Animal;
+import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Worm;
-import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
 
@@ -50,7 +50,7 @@ public class FarmAnimalProperties {
     private static final int SIZE_ADULT = 50;
     private static final int SIZE_CHILD = 15;
     private static final int SIZE_WORM = 10;
-
+    private static final int SIZE_CHICKEN = 25;
     
     
     //AGES
@@ -67,15 +67,18 @@ public class FarmAnimalProperties {
     static {
     BufferedImage imgCow = null;
     BufferedImage imgWorm = null;
+    BufferedImage imgChicken = null;
 	try {
 		imgCow = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
 		imgWorm = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\worm.png"));
+		imgChicken = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\chicken.png"));
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	props.put(Cow.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
 	props.put(Worm.class, new AnimalProperties( 75, 4.0,100, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
+	props.put(Chicken.class, new AnimalProperties( 75, 4.0,100, SIZE_CHICKEN, MIN_AGE_ADULT, imgChicken));
 	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, null));
 	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, null));
     }
