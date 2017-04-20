@@ -134,12 +134,11 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.markAsType(species);
 		if (species.equals(Worm.class)) {
 			animal.markAsType(GroundLayer.class); //need to generalize this
-			animal.markAsType(UnGrower.class);
-			animal.markAsType(Tunneller.class);
 			animal.setVisibility(false);
 		}
 		//I feel like these should be listeners or something
 		//but for now, just use checkAndSetType in each ability class
+		Tunneller.checkAndSetType(animal);
 		Grower.checkAndSetType(animal);
 		
 		animal.markAsType(maturity);
