@@ -145,27 +145,19 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.markAsType(species);
 		animal.markAsType(maturity);
 		animal.setName(name);
-
-		//I feel like these should be listeners or something
-		//but for now, just use checkAndSetType in each ability class
-		GroundLayer.checkAndSetType(animal);
-		AnimalLayer.checkAndSetType(animal);
-		Ager.checkAndSetType(animal);
-		Disappearer.checkAndSetType(animal);
-		Tunneller.checkAndSetType(animal);
-		Grower.checkAndSetType(animal);
-
+		Animal.markDefaultTypes(animal, species);
+		
     }
 
-    private void addPlantAtPosition(Class<? extends Plant> type, Point position, String name) {
+    private void addPlantAtPosition(Class<? extends Plant> species, Point position, String name) {
 		final Plant plant = getField().newEntity(Plant.class);
 		plant.setPosition(position);
 		plant.addEntityTypeListener(new PlantTransformationListener());
-		plant.markAsType(type);
+		plant.markAsType(species);
 		plant.setAge(0);
 		plant.setSize(FarmPlantProperties.getSizeGrass());
 		plant.setName(name);
-		PlantLayer.checkAndSetType(plant);
+		Plant.markDefaultTypes(plant, species);
     }
 
     private void createEntities() {
