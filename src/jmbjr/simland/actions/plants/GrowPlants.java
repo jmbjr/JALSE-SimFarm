@@ -8,7 +8,7 @@ import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.state.Sleeping;
+import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.plants.Plant;
 import jmbjr.simland.properties.FarmPlantProperties;
 
@@ -24,7 +24,7 @@ public class GrowPlants implements Action<Entity> {
 	public void perform(ActionContext<Entity> context) throws InterruptedException {
 		final Field field = context.getActor().asType(Field.class);
 		final Set<Plant> plants = field.getEntitiesOfType(Plant.class);
-		plants.stream().filter(notMarkedAsType(Sleeping.class)).forEach(plant -> {
+		plants.stream().filter(notMarkedAsType(Asleep.class)).forEach(plant -> {
 
 			int newAge = (new Random().nextInt(1000) > 970) ? plant.getAge()+1:plant.getAge();	
 			//ensure that we don't set animal size past max size

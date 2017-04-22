@@ -27,6 +27,7 @@ import jmbjr.simland.actions.animals.GrowAnimals;
 import jmbjr.simland.actions.animals.MoveAnimals;
 import jmbjr.simland.actions.animals.SleepAnimals;
 import jmbjr.simland.actions.animals.TunnelAnimals;
+import jmbjr.simland.actions.animals.WakeAnimals;
 import jmbjr.simland.actions.plants.GrowPlants;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
@@ -42,6 +43,7 @@ import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
 import jmbjr.simland.entities.drawlayer.PlantLayer;
 import jmbjr.simland.entities.animals.age.Child;
+import jmbjr.simland.entities.animals.state.Awake;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
 import jmbjr.simland.entities.plants.Grass;
@@ -145,6 +147,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.markAsType(species);
 		animal.markAsType(maturity);
 		animal.setName(name);
+		animal.markAsType(Awake.class);
 		Animal.markDefaultTypes(animal, species);
 		
     }
@@ -167,6 +170,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	field.scheduleForActor(new MoveAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new GrowAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new SleepAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
+	field.scheduleForActor(new WakeAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new AgeAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new GrowPlants(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new TunnelAnimals(), 0, TICK_INTERVAL*3, TimeUnit.MILLISECONDS);

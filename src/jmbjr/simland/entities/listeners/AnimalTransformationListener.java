@@ -32,7 +32,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		if (type.equals(Worm.class)) {
 			animal.setSightRange(FarmAnimalProperties.getSightRange(type));
 			animal.setSpeed(FarmAnimalProperties.getSpeed(type));
-			animal.setStamina(FarmAnimalProperties.getStamina(type));
+			animal.setDrowsiness(FarmAnimalProperties.getStamina(type));
 			animal.setSize(FarmAnimalProperties.getSize(type));
 			animal.setAge(FarmAnimalProperties.getAge(type));
 		}
@@ -42,7 +42,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	if (type.equals(Adult.class) || type.equals(Child.class)) {
 		animal.setSightRange(FarmAnimalProperties.getSightRange(type));
 		animal.setSpeed(FarmAnimalProperties.getSpeed(type));
-		animal.setStamina(FarmAnimalProperties.getStamina(type));
+		animal.setDrowsiness(FarmAnimalProperties.getStamina(type));
 		animal.setSize(FarmAnimalProperties.getSize(type));
 		animal.setAge(FarmAnimalProperties.getAge(type));
 	}

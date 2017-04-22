@@ -13,7 +13,6 @@ import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.ability.Sleeper;
 import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.animals.state.Awake;
-import jmbjr.simland.properties.FarmAnimalProperties;
 
 import java.util.Random;
 
@@ -23,33 +22,31 @@ import java.util.Random;
  * 
  * future plan to separate into sleep and wake
  */
-public class SleepAnimals implements Action<Entity> {
+public class WakeAnimals implements Action<Entity> {
 
 	@Override
 	public void perform(ActionContext<Entity> context) throws InterruptedException {
 		final Field field = context.getActor().asType(Field.class);
 		final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
 		animals.stream().filter(isMarkedAsType(Sleeper.class))
-						.filter(isMarkedAsType(Awake.class)).forEach(animal -> {
+						.filter(isMarkedAsType(Asleep.class)).forEach(animal -> {
 
-			int newDrowsiness = (new Random().nextInt(1000) > 500) ? animal.getDrowsiness()+animal.getDrowsinessDelta():animal.getDrowsiness();	
-			animal.setDrowsiness(Math.min(newDrowsiness,FarmAnimalProperties.getMaxDrowsiness()));
-		    checkIfSleeping(animal);
-		    System.out.println("SleepAnimal: " + animal.getDrowsiness());
+			int newDrowsiness = (new Random().nextInt(1000) > 500) ? animal.getDrowsiness()+animal.getAlertnessDelta():animal.getDrowsiness();	
+			animal.setDrowsiness(Math.max(newDrowsiness,0));
+		    checkIfWaking(animal);
+		    System.out.println("WakeAnimal: " + animal.getDrowsiness());
 		});
-   
+	    
 	}
+
 	/**
 	 * @param animal
-	 * check if animal drowsiness is greater than the limit for this animal. if so, mark as asleep
+	 * check to see if animal wakes up. Drowsiness must be less than alertnessLimit
 	 */
-	public static void checkIfSleeping(Animal animal) {
-		
-		if (!animal.isMarkedAsType(Asleep.class) && animal.getDrowsiness() >= animal.getDrowsinessLimit()) {
-			//rester/dead
-			animal.markAsType(Asleep.class);
-			animal.unmarkAsType(Awake.class);
-		} 
-	}
+	public static void checkIfWaking(Animal animal) {				
+				if (animal.isMarkedAsType(Asleep.class) && animal.getDrowsiness() <= animal.getAlertnessLimit()) {
+					animal.unmarkAsType(Asleep.class);
+					animal.markAsType(Awake.class);
+				} 
+			}
 }
-

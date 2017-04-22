@@ -9,9 +9,11 @@ import jalse.entities.annotations.SetAttribute;
 import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.ability.Disappearer;
 import jmbjr.simland.entities.animals.ability.Grower;
+import jmbjr.simland.entities.animals.ability.Sleeper;
 import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
+import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -39,11 +41,25 @@ public abstract interface Animal extends Entity {
 		if (species.equals(Cow.class)) {
 			animal.markAsType(Ager.class);
 			animal.markAsType(Grower.class);
+			animal.markAsType(Sleeper.class);
 			animal.markAsType(AnimalLayer.class);
+			
+			animal.setDrowsinessDelta(1);
+			animal.setDrowsinessLimit(400);
+			animal.setAlertnessDelta(-1);
+			animal.setAlertnessLimit(50);
+			
 		} else if (species.equals(Chicken.class)) {
 			animal.markAsType(Ager.class);
 			animal.markAsType(Grower.class);	
+			animal.markAsType(Sleeper.class);
 			animal.markAsType(AnimalLayer.class);
+			
+			animal.setDrowsinessDelta(1);
+			animal.setDrowsinessLimit(450);
+			animal.setAlertnessDelta(-1);
+			animal.setAlertnessLimit(25);
+			
 		} else if (species.equals(Worm.class)) {
 			animal.markAsType(Disappearer.class);
 			animal.markAsType(Tunneller.class);
@@ -56,7 +72,7 @@ public abstract interface Animal extends Entity {
 	int getAge();
 	
 	@GetAttribute
-	int getStamina();
+	int getDrowsiness();
 	
 	@GetAttribute
 	int getSize();
@@ -83,7 +99,7 @@ public abstract interface Animal extends Entity {
     void setAge(int age);
     
     @SetAttribute
-    void setStamina(int stamina);
+    void setDrowsiness(int drowsiness);
     
     @SetAttribute
     void setSize(int size);
@@ -112,4 +128,27 @@ public abstract interface Animal extends Entity {
     @SetAttribute
 	void setVisibility(boolean b);
 
+    @GetAttribute
+	int getDrowsinessDelta();
+    
+    @SetAttribute
+    void setDrowsinessDelta(int drowsinessDelta);
+
+    @GetAttribute
+	int getDrowsinessLimit();
+    
+    @SetAttribute
+    void setDrowsinessLimit(int drowsinessLimit);   
+
+    @GetAttribute
+	int getAlertnessDelta();
+    
+    @SetAttribute
+    void setAlertnessDelta(int alertnessDelta);
+
+    @GetAttribute
+	int getAlertnessLimit();
+    
+    @SetAttribute
+    void setAlertnessLimit(int alertnessLimit);   
 }

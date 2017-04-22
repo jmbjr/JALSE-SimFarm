@@ -20,7 +20,7 @@ import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.entities.animals.state.Peeking;
-import jmbjr.simland.entities.animals.state.Sleeping;
+import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.panels.FarmPanel;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
@@ -97,7 +97,7 @@ public class MoveAnimals implements Action<Entity> {
 	final Field field = context.getActor().asType(Field.class);
 	final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
 	animals.stream()
-		.filter(notMarkedAsType(Sleeping.class))
+		.filter(notMarkedAsType(Asleep.class))
 		.filter(notMarkedAsType(Peeking.class))
 		.forEach(animal -> {
 	    // Get correct move angle

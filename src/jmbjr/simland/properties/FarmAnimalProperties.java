@@ -29,7 +29,7 @@ public class FarmAnimalProperties {
 
 	private final AtomicInteger sightRange;
 	private final AtomicLong speed;
-	private final AtomicInteger stamina;
+	private final AtomicInteger drowsiness;
 	private final AtomicInteger size;
 	private final AtomicInteger age;
 	private final BufferedImage image;
@@ -38,13 +38,16 @@ public class FarmAnimalProperties {
 	AnimalProperties(final int sightRange, final double speed, final int stamina, final int size, final int age, final BufferedImage image) {
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
-	    this.stamina = new AtomicInteger(stamina);
+	    this.drowsiness = new AtomicInteger(stamina);
 	    this.size = new AtomicInteger(size);
 	    this.age = new AtomicInteger(age);
 	    this.image = image;
 	}
 
     }
+    
+    //DROWSINESS
+    private static final int DROWSINESS_MAX = 500;
 
     //SIZES
     private static final int SIZE_ADULT = 50;
@@ -76,11 +79,11 @@ public class FarmAnimalProperties {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	props.put(Cow.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
-	props.put(Worm.class, new AnimalProperties( 75, 4.0,100, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
-	props.put(Chicken.class, new AnimalProperties( 75, 4.0,100, SIZE_CHICKEN, MIN_AGE_ADULT, imgChicken));
-	props.put(Adult.class, new AnimalProperties( 75, 3.0,100, SIZE_ADULT, MIN_AGE_ADULT, null));
-	props.put(Child.class, new AnimalProperties( 1000, 10.0, 100, SIZE_CHILD, AGE_CHILD, null));
+	props.put(Cow.class, new AnimalProperties( 75, 3.0,0, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
+	props.put(Worm.class, new AnimalProperties( 75, 4.0,0, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
+	props.put(Chicken.class, new AnimalProperties( 75, 4.0,0, SIZE_CHICKEN, MIN_AGE_ADULT, imgChicken));
+	props.put(Adult.class, new AnimalProperties( 75, 3.0,0, SIZE_ADULT, MIN_AGE_ADULT, null));
+	props.put(Child.class, new AnimalProperties( 1000, 10.0, 0, SIZE_CHILD, AGE_CHILD, null));
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {
@@ -88,7 +91,7 @@ public class FarmAnimalProperties {
     }
     
 	public static int getStamina(Class<? extends Entity> type) {
-		return  props.get(type).stamina.get();
+		return  props.get(type).drowsiness.get();
 	}
 
 	public static int getSize(Class<? extends Entity> type) {
@@ -137,5 +140,8 @@ public class FarmAnimalProperties {
 	props.get(type).speed.set(Double.doubleToLongBits(speed));
     }
 
-
+    public static int getMaxDrowsiness() {
+    	return DROWSINESS_MAX;
+    }
+    
 }
