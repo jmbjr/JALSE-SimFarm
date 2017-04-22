@@ -50,6 +50,17 @@ public abstract interface Animal extends Entity {
 			animal.setAlertnessDelta(-1);
 			animal.setAlertnessLimit(50);
 			
+		} else if (species.equals(Pig.class)) {
+			animal.markAsType(Ager.class);
+			animal.markAsType(Grower.class);	
+			animal.markAsType(Sleeper.class);
+			animal.markAsType(AnimalLayer.class);
+			
+			animal.setDrowsinessDelta(2);
+			animal.setDrowsinessLimit(450);
+			animal.setAlertnessDelta(-2);
+			animal.setAlertnessLimit(25);
+						
 		} else if (species.equals(Chicken.class)) {
 			animal.markAsType(Ager.class);
 			animal.markAsType(Grower.class);	

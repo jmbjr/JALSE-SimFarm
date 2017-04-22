@@ -6,6 +6,7 @@ import jalse.entities.EntityTypeListener;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.age.Adult;
@@ -24,7 +25,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	final Animal animal = event.getEntity().asType(Animal.class);
 	final Class<? extends Entity> type = event.getTypeChange();
 	
-	if (type.equals(Cow.class) || type.equals(Worm.class) || type.equals(Chicken.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
+	if (type.equals(Cow.class) || type.equals(Worm.class) || type.equals(Chicken.class)||type.equals(Pig.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
 		animal.setImage(FarmAnimalProperties.getImage(type));
 		animal.setVisibility(true); // really really need to pull this into Properties somehow.
 		//this is dumb but if we let Child or Adult set stats, we don't get worm-specific stats

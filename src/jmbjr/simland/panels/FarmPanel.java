@@ -33,6 +33,7 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.ability.Tunneller;
@@ -132,11 +133,12 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private void addAnimalAtSpecificPosition(Point pos) {
 	    Random rand = new Random();	
 	    int randInt = rand.nextInt(1000);
-	    if (randInt > 500) 
+	    if (randInt > 333) 
 	    	addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
-	    else
+	    else if (randInt > 667)
 	    	addAnimalAtPosition(Chicken.class, Child.class, pos, "Chicken");	    	
-	    		
+	    else
+	    	addAnimalAtPosition(Pig.class, Child.class, pos, "Chicken");
     }
         
     private void addAnimalAtPosition(Class<? extends Animal> species, Class<? extends Animal> maturity, Point position, String name) {
@@ -244,12 +246,18 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	    	addAnimalAtPosition(Cow.class, Adult.class, randomPosition(),"COW" + i);
 	    else if (i == 3)
 	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
-	    else if (i >3 && i <= 5) {
+	    else if (i >3 && i <= 4) {
 	    	addAnimalAtPosition(Chicken.class, Adult.class, randomPosition(), "CHICKEN");
 	    }
-	    else if (i >6 && i <= 7) {
+	    else if (i >5 && i <= 6) {
 	    	addAnimalAtPosition(Chicken.class, Child.class, randomPosition(), "chick");
-	    }	    
+	    }	 
+	    else if (i >7 && i <= 8) {
+	    	addAnimalAtPosition(Pig.class, Adult.class, randomPosition(), "PIG");
+	    }	
+	    else if (i >9 && i <= 10) {
+	    	addAnimalAtPosition(Pig.class, Child.class, randomPosition(), "pig");
+	    }	
 	    else //fill with worms
 	    	addAnimalAtPosition(Worm.class, Child.class, randomPosition(),"WORM");
 	}
