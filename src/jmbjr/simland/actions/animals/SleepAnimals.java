@@ -35,7 +35,6 @@ public class SleepAnimals implements Action<Entity> {
 			int newDrowsiness = (new Random().nextInt(1000) > 500) ? animal.getDrowsiness()+animal.getDrowsinessDelta():animal.getDrowsiness();	
 			animal.setDrowsiness(Math.min(newDrowsiness,FarmAnimalProperties.getMaxDrowsiness()));
 		    checkIfSleeping(animal);
-		    System.out.println("SleepAnimal: " + animal.getDrowsiness());
 		});
    
 	}

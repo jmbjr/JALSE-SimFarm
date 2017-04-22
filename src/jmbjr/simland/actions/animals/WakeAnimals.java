@@ -34,7 +34,6 @@ public class WakeAnimals implements Action<Entity> {
 			int newDrowsiness = (new Random().nextInt(1000) > 500) ? animal.getDrowsiness()+animal.getAlertnessDelta():animal.getDrowsiness();	
 			animal.setDrowsiness(Math.max(newDrowsiness,0));
 		    checkIfWaking(animal);
-		    System.out.println("WakeAnimal: " + animal.getDrowsiness());
 		});
 	    
 	}

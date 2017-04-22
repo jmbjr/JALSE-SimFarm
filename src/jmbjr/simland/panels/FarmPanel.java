@@ -133,12 +133,12 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private void addAnimalAtSpecificPosition(Point pos) {
 	    Random rand = new Random();	
 	    int randInt = rand.nextInt(1000);
-	    if (randInt > 333) 
+	    if (randInt > 667) 
 	    	addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
-	    else if (randInt > 667)
+	    else if (randInt > 333)
 	    	addAnimalAtPosition(Chicken.class, Child.class, pos, "Chicken");	    	
 	    else
-	    	addAnimalAtPosition(Pig.class, Child.class, pos, "Chicken");
+	    	addAnimalAtPosition(Pig.class, Child.class, pos, "Pig");
     }
         
     private void addAnimalAtPosition(Class<? extends Animal> species, Class<? extends Animal> maturity, Point position, String name) {
