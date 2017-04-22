@@ -28,11 +28,11 @@ public class TunnelAnimals implements Action<Entity> {
 		final Set<Tunneller> tunnellers = field.getEntitiesOfType(Tunneller.class);
 		tunnellers.stream().forEach(tunneller -> {
 
-			if (tunneller.getVisibility() && new Random().nextInt(1000) > 950) {
+			if (tunneller.isMarkedAsType(Peeking.class) && new Random().nextInt(1000) > 950) {
 				tunneller.setVisibility(false); //resume tunnelling
 				tunneller.unmarkAsType(Peeking.class);
 				tunneller.markAsType(Tunnelling.class);
-			} else if (!tunneller.getVisibility() && new Random().nextInt(1000) > 990) {
+			} else if (tunneller.isMarkedAsType(Tunnelling.class) && new Random().nextInt(1000) > 990) {
 				tunneller.setVisibility(true); //pop up head for a while
 				tunneller.markAsType(Peeking.class);
 				tunneller.unmarkAsType(Tunnelling.class);

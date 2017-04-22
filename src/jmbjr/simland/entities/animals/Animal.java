@@ -11,6 +11,7 @@ import jmbjr.simland.entities.animals.ability.Disappearer;
 import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.ability.Sleeper;
 import jmbjr.simland.entities.animals.ability.Tunneller;
+import jmbjr.simland.entities.animals.state.Tunnelling;
 import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
 import jmbjr.simland.properties.FarmAnimalProperties;
@@ -64,6 +65,7 @@ public abstract interface Animal extends Entity {
 			animal.markAsType(Disappearer.class);
 			animal.markAsType(Tunneller.class);
 			animal.setVisibility(false);
+			animal.markAsType(Tunnelling.class);
 			animal.markAsType(GroundLayer.class);
 		}
 	}
