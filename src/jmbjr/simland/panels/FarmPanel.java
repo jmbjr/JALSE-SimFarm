@@ -149,7 +149,6 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.markAsType(species);
 		animal.markAsType(maturity);
 		animal.setName(name);
-		animal.markAsType(Awake.class);
 		FarmAnimalProperties.markDefaultTypes(animal, species);
 		
     }

@@ -23,6 +23,7 @@ import jmbjr.simland.entities.animals.ability.Sleeper;
 import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
+import jmbjr.simland.entities.animals.state.Awake;
 import jmbjr.simland.entities.animals.state.Tunnelling;
 import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
@@ -61,6 +62,7 @@ public class FarmAnimalProperties {
 			animal.markAsType(Grower.class);
 			animal.markAsType(Sleeper.class);
 			animal.markAsType(AnimalLayer.class);
+			animal.markAsType(Awake.class);
 			
 			animal.setDrowsinessDelta(1);
 			animal.setDrowsinessLimit(400);
@@ -72,6 +74,7 @@ public class FarmAnimalProperties {
 			animal.markAsType(Grower.class);	
 			animal.markAsType(Sleeper.class);
 			animal.markAsType(AnimalLayer.class);
+			animal.markAsType(Awake.class);
 			
 			animal.setDrowsinessDelta(2);
 			animal.setDrowsinessLimit(450);
@@ -103,6 +106,7 @@ public class FarmAnimalProperties {
 
     //SIZES
     private static final int SIZE_ADULT = 50;
+    private static final int SIZE_COW = 50;
     private static final int SIZE_CHILD = 15;
     private static final int SIZE_WORM = 10;
     private static final int SIZE_CHICKEN = 25;
@@ -111,10 +115,8 @@ public class FarmAnimalProperties {
     
     //AGES
     private static final int AGE_ADULT = 100;
-    
     private static final int AGE_CHILD = 0;
-    
-    private static final int MIN_AGE_ADULT = 50; //ensure that Children can't promote to an adult too young
+    private static final int AGE_ADULT_MIN = 50; 
 
     private static AtomicInteger population = new AtomicInteger(20);
 
@@ -135,11 +137,14 @@ public class FarmAnimalProperties {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	props.put(Cow.class, new AnimalProperties( 75, 3.0,0, SIZE_ADULT, MIN_AGE_ADULT, imgCow));
-	props.put(Worm.class, new AnimalProperties( 75, 4.0,0, SIZE_WORM, MIN_AGE_ADULT, imgWorm));
-	props.put(Chicken.class, new AnimalProperties( 75, 4.0,0, SIZE_CHICKEN, MIN_AGE_ADULT, imgChicken));
-	props.put(Pig.class, new AnimalProperties( 75, 4.0,0, SIZE_ADULT, MIN_AGE_ADULT, imgPig));
-	props.put(Adult.class, new AnimalProperties( 75, 3.0,0, SIZE_ADULT, MIN_AGE_ADULT, null));
+	//for animal species
+	props.put(Cow.class, new AnimalProperties( 75, 3.0,0, SIZE_COW, AGE_ADULT_MIN, imgCow));
+	props.put(Worm.class, new AnimalProperties( 75, 4.0,0, SIZE_WORM, AGE_ADULT_MIN, imgWorm));
+	props.put(Chicken.class, new AnimalProperties( 75, 4.0,0, SIZE_CHICKEN, AGE_ADULT_MIN, imgChicken));
+	props.put(Pig.class, new AnimalProperties( 75, 4.0,0, SIZE_PIG, AGE_ADULT_MIN, imgPig));
+	
+	//for adults and children. 
+	props.put(Adult.class, new AnimalProperties( 75, 3.0,0, SIZE_ADULT, AGE_ADULT_MIN, null));
 	props.put(Child.class, new AnimalProperties( 1000, 10.0, 0, SIZE_CHILD, AGE_CHILD, null));
     }
    
@@ -172,7 +177,7 @@ public class FarmAnimalProperties {
     }
 
     public static int getMinAgeAdult() {
-    	return MIN_AGE_ADULT;
+    	return AGE_ADULT_MIN;
     }
     
     public static int getAgeAdult() {
