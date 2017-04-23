@@ -38,49 +38,7 @@ public abstract interface Animal extends Entity {
 	 * at least this is one function, but it will probably get huge as we add more animals
 	 * 
 	 */
-	public static void markDefaultTypes(Animal animal, Class<? extends Animal> species) {
-		if (species.equals(Cow.class)) {
-			animal.markAsType(Ager.class);
-			animal.markAsType(Grower.class);
-			animal.markAsType(Sleeper.class);
-			animal.markAsType(AnimalLayer.class);
-			
-			animal.setDrowsinessDelta(1);
-			animal.setDrowsinessLimit(400);
-			animal.setAlertnessDelta(-1);
-			animal.setAlertnessLimit(50);
-			
-		} else if (species.equals(Pig.class)) {
-			animal.markAsType(Ager.class);
-			animal.markAsType(Grower.class);	
-			animal.markAsType(Sleeper.class);
-			animal.markAsType(AnimalLayer.class);
-			
-			animal.setDrowsinessDelta(2);
-			animal.setDrowsinessLimit(450);
-			animal.setAlertnessDelta(-2);
-			animal.setAlertnessLimit(25);
-						
-		} else if (species.equals(Chicken.class)) {
-			animal.markAsType(Ager.class);
-			animal.markAsType(Grower.class);	
-			animal.markAsType(Sleeper.class);
-			animal.markAsType(AnimalLayer.class);
-			
-			animal.setDrowsinessDelta(1);
-			animal.setDrowsinessLimit(450);
-			animal.setAlertnessDelta(-1);
-			animal.setAlertnessLimit(25);
-			
-		} else if (species.equals(Worm.class)) {
-			animal.markAsType(Disappearer.class);
-			animal.markAsType(Tunneller.class);
-			animal.setVisibility(false);
-			animal.markAsType(Tunnelling.class);
-			animal.markAsType(GroundLayer.class);
-		}
-	}
-	
+
 	@GetAttribute
 	int getAge();
 	

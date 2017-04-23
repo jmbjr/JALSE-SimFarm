@@ -16,8 +16,16 @@ import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
+import jmbjr.simland.entities.animals.ability.Ager;
+import jmbjr.simland.entities.animals.ability.Disappearer;
+import jmbjr.simland.entities.animals.ability.Grower;
+import jmbjr.simland.entities.animals.ability.Sleeper;
+import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
+import jmbjr.simland.entities.animals.state.Tunnelling;
+import jmbjr.simland.entities.drawlayer.AnimalLayer;
+import jmbjr.simland.entities.drawlayer.GroundLayer;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -47,6 +55,49 @@ public class FarmAnimalProperties {
 
     }
     
+	public static void markDefaultTypes(Animal animal, Class<? extends Animal> species) {
+		if (species.equals(Cow.class)) {
+			animal.markAsType(Ager.class);
+			animal.markAsType(Grower.class);
+			animal.markAsType(Sleeper.class);
+			animal.markAsType(AnimalLayer.class);
+			
+			animal.setDrowsinessDelta(1);
+			animal.setDrowsinessLimit(400);
+			animal.setAlertnessDelta(-1);
+			animal.setAlertnessLimit(50);
+			
+		} else if (species.equals(Pig.class)) {
+			animal.markAsType(Ager.class);
+			animal.markAsType(Grower.class);	
+			animal.markAsType(Sleeper.class);
+			animal.markAsType(AnimalLayer.class);
+			
+			animal.setDrowsinessDelta(2);
+			animal.setDrowsinessLimit(450);
+			animal.setAlertnessDelta(-2);
+			animal.setAlertnessLimit(25);
+						
+		} else if (species.equals(Chicken.class)) {
+			animal.markAsType(Ager.class);
+			animal.markAsType(Grower.class);	
+			animal.markAsType(Sleeper.class);
+			animal.markAsType(AnimalLayer.class);
+			
+			animal.setDrowsinessDelta(1);
+			animal.setDrowsinessLimit(450);
+			animal.setAlertnessDelta(-1);
+			animal.setAlertnessLimit(25);
+			
+		} else if (species.equals(Worm.class)) {
+			animal.markAsType(Disappearer.class);
+			animal.markAsType(Tunneller.class);
+			animal.setVisibility(false);
+			animal.markAsType(Tunnelling.class);
+			animal.markAsType(GroundLayer.class);
+		}
+	}
+	    
     //DROWSINESS
     private static final int DROWSINESS_MAX = 500;
 

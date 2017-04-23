@@ -24,12 +24,6 @@ import jmbjr.simland.entities.drawlayer.PlantLayer;
  */
 public interface Plant extends Entity {
 	
-	public static void markDefaultTypes(Plant plant, Class<? extends Plant> species) {
-		if (species.equals(Grass.class)) {
-			plant.markAsType(PlantLayer.class);
-		}
-	}
-	
     @GetAttribute
     Point getPosition();
 

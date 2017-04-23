@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.imageio.ImageIO;
 
 import jalse.entities.Entity;
+import jmbjr.simland.entities.drawlayer.PlantLayer;
 import jmbjr.simland.entities.plants.Grass;
 import jmbjr.simland.entities.plants.Plant;
 
@@ -38,7 +39,13 @@ public class FarmPlantProperties {
 	}
 
     }
-
+	
+	public static void markDefaultTypes(Plant plant, Class<? extends Plant> species) {
+		if (species.equals(Grass.class)) {
+			plant.markAsType(PlantLayer.class);
+		}
+	}
+	
     private static final int SIZE_GRASS = 30;
     
     private static final int AGE_GRASS_MAX = 10;
