@@ -45,10 +45,10 @@ public class FarmAnimalProperties {
 	private final BufferedImage image;
 	
 
-	AnimalProperties(final int sightRange, final double speed, final int stamina, final int size, final int age, final BufferedImage image) {
+	AnimalProperties(final int sightRange, final double speed, final int drowsiness, final int size, final int age, final BufferedImage image) {
 	    this.sightRange = new AtomicInteger(sightRange);
 	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
-	    this.drowsiness = new AtomicInteger(stamina);
+	    this.drowsiness = new AtomicInteger(drowsiness);
 	    this.size = new AtomicInteger(size);
 	    this.age = new AtomicInteger(age);
 	    this.image = image;
@@ -100,9 +100,22 @@ public class FarmAnimalProperties {
 			animal.markAsType(GroundLayer.class);
 		}
 	}
+	
+	//SIGHTRANGE
+	private static final int SIGHTRANGE_NORMAL = 75;
+	private static final int SIGHTRANGE_FAR = 1000;
+	
+	
+	//SPEED
+	private static final double SPEED_SLOW = 3.0;
+	private static final double SPEED_NORMAL = 4.0;
+	private static final double SPEED_VERY_FAST = 10.0;
+	
+	
 	    
     //DROWSINESS
     private static final int DROWSINESS_MAX = 500;
+    private static final int DROWSINESS_INIT = 0;
 
     //SIZES
     private static final int SIZE_ADULT = 50;
@@ -138,14 +151,14 @@ public class FarmAnimalProperties {
 		e.printStackTrace();
 	}
 	//for animal species
-	props.put(Cow.class, new AnimalProperties( 75, 3.0,0, SIZE_COW, AGE_ADULT_MIN, imgCow));
-	props.put(Worm.class, new AnimalProperties( 75, 4.0,0, SIZE_WORM, AGE_ADULT_MIN, imgWorm));
-	props.put(Chicken.class, new AnimalProperties( 75, 4.0,0, SIZE_CHICKEN, AGE_ADULT_MIN, imgChicken));
-	props.put(Pig.class, new AnimalProperties( 75, 4.0,0, SIZE_PIG, AGE_ADULT_MIN, imgPig));
+	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_SLOW, DROWSINESS_INIT, SIZE_COW, AGE_ADULT_MIN, imgCow));
+	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_NORMAL, DROWSINESS_INIT, SIZE_WORM, AGE_ADULT_MIN, imgWorm));
+	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_NORMAL, DROWSINESS_INIT, SIZE_CHICKEN, AGE_ADULT_MIN, imgChicken));
+	props.put(Pig.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_NORMAL, DROWSINESS_INIT, SIZE_PIG, AGE_ADULT_MIN, imgPig));
 	
 	//for adults and children. 
-	props.put(Adult.class, new AnimalProperties( 75, 3.0,0, SIZE_ADULT, AGE_ADULT_MIN, null));
-	props.put(Child.class, new AnimalProperties( 1000, 10.0, 0, SIZE_CHILD, AGE_CHILD, null));
+	props.put(Adult.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_SLOW, DROWSINESS_INIT, SIZE_ADULT, AGE_ADULT_MIN, null));
+	props.put(Child.class, new AnimalProperties( SIGHTRANGE_FAR, SPEED_VERY_FAST, DROWSINESS_INIT, SIZE_CHILD, AGE_CHILD, null));
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {
