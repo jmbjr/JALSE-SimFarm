@@ -6,15 +6,6 @@ import java.awt.image.BufferedImage;
 import jalse.entities.Entity;
 import jalse.entities.annotations.GetAttribute;
 import jalse.entities.annotations.SetAttribute;
-import jmbjr.simland.entities.animals.ability.Ager;
-import jmbjr.simland.entities.animals.ability.Disappearer;
-import jmbjr.simland.entities.animals.ability.Grower;
-import jmbjr.simland.entities.animals.ability.Sleeper;
-import jmbjr.simland.entities.animals.ability.Tunneller;
-import jmbjr.simland.entities.animals.state.Tunnelling;
-import jmbjr.simland.entities.drawlayer.AnimalLayer;
-import jmbjr.simland.entities.drawlayer.GroundLayer;
-import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

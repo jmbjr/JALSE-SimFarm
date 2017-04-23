@@ -16,11 +16,10 @@ import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
-import jmbjr.simland.entities.animals.state.Peeking;
 import jmbjr.simland.entities.animals.state.Asleep;
+import jmbjr.simland.entities.animals.state.Peeking;
 import jmbjr.simland.panels.FarmPanel;
 import jmbjr.simland.properties.FarmAnimalProperties;
 

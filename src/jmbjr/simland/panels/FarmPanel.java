@@ -1,18 +1,17 @@
 package jmbjr.simland.panels;
 
-import static jalse.entities.Entities.notMarkedAsType;
 import static jalse.entities.Entities.isMarkedAsType;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -35,16 +34,11 @@ import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
-import jmbjr.simland.entities.animals.ability.Grower;
-import jmbjr.simland.entities.animals.ability.Tunneller;
-import jmbjr.simland.entities.animals.ability.Ager;
-import jmbjr.simland.entities.animals.ability.Disappearer;
 import jmbjr.simland.entities.animals.age.Adult;
+import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
 import jmbjr.simland.entities.drawlayer.PlantLayer;
-import jmbjr.simland.entities.animals.age.Child;
-import jmbjr.simland.entities.animals.state.Awake;
 import jmbjr.simland.entities.listeners.AnimalTransformationListener;
 import jmbjr.simland.entities.listeners.PlantTransformationListener;
 import jmbjr.simland.entities.plants.Grass;

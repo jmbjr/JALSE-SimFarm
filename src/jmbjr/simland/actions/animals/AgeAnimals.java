@@ -1,5 +1,8 @@
 package jmbjr.simland.actions.animals;
 
+import static jalse.entities.Entities.isMarkedAsType;
+
+import java.util.Random;
 import java.util.Set;
 
 import jalse.actions.Action;
@@ -11,10 +14,6 @@ import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.properties.FarmAnimalProperties;
-
-import static jalse.entities.Entities.isMarkedAsType;
-
-import java.util.Random;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

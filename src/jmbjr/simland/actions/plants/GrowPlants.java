@@ -2,6 +2,7 @@ package jmbjr.simland.actions.plants;
 
 import static jalse.entities.Entities.notMarkedAsType;
 
+import java.util.Random;
 import java.util.Set;
 
 import jalse.actions.Action;
@@ -11,8 +12,6 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.plants.Plant;
 import jmbjr.simland.properties.FarmPlantProperties;
-
-import java.util.Random;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

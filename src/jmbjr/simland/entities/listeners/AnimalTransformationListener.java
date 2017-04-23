@@ -8,7 +8,6 @@ import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
-import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.age.Adult;
 import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.properties.FarmAnimalProperties;

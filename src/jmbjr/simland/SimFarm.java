@@ -1,6 +1,7 @@
 package jmbjr.simland;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 
 import jmbjr.simland.panels.FarmPanel;

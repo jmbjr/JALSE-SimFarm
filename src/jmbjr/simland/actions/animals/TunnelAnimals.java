@@ -1,20 +1,15 @@
 package jmbjr.simland.actions.animals;
 
+import java.util.Random;
 import java.util.Set;
 
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.ability.Tunneller;
-import jmbjr.simland.entities.animals.age.Adult;
-import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.entities.animals.state.Peeking;
 import jmbjr.simland.entities.animals.state.Tunnelling;
-import jmbjr.simland.properties.FarmAnimalProperties;
-
-import java.util.Random;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

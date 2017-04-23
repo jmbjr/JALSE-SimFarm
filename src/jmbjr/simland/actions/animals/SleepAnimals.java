@@ -1,8 +1,8 @@
 package jmbjr.simland.actions.animals;
 
-import static jalse.entities.Entities.notMarkedAsType;
 import static jalse.entities.Entities.isMarkedAsType;
 
+import java.util.Random;
 import java.util.Set;
 
 import jalse.actions.Action;
@@ -14,8 +14,6 @@ import jmbjr.simland.entities.animals.ability.Sleeper;
 import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.animals.state.Awake;
 import jmbjr.simland.properties.FarmAnimalProperties;
-
-import java.util.Random;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
