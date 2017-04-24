@@ -98,13 +98,13 @@ public class FarmAnimalProperties {
 	
     //SIZES
     private static final int SIZE_MATURITY_SMALL = 20;
-    private static final int SIZE_MATURITY_NORMAL = 50;
-    private static final int SIZE_MATURITY_LARGE = 80;
+    private static final int SIZE_MATURITY_NORMAL = 35;
+    private static final int SIZE_MATURITY_LARGE = 50;
     private static final int SIZE_COW = 60;
     private static final int SIZE_CHILD = 15;
     private static final int SIZE_WORM = 10;
     private static final int SIZE_CHICKEN = 20;
-    private static final int SIZE_PIG = 30;
+    private static final int SIZE_PIG = 40;
     
     //AGES 
     private static final int AGE_INIT = 0;
@@ -118,26 +118,30 @@ public class FarmAnimalProperties {
 
     static {
     BufferedImage imgCow = null;
+    BufferedImage imgCowChild = null;
     BufferedImage imgWorm = null;
     BufferedImage imgChicken = null;
     BufferedImage imgChickenChild = null;
     BufferedImage imgPig = null;
+    BufferedImage imgPigChild = null;  
 	try {
 		imgCow = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
+		imgCowChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow_child.png"));
 		imgWorm = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\worm.png"));
 		imgChicken = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\chicken.png"));
 		imgChickenChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\chicken_baby.png"));
-		imgPig = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\pig.png"));
+		imgPig = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\pig_child.png"));
+		imgPigChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\pig.png"));
 
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	//for animal species
-	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_SLOW, SIZE_COW - 30, SIZE_COW, SIZE_MATURITY_LARGE, imgCow, imgCow, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
+	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_SLOW, SIZE_COW - 30, SIZE_COW, SIZE_MATURITY_LARGE, imgCowChild, imgCow, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
 	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHILD, SIZE_WORM, SIZE_MATURITY_SMALL, imgWorm, imgWorm, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
 	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHICKEN - 10, SIZE_CHICKEN, SIZE_MATURITY_SMALL, imgChickenChild, imgChicken, DROWSINESS_INIT, DROWSINESS_DELTA_NORMAL, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_NORMAL, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
-	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 10, SIZE_PIG, SIZE_MATURITY_NORMAL, imgPig, imgPig, DROWSINESS_INIT,DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_NORMAL, ALERTNESS_DELTA_NORMAL, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
+	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 20, SIZE_PIG, SIZE_MATURITY_NORMAL, imgPigChild, imgPig, DROWSINESS_INIT,DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_NORMAL, ALERTNESS_DELTA_NORMAL, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
 	
     }
    
