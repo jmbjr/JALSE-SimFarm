@@ -151,7 +151,17 @@ public abstract interface Animal extends Entity {
     
     @SetAttribute
     void setSizeAdult(int sightRangeAdult);   
-    
-      
+	
+	@GetAttribute
+	BufferedImage getImageChild();
+
+    @SetAttribute
+    void setImageChild(BufferedImage image_child);
+
+	@GetAttribute
+	BufferedImage getImageAdult();
+
+    @SetAttribute
+    void setImageAdult(BufferedImage image_adult);
     
 }

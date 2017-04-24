@@ -11,20 +11,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.imageio.ImageIO;
 
 import jalse.entities.Entity;
-import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
 import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
-import jmbjr.simland.entities.animals.ability.Ager;
-import jmbjr.simland.entities.animals.ability.Disappearer;
-import jmbjr.simland.entities.animals.ability.Grower;
-import jmbjr.simland.entities.animals.ability.Sleeper;
-import jmbjr.simland.entities.animals.ability.Tunneller;
-import jmbjr.simland.entities.animals.state.Awake;
-import jmbjr.simland.entities.animals.state.Tunnelling;
-import jmbjr.simland.entities.drawlayer.AnimalLayer;
-import jmbjr.simland.entities.drawlayer.GroundLayer;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -41,26 +31,30 @@ public class FarmAnimalProperties {
 	private final AtomicLong speed_adult;
 	private final AtomicInteger size_child;
 	private final AtomicInteger size_adult;
+	private final BufferedImage image_child;
+	private final BufferedImage image_adult;
 	
 	private final AtomicInteger drowsiness;
 	private final AtomicInteger age;
-	private final BufferedImage image;
-	
 
+	
 	AnimalProperties(final int sightRange_child, final int sightRange_adult, 
 					 final double speed_child, final double speed_adult,  
 					 final int size_child, final int size_adult,
-					 final int drowsiness,final int age, final BufferedImage image) {
+					 final BufferedImage image_child, final BufferedImage image_adult, 
+					 final int drowsiness,final int age) {
 	    this.sightRange_child = new AtomicInteger(sightRange_child);
 	    this.sightRange_adult = new AtomicInteger(sightRange_adult);
 	    this.speed_child = new AtomicLong(Double.doubleToLongBits(speed_child));
 	    this.speed_adult = new AtomicLong(Double.doubleToLongBits(speed_adult));
 	    this.size_child = new AtomicInteger(size_child);
 	    this.size_adult = new AtomicInteger(size_adult);
+	    this.image_child = image_child;
+	    this.image_adult = image_adult;
 	    
 	    this.drowsiness = new AtomicInteger(drowsiness);
 	    this.age = new AtomicInteger(age);
-	    this.image = image;
+	   
 	}
 
     }
@@ -103,11 +97,13 @@ public class FarmAnimalProperties {
     BufferedImage imgCow = null;
     BufferedImage imgWorm = null;
     BufferedImage imgChicken = null;
+    BufferedImage imgChickenChild = null;
     BufferedImage imgPig = null;
 	try {
 		imgCow = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
 		imgWorm = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\worm.png"));
 		imgChicken = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\chicken.png"));
+		imgChickenChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\chicken_baby.png"));
 		imgPig = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\pig.png"));
 
 	} catch (IOException e) {
@@ -115,15 +111,15 @@ public class FarmAnimalProperties {
 		e.printStackTrace();
 	}
 	//for animal species
-	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_SLOW, SIZE_COW - 30, SIZE_COW, DROWSINESS_INIT, AGE_ADULT_MIN, imgCow));
-	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHILD, SIZE_WORM, DROWSINESS_INIT, AGE_ADULT_MIN, imgWorm));
-	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHICKEN - 10, SIZE_CHICKEN, DROWSINESS_INIT, AGE_ADULT_MIN, imgChicken));
-	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 10, SIZE_PIG, DROWSINESS_INIT, AGE_ADULT_MIN, imgPig));
+	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_SLOW, SIZE_COW - 30, SIZE_COW, imgCow, imgCow, DROWSINESS_INIT, AGE_ADULT_MIN));
+	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHILD, SIZE_WORM, imgWorm, imgWorm, DROWSINESS_INIT, AGE_ADULT_MIN));
+	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHICKEN - 10, SIZE_CHICKEN, imgChickenChild, imgChicken, DROWSINESS_INIT, AGE_ADULT_MIN));
+	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 10, SIZE_PIG, imgPig, imgPig, DROWSINESS_INIT, AGE_ADULT_MIN));
 	
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {
-    	return props.get(type).image;
+    	return props.get(type).image_adult;
     }
     
     public static int getSightRangeAdult(final Class<? extends Entity> type) {
@@ -177,7 +173,15 @@ public class FarmAnimalProperties {
     public static int getSizeChild() {
 	return SIZE_CHILD;
     }
-
+    
+    public static BufferedImage getImageChild(Class<? extends Entity> type) {
+    	return props.get(type).image_child;
+    }
+    
+    public static BufferedImage getImageAdult(Class<? extends Entity> type) {
+    	return props.get(type).image_adult;
+    }
+    
     public static void setPopulation(final int population) {
 	FarmAnimalProperties.population.set(population);
     }

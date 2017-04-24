@@ -34,7 +34,6 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	final Class<? extends Entity> type = event.getTypeChange();
 	
 	if (type.equals(Cow.class) || type.equals(Worm.class) || type.equals(Chicken.class)||type.equals(Pig.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
-		animal.setImage(FarmAnimalProperties.getImage(type));
 		animal.setVisibility(true); 
 		
 		//it's kind of silly to set sightrange, speed, and size 3 times, but that's the current state of the art
@@ -51,6 +50,10 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setSizeChild(FarmAnimalProperties.getSizeChild(type));
 		animal.setSizeAdult(FarmAnimalProperties.getSizeAdult(type));
 		animal.setSize(FarmAnimalProperties.getSizeAdult(type));
+		
+		animal.setImageChild(FarmAnimalProperties.getImageChild(type));
+		animal.setImageAdult(FarmAnimalProperties.getImageAdult(type));
+		animal.setImage(FarmAnimalProperties.getImage(type));
 		
 		animal.setDrowsiness(FarmAnimalProperties.getDrowsiness(type));
 		animal.setAge(FarmAnimalProperties.getAge(type));
@@ -104,11 +107,13 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	if (type.equals(Adult.class)) { 
 		animal.setSightRange(animal.getSightRangeAdult());
 		animal.setSpeed(animal.getSpeedAdult());
-		animal.setSize(animal.getSizeAdult());		
+		animal.setSize(animal.getSizeAdult());	
+		animal.setImage(animal.getImageAdult());
 	} else if ( type.equals(Child.class)) {
 		animal.setSightRange(animal.getSightRangeChild());
 		animal.setSpeed(animal.getSpeedChild());
 		animal.setSize(animal.getSizeChild());
+		animal.setImage(animal.getImageChild());
 	}
     }
 }
