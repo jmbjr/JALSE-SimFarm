@@ -31,6 +31,7 @@ public class FarmAnimalProperties {
 	private final AtomicLong speed_adult;
 	private final AtomicInteger size_child;
 	private final AtomicInteger size_adult;
+	private final AtomicInteger size_maturity;
 	private final BufferedImage image_child;
 	private final BufferedImage image_adult;
 	
@@ -41,20 +42,23 @@ public class FarmAnimalProperties {
 	private final AtomicInteger alertnessLimit;
 	
 	private final AtomicInteger age;
+	private final AtomicInteger age_maturity;
 
 	
 	AnimalProperties(final int sightRange_child, final int sightRange_adult, 
 					 final double speed_child, final double speed_adult,  
-					 final int size_child, final int size_adult,
+					 final int size_child, final int size_adult, final int size_maturity,
 					 final BufferedImage image_child, final BufferedImage image_adult, 
 					 final int drowsiness, final int drowsinessDelta, final int drowsinessLimit,
-					 final int alertnessDelta, final int alertnessLimit, final int age) {
+					 final int alertnessDelta, final int alertnessLimit, 
+					 final int age, final int age_maturity) {
 	    this.sightRange_child = new AtomicInteger(sightRange_child);
 	    this.sightRange_adult = new AtomicInteger(sightRange_adult);
 	    this.speed_child = new AtomicLong(Double.doubleToLongBits(speed_child));
 	    this.speed_adult = new AtomicLong(Double.doubleToLongBits(speed_adult));
 	    this.size_child = new AtomicInteger(size_child);
 	    this.size_adult = new AtomicInteger(size_adult);
+	    this.size_maturity = new AtomicInteger(size_maturity);
 	    this.image_child = image_child;
 	    this.image_adult = image_adult;
 	    
@@ -64,6 +68,7 @@ public class FarmAnimalProperties {
 	    this.alertnessDelta = new AtomicInteger(alertnessDelta);
 	    this.alertnessLimit = new AtomicInteger(alertnessLimit);
 	    this.age = new AtomicInteger(age);
+	    this.age_maturity = new AtomicInteger(age_maturity);
 	   
 	}
 
@@ -92,16 +97,20 @@ public class FarmAnimalProperties {
     private static final int ALERTNESS_LIMIT_NORMAL = 50;
 	
     //SIZES
-    private static final int SIZE_ADULT = 50;
+    private static final int SIZE_MATURITY_SMALL = 20;
+    private static final int SIZE_MATURITY_NORMAL = 50;
+    private static final int SIZE_MATURITY_LARGE = 80;
     private static final int SIZE_COW = 60;
     private static final int SIZE_CHILD = 15;
     private static final int SIZE_WORM = 10;
     private static final int SIZE_CHICKEN = 20;
     private static final int SIZE_PIG = 30;
     
-    //AGES
-    private static final int AGE_ADULT = 100;
-    private static final int AGE_ADULT_MIN = 50; 
+    //AGES 
+    private static final int AGE_INIT = 0;
+    private static final int AGE_MATURITY_LOW = 20;
+    private static final int AGE_MATURITY_NORMAL = 50;
+    
 
     private static AtomicInteger population = new AtomicInteger(20);
 
@@ -125,10 +134,10 @@ public class FarmAnimalProperties {
 		e.printStackTrace();
 	}
 	//for animal species
-	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_SLOW, SIZE_COW - 30, SIZE_COW, imgCow, imgCow, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_ADULT_MIN));
-	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHILD, SIZE_WORM, imgWorm, imgWorm, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_ADULT_MIN));
-	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHICKEN - 10, SIZE_CHICKEN, imgChickenChild, imgChicken, DROWSINESS_INIT, DROWSINESS_DELTA_NORMAL, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_NORMAL, AGE_ADULT_MIN));
-	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 10, SIZE_PIG, imgPig, imgPig, DROWSINESS_INIT,DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_NORMAL, ALERTNESS_DELTA_NORMAL, ALERTNESS_LIMIT_LOW, AGE_ADULT_MIN));
+	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_SLOW, SIZE_COW - 30, SIZE_COW, SIZE_MATURITY_LARGE, imgCow, imgCow, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
+	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHILD, SIZE_WORM, SIZE_MATURITY_SMALL, imgWorm, imgWorm, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
+	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHICKEN - 10, SIZE_CHICKEN, SIZE_MATURITY_SMALL, imgChickenChild, imgChicken, DROWSINESS_INIT, DROWSINESS_DELTA_NORMAL, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_NORMAL, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
+	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 10, SIZE_PIG, SIZE_MATURITY_NORMAL, imgPig, imgPig, DROWSINESS_INIT,DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_NORMAL, ALERTNESS_DELTA_NORMAL, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
 	
     }
    
@@ -151,7 +160,11 @@ public class FarmAnimalProperties {
 	public static int getSizeChild(Class<? extends Entity> type) {
 		return  props.get(type).size_child.get();
 	}
-
+	
+	public static int getSizeMaturity(Class<? extends Entity> type) {
+		return  props.get(type).size_maturity.get();
+	}
+	
     public static double getSpeedAdult(final Class<? extends Entity> type) {
 	return Double.longBitsToDouble(props.get(type).speed_adult.get());
     }
@@ -162,6 +175,10 @@ public class FarmAnimalProperties {
     
 	public static int getAge(Class<? extends Entity> type) {
 		return  props.get(type).age.get();
+	}
+	
+	public static int getAgeMaturity(Class<? extends Entity> type) {
+		return  props.get(type).age_maturity.get();
 	}
 	
     public static int getPopulation() {
@@ -187,21 +204,13 @@ public class FarmAnimalProperties {
 	public static int getAlertnessLimit(Class<? extends Entity> type) {
 		return  props.get(type).alertnessLimit.get();
 	}
-	
-    public static int getSizeAdult() {
-	return SIZE_ADULT;
-    }
-
-    public static int getMinAgeAdult() {
-    	return AGE_ADULT_MIN;
-    }
-    
-    public static int getAgeAdult() {
-    	return AGE_ADULT;
-    }
         
     public static int getSizeChild() {
 	return SIZE_CHILD;
+    }
+    
+    public static int getSizeMaturityNormal() {
+    	return SIZE_MATURITY_NORMAL;
     }
     
     public static BufferedImage getImageChild(Class<? extends Entity> type) {

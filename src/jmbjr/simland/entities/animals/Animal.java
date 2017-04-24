@@ -150,8 +150,20 @@ public abstract interface Animal extends Entity {
 	int getSizeAdult();
     
     @SetAttribute
-    void setSizeAdult(int sightRangeAdult);   
-	
+    void setSizeAdult(int sizeAdult);   
+
+    @GetAttribute
+	int getSizeMaturity();
+    
+    @SetAttribute
+    void setSizeMaturity(int sizeMaturity); 
+ 
+    @GetAttribute
+	int getAgeMaturity();
+    
+    @SetAttribute
+    void setAgeMaturity(int ageMaturity); 
+    
 	@GetAttribute
 	BufferedImage getImageChild();
 

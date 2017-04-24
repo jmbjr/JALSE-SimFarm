@@ -109,9 +109,9 @@ public class MoveAnimals implements Action<Entity> {
 	    	// Move towards adult if far enough away and random number says OK
 	    	double dist = distanceToAdult(animal, getClosestAnimalOfType(animal, animals, Adult.class));
 	    	
-	    	if (dist > 4*FarmAnimalProperties.getSizeAdult() && randInt > 100 )  //almost certaintly run to momma
+	    	if (dist > 4*animal.getSizeAdult() && randInt > 100 )  //almost certaintly run to momma
 	    		moveAngle = directionToAdult(animal, animals);
-	    	else if (dist > 2*FarmAnimalProperties.getSizeAdult() && randInt > 900) //if closer, less of a chance to keep running
+	    	else if (dist > 2*animal.getSizeAdult() && randInt > 900) //if closer, less of a chance to keep running
 	    		moveAngle = directionToAdult(animal, animals);
 	    	else
 	    		moveAngle = randomDirection(animal);
@@ -128,7 +128,7 @@ public class MoveAnimals implements Action<Entity> {
 
 	    // Original values
 	    final Point pos = animal.getPosition();
-	    final int size = FarmAnimalProperties.getSizeAdult();
+	    final int size = animal.getSizeAdult();
 
 	    // Apply bounded move delta
 	    final int x = bounded(pos.x + moveDelta.x, 0, FarmPanel.WIDTH - size);

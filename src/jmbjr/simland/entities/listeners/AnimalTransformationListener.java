@@ -53,6 +53,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setSizeChild(FarmAnimalProperties.getSizeChild(type));
 		animal.setSizeAdult(FarmAnimalProperties.getSizeAdult(type));
 		animal.setSize(FarmAnimalProperties.getSizeAdult(type));
+		animal.setSizeMaturity(FarmAnimalProperties.getSizeMaturity(type));
 		
 		animal.setImageChild(FarmAnimalProperties.getImageChild(type));
 		animal.setImageAdult(FarmAnimalProperties.getImageAdult(type));
@@ -64,6 +65,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setAlertnessDelta(FarmAnimalProperties.getAlertnessDelta(type));
 		animal.setAlertnessLimit(FarmAnimalProperties.getAlertnessLimit(type));
 		animal.setAge(FarmAnimalProperties.getAge(type));
+		animal.setAgeMaturity(FarmAnimalProperties.getAgeMaturity(type));
 
 		//set abilities and state
 		animal.markAsType(Ager.class);

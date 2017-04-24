@@ -43,7 +43,7 @@ public class AgeAnimals implements Action<Entity> {
 	 */
 	public static void checkIfAdult(Animal animal) {
 		if (animal.isMarkedAsType(Child.class)) {
-			if (animal.getAge() >= FarmAnimalProperties.getMinAgeAdult() && animal.getSize() >= FarmAnimalProperties.getSizeAdult()) {
+			if (animal.getAge() >= animal.getAgeMaturity() && animal.getSize() >= animal.getSizeMaturity()) {
 				//grow into an adult
 				animal.markAsType(Adult.class);
 				animal.unmarkAsType(Child.class);
