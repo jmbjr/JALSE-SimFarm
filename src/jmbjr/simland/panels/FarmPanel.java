@@ -143,7 +143,6 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.markAsType(species);
 		animal.markAsType(maturity);
 		animal.setName(name);
-		FarmAnimalProperties.markDefaultTypes(animal, species);
 		
     }
 
@@ -155,7 +154,6 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		plant.setAge(0);
 		plant.setSize(FarmPlantProperties.getSizeGrass());
 		plant.setName(name);
-		FarmPlantProperties.markDefaultTypes(plant, species);
     }
 
     private void createEntities() {

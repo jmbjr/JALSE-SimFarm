@@ -21,8 +21,6 @@ import jmbjr.simland.entities.animals.ability.Disappearer;
 import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.ability.Sleeper;
 import jmbjr.simland.entities.animals.ability.Tunneller;
-import jmbjr.simland.entities.animals.age.Adult;
-import jmbjr.simland.entities.animals.age.Child;
 import jmbjr.simland.entities.animals.state.Awake;
 import jmbjr.simland.entities.animals.state.Tunnelling;
 import jmbjr.simland.entities.drawlayer.AnimalLayer;
@@ -37,69 +35,36 @@ public class FarmAnimalProperties {
 
     private static class AnimalProperties {
 
-	private final AtomicInteger sightRange;
-	private final AtomicLong speed;
+	private final AtomicInteger sightRange_child;
+	private final AtomicInteger sightRange_adult;
+	private final AtomicLong speed_child;
+	private final AtomicLong speed_adult;
+	private final AtomicInteger size_child;
+	private final AtomicInteger size_adult;
+	
 	private final AtomicInteger drowsiness;
-	private final AtomicInteger size;
 	private final AtomicInteger age;
 	private final BufferedImage image;
 	
 
-	AnimalProperties(final int sightRange, final double speed, final int drowsiness, final int size, final int age, final BufferedImage image) {
-	    this.sightRange = new AtomicInteger(sightRange);
-	    this.speed = new AtomicLong(Double.doubleToLongBits(speed));
+	AnimalProperties(final int sightRange_child, final int sightRange_adult, 
+					 final double speed_child, final double speed_adult,  
+					 final int size_child, final int size_adult,
+					 final int drowsiness,final int age, final BufferedImage image) {
+	    this.sightRange_child = new AtomicInteger(sightRange_child);
+	    this.sightRange_adult = new AtomicInteger(sightRange_adult);
+	    this.speed_child = new AtomicLong(Double.doubleToLongBits(speed_child));
+	    this.speed_adult = new AtomicLong(Double.doubleToLongBits(speed_adult));
+	    this.size_child = new AtomicInteger(size_child);
+	    this.size_adult = new AtomicInteger(size_adult);
+	    
 	    this.drowsiness = new AtomicInteger(drowsiness);
-	    this.size = new AtomicInteger(size);
 	    this.age = new AtomicInteger(age);
 	    this.image = image;
 	}
 
     }
     
-	public static void markDefaultTypes(Animal animal, Class<? extends Animal> species) {
-		if (species.equals(Cow.class)) {
-			animal.markAsType(Ager.class);
-			animal.markAsType(Grower.class);
-			animal.markAsType(Sleeper.class);
-			animal.markAsType(AnimalLayer.class);
-			animal.markAsType(Awake.class);
-			
-			animal.setDrowsinessDelta(1);
-			animal.setDrowsinessLimit(400);
-			animal.setAlertnessDelta(-1);
-			animal.setAlertnessLimit(50);
-			
-		} else if (species.equals(Pig.class)) {
-			animal.markAsType(Ager.class);
-			animal.markAsType(Grower.class);	
-			animal.markAsType(Sleeper.class);
-			animal.markAsType(AnimalLayer.class);
-			animal.markAsType(Awake.class);
-			
-			animal.setDrowsinessDelta(2);
-			animal.setDrowsinessLimit(450);
-			animal.setAlertnessDelta(-2);
-			animal.setAlertnessLimit(25);
-						
-		} else if (species.equals(Chicken.class)) {
-			animal.markAsType(Ager.class);
-			animal.markAsType(Grower.class);	
-			animal.markAsType(Sleeper.class);
-			animal.markAsType(AnimalLayer.class);
-			
-			animal.setDrowsinessDelta(1);
-			animal.setDrowsinessLimit(450);
-			animal.setAlertnessDelta(-1);
-			animal.setAlertnessLimit(25);
-			
-		} else if (species.equals(Worm.class)) {
-			animal.markAsType(Disappearer.class);
-			animal.markAsType(Tunneller.class);
-			animal.setVisibility(false);
-			animal.markAsType(Tunnelling.class);
-			animal.markAsType(GroundLayer.class);
-		}
-	}
 	
 	//SIGHTRANGE
 	private static final int SIGHTRANGE_NORMAL = 75;
@@ -119,16 +84,15 @@ public class FarmAnimalProperties {
 
     //SIZES
     private static final int SIZE_ADULT = 50;
-    private static final int SIZE_COW = 50;
+    private static final int SIZE_COW = 60;
     private static final int SIZE_CHILD = 15;
     private static final int SIZE_WORM = 10;
-    private static final int SIZE_CHICKEN = 25;
+    private static final int SIZE_CHICKEN = 20;
     private static final int SIZE_PIG = 30;
     
     
     //AGES
     private static final int AGE_ADULT = 100;
-    private static final int AGE_CHILD = 0;
     private static final int AGE_ADULT_MIN = 50; 
 
     private static AtomicInteger population = new AtomicInteger(20);
@@ -151,28 +115,41 @@ public class FarmAnimalProperties {
 		e.printStackTrace();
 	}
 	//for animal species
-	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_SLOW, DROWSINESS_INIT, SIZE_COW, AGE_ADULT_MIN, imgCow));
-	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_NORMAL, DROWSINESS_INIT, SIZE_WORM, AGE_ADULT_MIN, imgWorm));
-	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_NORMAL, DROWSINESS_INIT, SIZE_CHICKEN, AGE_ADULT_MIN, imgChicken));
-	props.put(Pig.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_NORMAL, DROWSINESS_INIT, SIZE_PIG, AGE_ADULT_MIN, imgPig));
+	props.put(Cow.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_SLOW, SIZE_COW - 30, SIZE_COW, DROWSINESS_INIT, AGE_ADULT_MIN, imgCow));
+	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHILD, SIZE_WORM, DROWSINESS_INIT, AGE_ADULT_MIN, imgWorm));
+	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHICKEN - 10, SIZE_CHICKEN, DROWSINESS_INIT, AGE_ADULT_MIN, imgChicken));
+	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 10, SIZE_PIG, DROWSINESS_INIT, AGE_ADULT_MIN, imgPig));
 	
-	//for adults and children. 
-	props.put(Adult.class, new AnimalProperties( SIGHTRANGE_NORMAL, SPEED_SLOW, DROWSINESS_INIT, SIZE_ADULT, AGE_ADULT_MIN, null));
-	props.put(Child.class, new AnimalProperties( SIGHTRANGE_FAR, SPEED_VERY_FAST, DROWSINESS_INIT, SIZE_CHILD, AGE_CHILD, null));
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {
     	return props.get(type).image;
     }
     
-	public static int getStamina(Class<? extends Entity> type) {
-		return  props.get(type).drowsiness.get();
+    public static int getSightRangeAdult(final Class<? extends Entity> type) {
+	return props.get(type).sightRange_adult.get();
+    }
+
+    public static int getSightRangeChild(final Class<? extends Entity> type) {
+	return props.get(type).sightRange_child.get();
+    }
+
+	public static int getSizeAdult(Class<? extends Entity> type) {
+		return  props.get(type).size_adult.get();
+	}
+	
+	public static int getSizeChild(Class<? extends Entity> type) {
+		return  props.get(type).size_child.get();
 	}
 
-	public static int getSize(Class<? extends Entity> type) {
-		return  props.get(type).size.get();
-	}
+    public static double getSpeedAdult(final Class<? extends Entity> type) {
+	return Double.longBitsToDouble(props.get(type).speed_adult.get());
+    }
 
+    public static double getSpeedChild(final Class<? extends Entity> type) {
+	return Double.longBitsToDouble(props.get(type).speed_child.get());
+    }	
+    
 	public static int getAge(Class<? extends Entity> type) {
 		return  props.get(type).age.get();
 	}
@@ -181,9 +158,9 @@ public class FarmAnimalProperties {
 	return population.get();
     }
 
-    public static int getSightRange(final Class<? extends Entity> type) {
-	return props.get(type).sightRange.get();
-    }
+	public static int getDrowsiness(Class<? extends Entity> type) {
+		return  props.get(type).drowsiness.get();
+	}
 
     public static int getSizeAdult() {
 	return SIZE_ADULT;
@@ -201,18 +178,8 @@ public class FarmAnimalProperties {
 	return SIZE_CHILD;
     }
 
-    public static double getSpeed(final Class<? extends Entity> type) {
-	return Double.longBitsToDouble(props.get(type).speed.get());
-    }
-
-
     public static void setPopulation(final int population) {
 	FarmAnimalProperties.population.set(population);
-    }
-
-
-    public static void setSpeed(final Class<? extends Animal> type, final double speed) {
-	props.get(type).speed.set(Double.doubleToLongBits(speed));
     }
 
     public static int getMaxDrowsiness() {

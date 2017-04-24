@@ -113,4 +113,45 @@ public abstract interface Animal extends Entity {
     
     @SetAttribute
     void setAlertnessLimit(int alertnessLimit);   
+    
+    //I hate that I have to make these attributes since I feel like I shouldn't have to have these set for ALL animals
+    //but I can't come up with any alternative that doesn't even further complicate setting animal properties
+    @GetAttribute
+	int getSightRangeChild();
+    
+    @SetAttribute
+    void setSightRangeChild(int sightRangeChild);   
+
+    @GetAttribute
+	double getSpeedChild();
+    
+    @SetAttribute
+    void setSpeedChild(double speed);   
+
+    @GetAttribute
+	int getSizeChild();
+    
+    @SetAttribute
+    void setSizeChild(int sightRangeChild); 
+    
+    @GetAttribute
+	int getSightRangeAdult();
+    
+    @SetAttribute
+    void setSightRangeAdult(int sightRangeAdult);   
+
+    @GetAttribute
+	double getSpeedAdult();
+    
+    @SetAttribute
+    void setSpeedAdult(double speed);   
+
+    @GetAttribute
+	int getSizeAdult();
+    
+    @SetAttribute
+    void setSizeAdult(int sightRangeAdult);   
+    
+      
+    
 }

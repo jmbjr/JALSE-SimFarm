@@ -40,12 +40,6 @@ public class FarmPlantProperties {
 
     }
 	
-	public static void markDefaultTypes(Plant plant, Class<? extends Plant> species) {
-		if (species.equals(Grass.class)) {
-			plant.markAsType(PlantLayer.class);
-		}
-	}
-	
     private static final int SIZE_GRASS = 30;
     
     private static final int AGE_GRASS_MAX = 10;

@@ -3,6 +3,7 @@ package jmbjr.simland.entities.listeners;
 import jalse.entities.Entity;
 import jalse.entities.EntityTypeEvent;
 import jalse.entities.EntityTypeListener;
+import jmbjr.simland.entities.drawlayer.PlantLayer;
 import jmbjr.simland.entities.plants.Grass;
 import jmbjr.simland.entities.plants.Plant;
 import jmbjr.simland.properties.FarmPlantProperties;
@@ -22,5 +23,11 @@ public class PlantTransformationListener implements EntityTypeListener {
 	if (type.equals(Grass.class)) { 
 		plant.setImage(FarmPlantProperties.getImage(type));
 	}
-    }
+	
+	//plant subtypes
+	if (type.equals(Grass.class)) {
+		plant.markAsType(PlantLayer.class);
+	}
+	}
+
 }
