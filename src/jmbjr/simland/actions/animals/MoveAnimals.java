@@ -45,9 +45,9 @@ public class MoveAnimals implements Action<Entity> {
     	}
     }
 
-    private static Double directionToAdult(final Animal child, final Set<Animal> people) {
+    private static Double directionToAdult(final Animal child, final Set<Animal> animals) {
 	// Find closest healthy person in sight
-	final Optional<Animal> closestAdult = getClosestAnimalOfType(child, people, Adult.class);
+	final Optional<Animal> closestAdult = getClosestAnimalOfType(child, animals, child.getSpecies(), Adult.class);
 
 	// Check can see any
 	if (!closestAdult.isPresent()) {
@@ -66,12 +66,14 @@ public class MoveAnimals implements Action<Entity> {
 	return Math.atan2(dy, dx);
     }
 
-    private static Optional<Animal> getClosestAnimalOfType(final Animal animal, final Set<Animal> people,
-	    final Class<? extends Entity> type) {
+    private static Optional<Animal> getClosestAnimalOfType(final Animal animal, final Set<Animal> animals,
+	    final Class<? extends Entity> species, final Class<? extends Entity> maturity) {
 	final Point animalPos = animal.getPosition();
 	final Integer sightRange = animal.getSightRange();
 	// Stream other entities of type
-	return people.stream().filter(not(animal)).filter(isMarkedAsType(type)).filter(p -> {
+	return animals.stream().filter(not(animal))
+						   .filter(isMarkedAsType(species))
+						   .filter(isMarkedAsType(maturity)).filter(p -> {
 	    final Point pPos = p.getPosition();
 	    // Within range
 	    return Math.abs(pPos.x - animalPos.x) <= sightRange && Math.abs(pPos.y - animalPos.y) <= sightRange;
@@ -87,8 +89,8 @@ public class MoveAnimals implements Action<Entity> {
 	}));
     }
 
-    private static Double randomDirection(final Animal person) {
-	return person.getAngle() + 2. * (ThreadLocalRandom.current().nextDouble() - 0.5);
+    private static Double randomDirection(final Animal animal) {
+	return animal.getAngle() + 2. * (ThreadLocalRandom.current().nextDouble() - 0.5);
     }
 
     @Override
@@ -106,8 +108,8 @@ public class MoveAnimals implements Action<Entity> {
 	    
 		// Move randomly
 	    if (animal.isMarkedAsType(Child.class)) {
-	    	// Move towards adult if far enough away and random number says OK
-	    	double dist = distanceToAdult(animal, getClosestAnimalOfType(animal, animals, Adult.class));
+	    	// Move towards adult of same type if far enough away and random number says OK
+	    	double dist = distanceToAdult(animal, getClosestAnimalOfType(animal, animals, animal.getSpecies(), Adult.class));
 	    	
 	    	if (dist > 4*animal.getSizeAdult() && randInt > 100 )  //almost certaintly run to momma
 	    		moveAngle = directionToAdult(animal, animals);

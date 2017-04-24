@@ -176,4 +176,10 @@ public abstract interface Animal extends Entity {
     @SetAttribute
     void setImageAdult(BufferedImage image_adult);
     
+    @GetAttribute
+    Class<? extends Entity> getSpecies();
+    
+    @SetAttribute
+    void setSpecies( Class<? extends Entity> type);
+    
 }

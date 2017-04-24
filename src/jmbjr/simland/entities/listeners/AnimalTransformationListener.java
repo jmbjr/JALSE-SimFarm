@@ -38,6 +38,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 			type.equals(Chicken.class)||
 			type.equals(Pig.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
 		animal.setVisibility(true); 
+		animal.setSpecies(type);
 		
 		//it's kind of silly to set sightrange, speed, and size 3 times, but that's the current state of the art
 		//note that the variables without child/adult are the ones that are used by the rest of the code
