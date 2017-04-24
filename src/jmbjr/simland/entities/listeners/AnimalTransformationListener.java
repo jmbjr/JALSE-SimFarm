@@ -33,7 +33,10 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	final Animal animal = event.getEntity().asType(Animal.class);
 	final Class<? extends Entity> type = event.getTypeChange();
 	
-	if (type.equals(Cow.class) || type.equals(Worm.class) || type.equals(Chicken.class)||type.equals(Pig.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
+	if (	type.equals(Cow.class) || 
+			type.equals(Worm.class) || 
+			type.equals(Chicken.class)||
+			type.equals(Pig.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
 		animal.setVisibility(true); 
 		
 		//it's kind of silly to set sightrange, speed, and size 3 times, but that's the current state of the art
@@ -56,46 +59,22 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setImage(FarmAnimalProperties.getImage(type));
 		
 		animal.setDrowsiness(FarmAnimalProperties.getDrowsiness(type));
+		animal.setDrowsinessDelta(FarmAnimalProperties.getDrowsinessDelta(type));
+		animal.setDrowsinessLimit(FarmAnimalProperties.getDrowsinessLimit(type));
+		animal.setAlertnessDelta(FarmAnimalProperties.getAlertnessDelta(type));
+		animal.setAlertnessLimit(FarmAnimalProperties.getAlertnessLimit(type));
 		animal.setAge(FarmAnimalProperties.getAge(type));
-	}
-	
-	//set abilities per species
-	if (type.equals(Cow.class)) {
+
+		//set abilities and state
 		animal.markAsType(Ager.class);
 		animal.markAsType(Grower.class);
 		animal.markAsType(Sleeper.class);
 		animal.markAsType(AnimalLayer.class);
 		animal.markAsType(Awake.class);
-		
-		animal.setDrowsinessDelta(1);
-		animal.setDrowsinessLimit(400);
-		animal.setAlertnessDelta(-1);
-		animal.setAlertnessLimit(50);
-		
-	} else if (type.equals(Pig.class)) {
-		animal.markAsType(Ager.class);
-		animal.markAsType(Grower.class);	
-		animal.markAsType(Sleeper.class);
-		animal.markAsType(AnimalLayer.class);
-		animal.markAsType(Awake.class);
-		
-		animal.setDrowsinessDelta(2);
-		animal.setDrowsinessLimit(450);
-		animal.setAlertnessDelta(-2);
-		animal.setAlertnessLimit(25);
-					
-	} else if (type.equals(Chicken.class)) {
-		animal.markAsType(Ager.class);
-		animal.markAsType(Grower.class);	
-		animal.markAsType(Sleeper.class);
-		animal.markAsType(AnimalLayer.class);
-		
-		animal.setDrowsinessDelta(1);
-		animal.setDrowsinessLimit(450);
-		animal.setAlertnessDelta(-1);
-		animal.setAlertnessLimit(25);
-		
-	} else if (type.equals(Worm.class)) {
+	}
+	
+	//handle special animals
+	if (type.equals(Worm.class)) {
 		animal.markAsType(Disappearer.class);
 		animal.markAsType(Tunneller.class);
 		animal.setVisibility(false);
