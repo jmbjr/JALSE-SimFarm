@@ -31,7 +31,7 @@ public class GrowAnimals implements Action<Entity> {
 
 			int newSize = (new Random().nextInt(1000) > 980) ? animal.getSize()+1:animal.getSize();	
 			//ensure that we don't set animal size past max size
-			animal.setSize(Math.min(newSize,FarmAnimalProperties.getSizeAdult()));
+			animal.setSize(Math.min(newSize,animal.getSizeAdult()));
 		});
 	    }
 }
