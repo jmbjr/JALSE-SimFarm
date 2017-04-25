@@ -1,4 +1,4 @@
-package jmbjr.simland.entities.animals.age;
+package jmbjr.simland.entities.animals.state;
 
 import jmbjr.simland.entities.animals.Animal;
 

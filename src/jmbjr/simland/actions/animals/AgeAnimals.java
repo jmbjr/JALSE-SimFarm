@@ -11,8 +11,8 @@ import jalse.entities.Entity;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.ability.Ager;
-import jmbjr.simland.entities.animals.age.Adult;
-import jmbjr.simland.entities.animals.age.Child;
+import jmbjr.simland.entities.animals.state.Adult;
+import jmbjr.simland.entities.animals.state.Child;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
