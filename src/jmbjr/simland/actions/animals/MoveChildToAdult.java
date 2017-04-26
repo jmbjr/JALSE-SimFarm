@@ -33,22 +33,22 @@ public class MoveChildToAdult implements Action<Entity> {
 		.forEach(animal -> {
 		
 		double newDirection;
-	    Random rand = new Random();	
-	    int randInt = rand.nextInt(1000);
 	    double dist = 0;
 	    
 	    Class<? extends Entity> target = Adult.class;
 	    Class<? extends Entity> species = animal.getSpecies();
 	    
+	    int targetRange = 5;
+	    double followDistance = targetRange * animal.getSize();  // how many body lengths until stop following adult
+	    
 	    // Move towards adult of same type if far enough away and random number says OK
     	if (!(target == null)) 
     		dist = MoveAnimals.distanceToTarget(animal, MoveAnimals.getClosestAnimalOfType(animal, animals, species, target));
 
-    	//newDirection = 
-    	if (dist > 4*animal.getSizeAdult() && randInt > 100 )  //almost certaintly run to momma
-    		newDirection = MoveAnimals.directionToTarget(animal, animals, species, target);
-    	else if (dist > 2*animal.getSizeAdult() && randInt > 900) //if closer, less of a chance to keep running
-    		newDirection = MoveAnimals.directionToTarget(animal, animals, species, target);
+    	if (dist == 0) 
+    		newDirection = MoveAnimals.randomDirection(animal);
+    	if (dist > followDistance) // move until within 2 sizes away from target
+			newDirection = MoveAnimals.directionToTarget(animal, animals, species, target);
     	else
     		newDirection = MoveAnimals.randomDirection(animal);
     	
