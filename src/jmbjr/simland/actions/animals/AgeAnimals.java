@@ -13,6 +13,8 @@ import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.state.Adult;
 import jmbjr.simland.entities.animals.state.Child;
+import jmbjr.simland.entities.animals.state.MovingRandomly;
+import jmbjr.simland.entities.animals.state.MovingToAdult;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
@@ -47,7 +49,12 @@ public class AgeAnimals implements Action<Entity> {
 				//grow into an adult
 				animal.markAsType(Adult.class);
 				animal.unmarkAsType(Child.class);
-			} 
+				animal.markAsType(MovingRandomly.class);
+				animal.unmarkAsType(MovingToAdult.class);
+			} else {
+				animal.markAsType(MovingToAdult.class);
+				animal.unmarkAsType(MovingRandomly.class);
+			}
 		}
 	}
 	

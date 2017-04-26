@@ -181,5 +181,24 @@ public abstract interface Animal extends Entity {
     
     @SetAttribute
     void setSpecies( Class<? extends Entity> type);
+
+    @GetAttribute
+    Class<? extends Entity> getTargetEntity();
+    
+    @SetAttribute
+    void setTargetEntity( Class<? extends Entity> target);
+
+    @GetAttribute
+    Class<? extends Entity> getTargetEntitySpecies();
+    
+    @SetAttribute
+    void setTargetEntitySpecies( Class<? extends Entity> species);
+
+    @GetAttribute
+	int getFollowDistance();
+    
+    @SetAttribute
+    void setFollowDistance(int followDistance); 
+ 
     
 }

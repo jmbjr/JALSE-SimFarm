@@ -16,6 +16,7 @@ import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.state.Adult;
 import jmbjr.simland.entities.animals.state.Awake;
 import jmbjr.simland.entities.animals.state.Child;
+import jmbjr.simland.entities.animals.state.MovingRandomly;
 import jmbjr.simland.entities.animals.state.Tunnelling;
 import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
@@ -74,6 +75,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.markAsType(Sleeper.class);
 		animal.markAsType(AnimalLayer.class);
 		animal.markAsType(Awake.class);
+		animal.markAsType(MovingRandomly.class);
 	}
 	
 	//handle special animals
@@ -83,6 +85,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setVisibility(false);
 		animal.markAsType(Tunnelling.class);
 		animal.markAsType(GroundLayer.class);
+		animal.markAsType(MovingRandomly.class);
 	}
 
 	//set to the saved animal/child values for the animal
