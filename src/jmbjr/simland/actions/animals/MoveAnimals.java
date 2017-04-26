@@ -54,7 +54,7 @@ public class MoveAnimals implements Action<Entity> {
 	    return randomDirection(child);
 	}
 
-	// Healthy person
+	// Adult
 	final Animal adult = closestAdult.get();
 
 	// Towards
@@ -101,28 +101,46 @@ public class MoveAnimals implements Action<Entity> {
 		.filter(notMarkedAsType(Asleep.class))
 		.filter(notMarkedAsType(Peeking.class))
 		.forEach(animal -> {
-	    // Get correct move angle
-	    double moveAngle;
-	    Random rand = new Random();	
-	    int randInt = rand.nextInt(1000);
+    
+	    double moveAngle = newMoveAngle(animal, animals);
+	    maybeSetNewPosition(animal, moveAngle);
+
+	});
+    }
+
+	private double newMoveAngle(Animal animal, Set<Animal> animals) {
+
 	    
 		// Move randomly
 	    if (animal.isMarkedAsType(Child.class)) {
-	    	// Move towards adult of same type if far enough away and random number says OK
-	    	double dist = distanceToAdult(animal, getClosestAnimalOfType(animal, animals, animal.getSpecies(), Adult.class));
-	    	
-	    	if (dist > 4*animal.getSizeAdult() && randInt > 100 )  //almost certaintly run to momma
-	    		moveAngle = directionToAdult(animal, animals);
-	    	else if (dist > 2*animal.getSizeAdult() && randInt > 900) //if closer, less of a chance to keep running
-	    		moveAngle = directionToAdult(animal, animals);
-	    	else
-	    		moveAngle = randomDirection(animal);
+	    	return getNewChildDirection(animal,animals);
 	    } else {
-	    	moveAngle = randomDirection(animal);
+	    	return randomDirection(animal);
 	    }
+		
+	}
+
+	private double getNewChildDirection(Animal animal, Set<Animal> animals) {
+	    Random rand = new Random();	
+	    int randInt = rand.nextInt(1000);
+	    
+	    // Move towards adult of same type if far enough away and random number says OK
+    	double dist = distanceToAdult(animal, getClosestAnimalOfType(animal, animals, animal.getSpecies(), Adult.class));
+    	
+    	if (dist > 4*animal.getSizeAdult() && randInt > 100 )  //almost certaintly run to momma
+    		return directionToAdult(animal, animals);
+    	else if (dist > 2*animal.getSizeAdult() && randInt > 900) //if closer, less of a chance to keep running
+    		return directionToAdult(animal, animals);
+    	else
+    		return randomDirection(animal);
+	}
+
+	private void maybeSetNewPosition(Animal animal, double moveAngle) {
+	    Random rand = new Random();	
+	    int randInt = rand.nextInt(1000);
 	    
 	    animal.setAngle(moveAngle);
-
+	    
 	    // Calculate move delta
 	    final double moveDist = animal.getSpeed();
 	    final Point moveDelta = new Point((int) (moveDist * Math.cos(moveAngle)),
@@ -145,6 +163,5 @@ public class MoveAnimals implements Action<Entity> {
 	    }
 		
 	    }
-	});
-    }
+	}
 }
