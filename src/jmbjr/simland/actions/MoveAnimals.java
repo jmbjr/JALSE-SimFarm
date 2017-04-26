@@ -20,6 +20,7 @@ import jmbjr.simland.entities.animals.state.Adult;
 import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.animals.state.Child;
 import jmbjr.simland.entities.animals.state.Peeking;
+import jmbjr.simland.entities.plants.Plant;
 import jmbjr.simland.panels.FarmPanel;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
@@ -40,7 +41,16 @@ public class MoveAnimals  {
 	    	return Math.sqrt(dx*dx + dy*dy);
     	}
     }
-
+    
+    public static Double distanceToPlant(final Animal source, final Optional <Plant> target) {
+    	if (target.equals(Optional.empty()) || target == null) 
+    		return (double) 0;
+    	else {
+	    	double dx = target.get().getPosition().x - source.getPosition().x;
+	    	double dy = target.get().getPosition().y - source.getPosition().y;
+	    	return Math.sqrt(dx*dx + dy*dy);
+    	}
+    }
     public static Double directionToTarget(final Animal sourceEntity, final Set<Animal> animals, final Class<? extends Entity> species, final Class<? extends Entity> target) {
 		// Find closest target in sight
 		final Optional<Animal> closestTarget = MoveAnimals.getClosestAnimalOfType(sourceEntity, animals, species, target);
@@ -62,6 +72,26 @@ public class MoveAnimals  {
 		return Math.atan2(dy, dx);
     }
     
+    public static Double directionToPlant(final Animal sourceEntity, final Set<Plant> plants, final Class<? extends Entity> species, final Class<? extends Entity> target) {
+		// Find closest target in sight
+		final Optional<Plant> closestTarget = MoveAnimals.getClosestPlantOfType(sourceEntity, plants, species, target);
+	
+		// Check can see any
+		if (!closestTarget.isPresent()) {
+		    return MoveAnimals.randomDirection(sourceEntity);
+		}
+	
+		// Adult
+		final Plant closestTargetPlant = closestTarget.get();
+	
+		// Towards
+		final Point sourcePos = sourceEntity.getPosition();
+		final int dx = closestTargetPlant.getPosition().x - sourcePos.x;
+		final int dy = closestTargetPlant.getPosition().y - sourcePos.y;
+	
+		// Convert
+		return Math.atan2(dy, dx);
+    }    
     public static int bounded(final int value, final int min, final int max) {
     	return value < min ? min : value > max ? max : value;
     }
@@ -89,6 +119,29 @@ public class MoveAnimals  {
 		}));
     }
 
+    public static Optional<Plant> getClosestPlantOfType(final Animal animal, final Set<Plant> plants,
+    	    final Class<? extends Entity> species, final Class<? extends Entity> target) {
+    		final Point animalPos = animal.getPosition();
+    		final Integer sightRange = animal.getSightRange();
+    		// Stream other entities of type
+    		return plants.stream().filter(not(animal))
+    							   .filter(isMarkedAsType(species))
+    							   .filter(isMarkedAsType(target)).filter(p -> {
+    		    final Point pPos = p.getPosition();
+    		    // Within range
+    		    return Math.abs(pPos.x - animalPos.x) <= sightRange && Math.abs(pPos.y - animalPos.y) <= sightRange;
+    		}).collect(Collectors.minBy((a, b) -> {
+    		    final Point aPos = a.getPosition();
+    		    final Point bPos = b.getPosition();
+    		    // Closest person
+    		    final int d1 = (aPos.x - animalPos.x) * (aPos.x - animalPos.x)
+    			    + (aPos.y - animalPos.y) * (aPos.y - animalPos.y);
+    		    final int d2 = (bPos.x - animalPos.x) * (bPos.x - animalPos.x)
+    			    + (bPos.y - animalPos.y) * (bPos.y - animalPos.y);
+    		    return d1 - d2;
+    		}));
+        }
+    
     public static Double randomDirection(final Animal animal) {
     	return animal.getAngle() + 2. * (ThreadLocalRandom.current().nextDouble() - 0.5);
     }

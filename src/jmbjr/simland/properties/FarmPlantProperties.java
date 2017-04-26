@@ -44,7 +44,7 @@ public class FarmPlantProperties {
     
     private static final int AGE_GRASS_MAX = 10;
 
-    private static AtomicInteger population = new AtomicInteger(200);
+    private static AtomicInteger population = new AtomicInteger(1);
 
     private static Map<Class<?>, PlantProperties> props = new HashMap<>();
 
