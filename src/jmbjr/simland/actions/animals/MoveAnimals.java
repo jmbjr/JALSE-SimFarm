@@ -11,10 +11,10 @@ import jalse.entities.Entity;
 import jmbjr.simland.actions.MoveEntities;
 import jmbjr.simland.entities.FarmObject;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.state.Adult;
 import jmbjr.simland.entities.animals.state.Asleep;
-import jmbjr.simland.entities.animals.state.MovingToAdult;
+import jmbjr.simland.entities.animals.state.Mover;
 import jmbjr.simland.entities.animals.state.Peeking;
+import jmbjr.simland.entities.plants.Grass;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -22,26 +22,25 @@ import jmbjr.simland.entities.animals.state.Peeking;
  * 
  * 
  */
-public class MoveChildToAdult implements Action<Entity> {
+public class MoveAnimals implements Action<Entity> {
 
     @Override
     public void perform(final ActionContext<Entity> context) throws InterruptedException {
 	final Field field = context.getActor().asType(Field.class);
+	final Set<FarmObject> farmobjects = field.getEntitiesOfType(FarmObject.class);
 	final Set<FarmObject> targets = field.getEntitiesOfType(FarmObject.class);
-	targets.stream()
+	farmobjects.stream()
 		.filter(notMarkedAsType(Asleep.class))
 		.filter(notMarkedAsType(Peeking.class))
-		.filter(isMarkedAsType(MovingToAdult.class))
+		.filter(isMarkedAsType(Mover.class))
 		.forEach(farmobject -> {
 		
 		double newDirection;
 	    double dist = 0;
 	    
-	    Class<? extends Entity> target = Adult.class;  //get from animal eventually
-	    Class<? extends Entity> species = farmobject.getSpecies();
-	    
-	    int targetRange = 5;
-	    double followDistance = targetRange * farmobject.getSize();  // how many body lengths until stop following adult
+	    Class<? extends Entity> target = farmobject.getTargetEntity();  //eventually get this from the farmobject
+	    Class<? extends Entity> species = farmobject.getTargetEntitySpecies();
+	    double followDistance = farmobject.getFollowDistance();  // how many body lengths until stop following adult
 	    
 	    // Move towards adult of same type if far enough away and random number says OK
     	if (!(target == null)) 

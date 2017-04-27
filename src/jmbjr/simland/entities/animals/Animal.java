@@ -128,23 +128,5 @@ public abstract interface Animal extends FarmObject {
     @SetAttribute
     void setImageAdult(BufferedImage image_adult);
 
-    @GetAttribute
-    Class<? extends Entity> getTargetEntity();
-    
-    @SetAttribute
-    void setTargetEntity( Class<? extends Entity> target);
-
-    @GetAttribute
-    Class<? extends Entity> getTargetEntitySpecies();
-    
-    @SetAttribute
-    void setTargetEntitySpecies( Class<? extends Entity> species);
-
-    @GetAttribute
-	int getFollowDistance();
-    
-    @SetAttribute
-    void setFollowDistance(int followDistance); 
- 
     
 }

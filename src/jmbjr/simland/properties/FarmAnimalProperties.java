@@ -76,12 +76,12 @@ public class FarmAnimalProperties {
     
 	
 	//SIGHTRANGE
-	private static final int SIGHTRANGE_NORMAL = 75;
+	private static final int SIGHTRANGE_NORMAL = 300;
 	private static final int SIGHTRANGE_FAR = 1000;
 	
 	//SPEED
-	private static final double SPEED_SLOW = 3.0;
-	private static final double SPEED_NORMAL = 4.0;
+	private static final double SPEED_SLOW = 4.0;
+	private static final double SPEED_NORMAL = 6.0;
 	private static final double SPEED_VERY_FAST = 10.0;
 	
     //DROWSINESS

@@ -16,11 +16,11 @@ import jmbjr.simland.entities.animals.ability.Tunneller;
 import jmbjr.simland.entities.animals.state.Adult;
 import jmbjr.simland.entities.animals.state.Awake;
 import jmbjr.simland.entities.animals.state.Child;
-import jmbjr.simland.entities.animals.state.MovingRandomly;
-import jmbjr.simland.entities.animals.state.MovingToGrass;
+import jmbjr.simland.entities.animals.state.Mover;
 import jmbjr.simland.entities.animals.state.Tunnelling;
 import jmbjr.simland.entities.drawlayer.AnimalLayer;
 import jmbjr.simland.entities.drawlayer.GroundLayer;
+import jmbjr.simland.entities.plants.Grass;
 import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
@@ -76,8 +76,11 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.markAsType(Sleeper.class);
 		animal.markAsType(AnimalLayer.class);
 		animal.markAsType(Awake.class);
-		//animal.markAsType(MovingRandomly.class);
-		animal.markAsType(MovingToGrass.class);
+		
+		animal.markAsType(Mover.class);
+		animal.setTargetEntity(animal.getClass());
+		animal.setTargetEntitySpecies(animal.getClass());
+		animal.setFollowDistance(animal.getSize());
 	}
 	
 	//handle special animals
@@ -87,7 +90,11 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setVisibility(false);
 		animal.markAsType(Tunnelling.class);
 		animal.markAsType(GroundLayer.class);
-		animal.markAsType(MovingRandomly.class);
+		
+		animal.markAsType(Mover.class);
+		animal.setTargetEntity(animal.getClass());
+		animal.setTargetEntitySpecies(animal.getClass());
+		animal.setFollowDistance(animal.getSize());
 	}
 
 	//set to the saved animal/child values for the animal
@@ -96,11 +103,20 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setSpeed(animal.getSpeedAdult());
 		animal.setSize(animal.getSizeAdult());	
 		animal.setImage(animal.getImageAdult());
+
+		animal.setTargetEntity(Grass.class);
+		animal.setTargetEntitySpecies(Grass.class);
+		animal.setFollowDistance(animal.getSize());
+		
 	} else if ( type.equals(Child.class)) {
 		animal.setSightRange(animal.getSightRangeChild());
 		animal.setSpeed(animal.getSpeedChild());
 		animal.setSize(animal.getSizeChild());
 		animal.setImage(animal.getImageChild());
+		
+		animal.setTargetEntity(Adult.class);
+		animal.setTargetEntitySpecies(animal.getSpecies());
+		animal.setFollowDistance(animal.getSize()*3);
 	}
     }
 }
