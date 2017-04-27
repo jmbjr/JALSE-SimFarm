@@ -8,10 +8,9 @@ import java.util.Set;
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.actions.MoveAnimals;
+import jmbjr.simland.actions.MoveEntities;
 import jmbjr.simland.entities.FarmObject;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.animals.state.MovingRandomly;
 import jmbjr.simland.entities.animals.state.Peeking;
@@ -35,8 +34,8 @@ public class MoveRandomly implements Action<Entity> {
 		.forEach(farmobject -> {
 		double newDirection;
 		
-    	newDirection = MoveAnimals.randomDirection(farmobject);	
-	    MoveAnimals.maybeSetNewPosition(farmobject, newDirection);
+    	newDirection = MoveEntities.randomDirection(farmobject);	
+	    MoveEntities.maybeSetNewPosition(farmobject, newDirection);
 
 	});
     }

@@ -8,14 +8,13 @@ import java.util.Set;
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.actions.MoveAnimals;
+import jmbjr.simland.actions.MoveEntities;
+import jmbjr.simland.entities.FarmObject;
 import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.animals.state.MovingToGrass;
 import jmbjr.simland.entities.animals.state.Peeking;
 import jmbjr.simland.entities.plants.Grass;
-import jmbjr.simland.entities.plants.Plant;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -28,35 +27,35 @@ public class MoveAnimalToGrass implements Action<Entity> {
     @Override
     public void perform(final ActionContext<Entity> context) throws InterruptedException {
 	final Field field = context.getActor().asType(Field.class);
-	final Set<Animal> animals = field.getEntitiesOfType(Animal.class);
-	final Set<Plant> plants = field.getEntitiesOfType(Plant.class);
-	animals.stream()
+	final Set<FarmObject> farmobjects = field.getEntitiesOfType(FarmObject.class);
+	final Set<FarmObject> targets = field.getEntitiesOfType(FarmObject.class);
+	farmobjects.stream()
 		.filter(notMarkedAsType(Asleep.class))
 		.filter(notMarkedAsType(Peeking.class))
 		.filter(isMarkedAsType(MovingToGrass.class))
-		.forEach(animal -> {
+		.forEach(farmobject -> {
 		
 		double newDirection;
 	    double dist = 0;
 	    
-	    Class<? extends Entity> target = Grass.class;
+	    Class<? extends Entity> target = Grass.class;  //eventually get this from the farmobject
 	    Class<? extends Entity> species = Grass.class;
 	    
 	    int targetRange = 1;
-	    double followDistance = targetRange * animal.getSize();  // how many body lengths until stop following adult
+	    double followDistance = targetRange * farmobject.getSize();  // how many body lengths until stop following adult
 	    
 	    // Move towards adult of same type if far enough away and random number says OK
     	if (!(target == null)) 
-    		dist = MoveAnimals.distanceToPlant(animal, MoveAnimals.getClosestPlantOfType(animal, plants, species, target));
+    		dist = MoveEntities.distanceToEntity(farmobject, MoveEntities.getClosestEntityOfType(farmobject, targets, species, target));
 
     	if (dist == 0) 
-    		newDirection = MoveAnimals.randomDirection(animal);
+    		newDirection = MoveEntities.randomDirection(farmobject);
     	if (dist > followDistance) // move until within 2 sizes away from target
-			newDirection = MoveAnimals.directionToPlant(animal, plants, species, target);
+			newDirection = MoveEntities.directionToEntity(farmobject, targets, species, target);
     	else
-    		newDirection = MoveAnimals.randomDirection(animal);
+    		newDirection = MoveEntities.randomDirection(farmobject);
     	
-	    MoveAnimals.maybeSetNewPosition(animal, newDirection);
+	    MoveEntities.maybeSetNewPosition(farmobject, newDirection);
 
 	});
     }
