@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import jalse.entities.Entity;
+import jmbjr.simland.entities.FarmObject;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.plants.Plant;
 import jmbjr.simland.panels.FarmPanel;
@@ -133,25 +134,25 @@ public class MoveAnimals  {
     		}));
         }
     
-    public static Double randomDirection(final Animal animal) {
-    	return animal.getAngle() + 2. * (ThreadLocalRandom.current().nextDouble() - 0.5);
+    public static Double randomDirection(final FarmObject farmobject) {
+    	return farmobject.getAngle() + 2. * (ThreadLocalRandom.current().nextDouble() - 0.5);
     }
     
     //separate into new method to get x,y and a new method to setNewPosition (always)
-	public static void maybeSetNewPosition(Animal animal, double moveAngle) {
+	public static void maybeSetNewPosition(FarmObject farmobject, double moveAngle) {
 	    Random rand = new Random();	
 	    int randInt = rand.nextInt(1000);
 	    
-	    animal.setAngle(moveAngle);
+	    farmobject.setAngle(moveAngle);
 	    
 	    // Calculate move delta
-	    final double moveDist = animal.getSpeed();
+	    final double moveDist = farmobject.getSpeed();
 	    final Point moveDelta = new Point((int) (moveDist * Math.cos(moveAngle)),
 		    (int) (moveDist * Math.sin(moveAngle)));
 
 	    // Original values
-	    final Point pos = animal.getPosition();
-	    final int size = animal.getSizeAdult();
+	    final Point pos = farmobject.getPosition();
+	    final int size = farmobject.getSize();
 
 	    // Apply bounded move delta
 	    final int x = bounded(pos.x + moveDelta.x, 0, FarmPanel.WIDTH - size);
@@ -162,7 +163,7 @@ public class MoveAnimals  {
 	    	
 	    
 	    if (randInt > 750) {
-	    	animal.setPosition(new Point(x, y));
+	    	farmobject.setPosition(new Point(x, y));
 	    }
 		
 	    }

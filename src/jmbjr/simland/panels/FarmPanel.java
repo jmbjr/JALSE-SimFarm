@@ -24,7 +24,7 @@ import jalse.JALSE;
 import jmbjr.simland.actions.animals.AgeAnimals;
 import jmbjr.simland.actions.animals.GrowAnimals;
 import jmbjr.simland.actions.animals.MoveAnimalToGrass;
-import jmbjr.simland.actions.animals.MoveAnimalsRandomly;
+import jmbjr.simland.actions.animals.MoveRandomly;
 import jmbjr.simland.actions.animals.MoveChildToAdult;
 import jmbjr.simland.actions.animals.SleepAnimals;
 import jmbjr.simland.actions.animals.TunnelAnimals;
@@ -162,7 +162,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Create field
 	final Field field = jalse.newEntity(Field.ID, Field.class);
 	field.setSize(new Dimension(WIDTH, HEIGHT));
-	field.scheduleForActor(new MoveAnimalsRandomly(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
+	field.scheduleForActor(new MoveRandomly(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new MoveChildToAdult(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new MoveAnimalToGrass(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
 	field.scheduleForActor(new GrowAnimals(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
