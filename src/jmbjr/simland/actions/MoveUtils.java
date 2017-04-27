@@ -20,7 +20,7 @@ import jmbjr.simland.panels.FarmPanel;
  * 
  * 
  */
-public class MoveEntities  {
+public class MoveUtils  {
 	
     public static Double distanceToEntity(final FarmObject source, final Optional <FarmObject> target) {
     	if (target.equals(Optional.empty()) || target == null) 
@@ -34,11 +34,11 @@ public class MoveEntities  {
 
     public static Double directionToEntity(final FarmObject sourceEntity, final Set<FarmObject> targets, final Class<? extends Entity> species, final Class<? extends Entity> target) {
 		// Find closest target in sight
-		final Optional<FarmObject> closestTarget = MoveEntities.getClosestEntityOfType(sourceEntity, targets, species, target);
+		final Optional<FarmObject> closestTarget = MoveUtils.getClosestEntityOfType(sourceEntity, targets, species, target);
 	
 		// Check can see any
 		if (!closestTarget.isPresent()) {
-		    return MoveEntities.randomDirection(sourceEntity);
+		    return MoveUtils.randomDirection(sourceEntity);
 		}
 	
 		// Adult

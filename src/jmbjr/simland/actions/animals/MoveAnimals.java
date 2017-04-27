@@ -8,7 +8,8 @@ import java.util.Set;
 import jalse.actions.Action;
 import jalse.actions.ActionContext;
 import jalse.entities.Entity;
-import jmbjr.simland.actions.MoveEntities;
+import jmbjr.simland.Utilities;
+import jmbjr.simland.actions.MoveUtils;
 import jmbjr.simland.entities.FarmObject;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.state.Asleep;
@@ -44,16 +45,15 @@ public class MoveAnimals implements Action<Entity> {
 	    
 	    // Move towards adult of same type if far enough away and random number says OK
     	if (!(target == null)) 
-    		dist = MoveEntities.distanceToEntity(farmobject, MoveEntities.getClosestEntityOfType(farmobject, targets, species, target));
+    		dist = MoveUtils.distanceToEntity(farmobject, MoveUtils.getClosestEntityOfType(farmobject, targets, species, target));
 
-    	if (dist == 0) 
-    		newDirection = MoveEntities.randomDirection(farmobject);
-    	if (dist > followDistance) // move until within 2 sizes away from target
-			newDirection = MoveEntities.directionToEntity(farmobject, targets, species, target);
-    	else
-    		newDirection = MoveEntities.randomDirection(farmobject);
     	
-	    MoveEntities.maybeSetNewPosition(farmobject, newDirection);
+    	if (dist > followDistance && Utilities.coinFlip())
+			newDirection = MoveUtils.directionToEntity(farmobject, targets, species, target);
+    	else
+    		newDirection = MoveUtils.randomDirection(farmobject);
+    	
+	    MoveUtils.maybeSetNewPosition(farmobject, newDirection);
 
 	});
     }
