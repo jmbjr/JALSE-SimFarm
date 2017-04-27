@@ -1,17 +1,17 @@
 package jmbjr.simland.entities.animals;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import jalse.entities.Entity;
 import jalse.entities.annotations.GetAttribute;
 import jalse.entities.annotations.SetAttribute;
+import jmbjr.simland.entities.FarmObject;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
  * generic animal entity
  */
-public abstract interface Animal extends Entity {
+public abstract interface Animal extends FarmObject {
 
 	/**
 	 * @param animal
@@ -29,66 +29,18 @@ public abstract interface Animal extends Entity {
 	 * at least this is one function, but it will probably get huge as we add more animals
 	 * 
 	 */
-
-	@GetAttribute
-	int getAge();
-	
-	@GetAttribute
-	int getDrowsiness();
-	
-	@GetAttribute
-	int getSize();
-	
-	@GetAttribute
-    double getAngle();
 	
 	@GetAttribute
 	BufferedImage getImage();
-
-    @GetAttribute
-    Point getPosition();
-    
-    @GetAttribute
-    String getName();
-    
-    @GetAttribute
-    int getSightRange();
-
-    @GetAttribute
-    double getSpeed();
-    
-    @SetAttribute
-    void setAge(int age);
-    
-    @SetAttribute
-    void setDrowsiness(int drowsiness);
-    
-    @SetAttribute
-    void setSize(int size);
-
-    @SetAttribute
-    void setAngle(double angle);
     
     @SetAttribute
     void setImage(BufferedImage image);
-
-    @SetAttribute
-    void setPosition(Point position);
-
-    @SetAttribute
-    void setName(String name);
     
     @SetAttribute
-    void setSightRange(int range);
+    void setDrowsiness(int drowsiness);
 
-    @SetAttribute
-    void setSpeed(double speed);
-
-    @GetAttribute
-	boolean getVisibility();
-
-    @SetAttribute
-	void setVisibility(boolean b);
+	@GetAttribute
+	int getDrowsiness();
 
     @GetAttribute
 	int getDrowsinessDelta();
@@ -175,12 +127,6 @@ public abstract interface Animal extends Entity {
 
     @SetAttribute
     void setImageAdult(BufferedImage image_adult);
-    
-    @GetAttribute
-    Class<? extends Entity> getSpecies();
-    
-    @SetAttribute
-    void setSpecies( Class<? extends Entity> type);
 
     @GetAttribute
     Class<? extends Entity> getTargetEntity();

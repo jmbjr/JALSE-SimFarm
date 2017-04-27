@@ -16,7 +16,6 @@ import jmbjr.simland.entities.animals.state.Child;
 import jmbjr.simland.entities.animals.state.MovingRandomly;
 import jmbjr.simland.entities.animals.state.MovingToAdult;
 import jmbjr.simland.entities.animals.state.MovingToGrass;
-import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

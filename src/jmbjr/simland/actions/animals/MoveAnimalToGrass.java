@@ -1,9 +1,8 @@
 package jmbjr.simland.actions.animals;
 
-import static jalse.entities.Entities.notMarkedAsType;
 import static jalse.entities.Entities.isMarkedAsType;
+import static jalse.entities.Entities.notMarkedAsType;
 
-import java.util.Random;
 import java.util.Set;
 
 import jalse.actions.Action;
@@ -12,9 +11,7 @@ import jalse.entities.Entity;
 import jmbjr.simland.actions.MoveAnimals;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.animals.state.Adult;
 import jmbjr.simland.entities.animals.state.Asleep;
-import jmbjr.simland.entities.animals.state.MovingToAdult;
 import jmbjr.simland.entities.animals.state.MovingToGrass;
 import jmbjr.simland.entities.animals.state.Peeking;
 import jmbjr.simland.entities.plants.Grass;

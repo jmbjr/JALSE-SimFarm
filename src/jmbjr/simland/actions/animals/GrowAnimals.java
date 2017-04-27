@@ -13,7 +13,6 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.ability.Grower;
 import jmbjr.simland.entities.animals.state.Asleep;
-import jmbjr.simland.properties.FarmAnimalProperties;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

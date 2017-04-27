@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.imageio.ImageIO;
 
 import jalse.entities.Entity;
-import jmbjr.simland.entities.drawlayer.PlantLayer;
 import jmbjr.simland.entities.plants.Grass;
 import jmbjr.simland.entities.plants.Plant;
 

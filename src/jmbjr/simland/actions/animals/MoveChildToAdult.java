@@ -1,9 +1,8 @@
 package jmbjr.simland.actions.animals;
 
-import static jalse.entities.Entities.notMarkedAsType;
 import static jalse.entities.Entities.isMarkedAsType;
+import static jalse.entities.Entities.notMarkedAsType;
 
-import java.util.Random;
 import java.util.Set;
 
 import jalse.actions.Action;

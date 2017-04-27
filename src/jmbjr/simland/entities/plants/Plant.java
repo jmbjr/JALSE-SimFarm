@@ -1,45 +1,21 @@
 package jmbjr.simland.entities.plants;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import jalse.entities.Entity;
 import jalse.entities.annotations.GetAttribute;
 import jalse.entities.annotations.SetAttribute;
+import jmbjr.simland.entities.FarmObject;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
  * generic Plant entity
  */
-public interface Plant extends Entity {
-	
-    @GetAttribute
-    Point getPosition();
+public interface Plant extends FarmObject {
 
-    @SetAttribute
-    void setPosition(Point p);
-	
 	@GetAttribute
 	BufferedImage[] getImage();
     
     @SetAttribute
     void setImage(BufferedImage[] image);
-    
-    @GetAttribute
-    int getSize();
 
-    @SetAttribute
-    void setSize(int size);
-
-    @GetAttribute
-    int getAge();
-
-    @SetAttribute
-    void setAge(int age);
-    
-    @GetAttribute
-    String getName();
-
-    @SetAttribute
-    void setName(String name);
 }
