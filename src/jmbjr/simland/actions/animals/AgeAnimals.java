@@ -13,8 +13,6 @@ import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.ability.Ager;
 import jmbjr.simland.entities.animals.state.Adult;
 import jmbjr.simland.entities.animals.state.Child;
-import jmbjr.simland.entities.animals.state.Mover;
-import jmbjr.simland.entities.plants.Grass;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

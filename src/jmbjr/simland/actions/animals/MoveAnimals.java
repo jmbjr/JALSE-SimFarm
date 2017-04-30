@@ -15,7 +15,6 @@ import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.state.Asleep;
 import jmbjr.simland.entities.animals.state.Mover;
 import jmbjr.simland.entities.animals.state.Peeking;
-import jmbjr.simland.entities.plants.Grass;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr

@@ -2,7 +2,6 @@ package jmbjr.simland.entities.animals;
 
 import java.awt.image.BufferedImage;
 
-import jalse.entities.Entity;
 import jalse.entities.annotations.GetAttribute;
 import jalse.entities.annotations.SetAttribute;
 import jmbjr.simland.entities.FarmObject;
