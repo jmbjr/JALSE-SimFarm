@@ -56,17 +56,23 @@ public class InfoPanel extends JPanel {
     private Image farmImage = null;
     
 	 public InfoPanel(FarmObject farmobject) {
+		this.farmImage = ((Animal) farmobject).getImage();
+		this.farmobject = farmobject;
+		
 		jalse = new DefaultJALSE.Builder().setManualEngine().build();
 		createEntities();
 		getInfo().newEntity(farmobject);
 		setPreferredSize(getInfo().getSize());
-		JLabel label = new JLabel(farmobject.getName());
-		this.add(label, BorderLayout.PAGE_END);
-		// check if animal
-		this.farmImage = ((Animal) farmobject).getImage();
 		
+		JLabel labelName = new JLabel(farmobject.getName());
+		this.add(labelName, BorderLayout.PAGE_END);
+
+		JLabel labelAge = new JLabel(String.valueOf(((Animal) farmobject).getAge()));
+		this.add(labelAge, BorderLayout.PAGE_END);
+		
+		// check if animal
 		JLabel ilabel = new JLabel(new ImageIcon(getScaledImage(farmImage,farmobject.getSize()*5,farmobject.getSize()*5)));
-		this.farmobject = farmobject;
+		
         this.add(ilabel);
         this.setLocation(50,50);
         this.setVisible(true);
