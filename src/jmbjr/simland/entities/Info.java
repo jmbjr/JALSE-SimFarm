@@ -26,4 +26,7 @@ public interface Info extends Entity {
     @SetAttribute
     void setSize(Dimension size);
 
+    @StreamEntities
+    Stream<FarmObject> streamObjects();
+    
 }
