@@ -2,6 +2,7 @@ package jmbjr.simland.panels;
 
 import static jalse.entities.Entities.isMarkedAsType;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,6 +17,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -28,6 +30,7 @@ import jmbjr.simland.actions.animals.SleepAnimals;
 import jmbjr.simland.actions.animals.TunnelAnimals;
 import jmbjr.simland.actions.animals.WakeAnimals;
 import jmbjr.simland.actions.plants.GrowPlants;
+import jmbjr.simland.entities.FarmObject;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Chicken;
@@ -123,19 +126,19 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     	addPlantAtPosition(Grass.class, randomPosition(), "Grass");
     }    
    
-    
-    private void addAnimalAtSpecificPosition(Point pos) {
+    private Animal addAnimalAtSpecificPosition(Point pos) {
 	    Random rand = new Random();	
 	    int randInt = rand.nextInt(1000);
 	    if (randInt > 667) 
-	    	addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
+	    	return addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
 	    else if (randInt > 333)
-	    	addAnimalAtPosition(Chicken.class, Child.class, pos, "Chicken");	    	
+	    	return addAnimalAtPosition(Chicken.class, Child.class, pos, "Chicken");	    	
 	    else
-	    	addAnimalAtPosition(Pig.class, Child.class, pos, "Pig");
+	    	return addAnimalAtPosition(Pig.class, Child.class, pos, "Pig");
+	    
     }
         
-    private void addAnimalAtPosition(Class<? extends Animal> species, Class<? extends Animal> maturity, Point position, String name) {
+    private Animal addAnimalAtPosition(Class<? extends Animal> species, Class<? extends Animal> maturity, Point position, String name) {
 		final Animal animal = getField().newEntity(Animal.class);
 		animal.setPosition(position);
 		animal.setAngle(randomAngle());
@@ -143,6 +146,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 		animal.markAsType(species);
 		animal.markAsType(maturity);
 		animal.setName(name);
+		return animal;
 		
     }
 
@@ -179,7 +183,17 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	// Add animal at random position
 	final Point point = e.getPoint();
 
-	addAnimalAtSpecificPosition(point);
+	Animal animal = addAnimalAtSpecificPosition(point);
+	
+	final JFrame inspectFrame = new JFrame("Animal Inspection");
+	inspectFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	inspectFrame.setLayout(new BorderLayout());
+	final InfoPanel infopanel = new InfoPanel(animal);
+	inspectFrame.add(infopanel);
+	inspectFrame.pack();
+	inspectFrame.setResizable(false);
+	inspectFrame.setLocationRelativeTo(null);
+	inspectFrame.setVisible(true);
     }
 
     @Override
