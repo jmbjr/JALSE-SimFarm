@@ -5,10 +5,14 @@ import static jalse.entities.Entities.isMarkedAsType;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -49,6 +53,7 @@ public class InfoPanel extends JPanel {
     public static final int HEIGHT = 200;
     
     private FarmObject farmobject = null;
+    private Image farmImage = null;
     
 	 public InfoPanel(FarmObject farmobject) {
 		jalse = new DefaultJALSE.Builder().setManualEngine().build();
@@ -58,14 +63,27 @@ public class InfoPanel extends JPanel {
 		JLabel label = new JLabel(farmobject.getName());
 		this.add(label, BorderLayout.PAGE_END);
 		// check if animal
-		JLabel ilabel = new JLabel(new ImageIcon(((Animal) farmobject).getImage()));
+		this.farmImage = ((Animal) farmobject).getImage();
+		
+		JLabel ilabel = new JLabel(new ImageIcon(getScaledImage(farmImage,farmobject.getSize()*5,farmobject.getSize()*5)));
 		this.farmobject = farmobject;
         this.add(ilabel);
         this.setLocation(50,50);
         this.setVisible(true);
         
 	}
-    
+ 
+	 private Image getScaledImage(Image srcImg, int w, int h){
+		    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		    Graphics2D g2 = resizedImg.createGraphics();
+
+		    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		    g2.drawImage(srcImg, 0, 0, w, h, null);
+		    g2.dispose();
+
+		    return resizedImg;
+		}
+	 
     private Info getInfo() {
     	return jalse.getEntityAsType(Info.ID, Info.class);
     }
