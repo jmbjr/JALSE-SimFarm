@@ -2,7 +2,6 @@ package jmbjr.simland.panels;
 
 import static jalse.entities.Entities.isMarkedAsType;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,7 +16,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -30,7 +28,6 @@ import jmbjr.simland.actions.animals.SleepAnimals;
 import jmbjr.simland.actions.animals.TunnelAnimals;
 import jmbjr.simland.actions.animals.WakeAnimals;
 import jmbjr.simland.actions.plants.GrowPlants;
-import jmbjr.simland.entities.FarmObject;
 import jmbjr.simland.entities.Field;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Chicken;
@@ -126,7 +123,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     	addPlantAtPosition(Grass.class, randomPosition(), "Grass");
     }    
    
-    private Animal addAnimalAtSpecificPosition(Point pos) {
+    public Animal addAnimalAtSpecificPosition(Point pos) {
 	    Random rand = new Random();	
 	    int randInt = rand.nextInt(1000);
 	    if (randInt > 667) 
@@ -177,23 +174,23 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private Field getField() {
 	return jalse.getEntityAsType(Field.ID, Field.class);
     }
-
+    
     @Override
     public void mouseClicked(final MouseEvent e) {
 	// Add animal at random position
-	final Point point = e.getPoint();
-
-	Animal animal = addAnimalAtSpecificPosition(point);
-	
-	final JFrame inspectFrame = new JFrame("Animal Inspection");
-	inspectFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	inspectFrame.setLayout(new BorderLayout());
-	final InfoPanel infopanel = new InfoPanel(animal);
-	inspectFrame.add(infopanel);
-	inspectFrame.pack();
-	inspectFrame.setResizable(false);
-	inspectFrame.setLocationRelativeTo(null);
-	inspectFrame.setVisible(true);
+//	final Point point = e.getPoint();
+//
+//	Animal animal = addAnimalAtSpecificPosition(point);
+//	
+//	final JFrame inspectFrame = new JFrame("Animal Inspection");
+//	inspectFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//	inspectFrame.setLayout(new BorderLayout());
+//	final InfoPanel infopanel = new InfoPanel(jalse, animal);
+//	inspectFrame.add(infopanel);
+//	inspectFrame.pack();
+//	inspectFrame.setResizable(false);
+//	inspectFrame.setLocationRelativeTo(null);
+//	inspectFrame.setVisible(true);
     }
 
     @Override
@@ -231,7 +228,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	return rand.nextDouble() * Math.PI * 2;
     }
 
-    private Point randomPosition() {
+    public Point randomPosition() {
 	final int size = FarmAnimalProperties.getSizeMaturityNormal();
 	final Random rand = ThreadLocalRandom.current();
 	return new Point(size + rand.nextInt(WIDTH), size + rand.nextInt(HEIGHT));

@@ -1,34 +1,19 @@
 package jmbjr.simland.panels;
 
-import static jalse.entities.Entities.isMarkedAsType;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import jalse.DefaultJALSE;
-import jalse.JALSE;
+import javax.swing.SwingConstants;
 
 import jmbjr.simland.entities.FarmObject;
-import jmbjr.simland.entities.Field;
-import jmbjr.simland.entities.Info;
-import jmbjr.simland.entities.animals.Animal;
-import jmbjr.simland.entities.drawlayer.AnimalLayer;
-import jmbjr.simland.entities.drawlayer.GroundLayer;
-import jmbjr.simland.entities.drawlayer.PlantLayer;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -37,7 +22,7 @@ import jmbjr.simland.entities.drawlayer.PlantLayer;
 @SuppressWarnings("serial")
 public class InfoPanel extends JPanel {
 
-	 private final JALSE jalse;
+	 //private final JALSE jalse;
     /**
      * TICK_INTERVAL should always be divided by 30 (fps)
      */
@@ -55,29 +40,63 @@ public class InfoPanel extends JPanel {
     private FarmObject farmobject = null;
     private Image farmImage = null;
     
-	 public InfoPanel(FarmObject farmobject) {
-		this.farmImage = ((Animal) farmobject).getImage();
-		this.farmobject = farmobject;
-		
-		jalse = new DefaultJALSE.Builder().setManualEngine().build();
-		createEntities();
-		getInfo().newEntity(farmobject);
-		setPreferredSize(getInfo().getSize());
-		
-		JLabel labelName = new JLabel(farmobject.getName());
-		this.add(labelName, BorderLayout.PAGE_END);
+    private static JLabel newLabel(final String text) {
+	final JLabel label = new JLabel(text, SwingConstants.CENTER);
+	label.setAlignmentX(Component.CENTER_ALIGNMENT);
+	return label;
+    }
+    public InfoPanel(final FarmPanel farmPanel) {
+    	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		JLabel labelAge = new JLabel(String.valueOf(((Animal) farmobject).getAge()));
-		this.add(labelAge, BorderLayout.PAGE_END);
-		
-		// check if animal
-		JLabel ilabel = new JLabel(new ImageIcon(getScaledImage(farmImage,farmobject.getSize()*5,farmobject.getSize()*5)));
-		
-        this.add(ilabel);
-        this.setLocation(50,50);
-        this.setVisible(true);
-        
-	}
+    	
+    	// Info
+    	add(newLabel("Controls"));
+    	final JButton addAnimalButton = new JButton("Add Random Animal");
+    	addAnimalButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	addAnimalButton.addActionListener(e -> farmPanel.addAnimalAtSpecificPosition(farmPanel.randomPosition()));
+    	add(addAnimalButton);
+    	add(Box.createVerticalGlue());
+    	// Reset
+    	final JButton resetButton = new JButton("Reset Simulation");
+    	resetButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	resetButton.addActionListener(e -> farmPanel.reset());
+    	add(resetButton);
+    	
+    }
+    //InfoPanel needs to Observe whenever our stats change.
+    //maybe use JALSE attribute listener?
+	 /**
+	 * @param farmobject
+	 */
+//	public InfoPanel(JALSE jalse, FarmObject farmobject) {
+//		this.farmImage = ((Animal) farmobject).getImage();
+//		this.jalse = jalse;
+//		
+//		createEntities();
+//		// Start ticking and rendering (30 FPS)
+//		new Timer(TICK_INTERVAL, this).start();
+//		reset();
+//		
+//		//need to generalize this
+//		this.farmobject = farmobject;
+//		//this.farmobject.setAge(farmobject.getAge());
+//		
+//		setPreferredSize(getInfo().getSize());
+//		
+//		JLabel labelName = new JLabel(farmobject.getName());
+//		this.add(labelName, BorderLayout.PAGE_END);
+//
+//		JLabel labelAge = new JLabel(String.valueOf(((Animal) farmobject).getAge()));
+//		this.add(labelAge, BorderLayout.PAGE_END);
+//		
+//		// check if animal
+//		JLabel ilabel = new JLabel(new ImageIcon(getScaledImage(farmImage,farmobject.getSize()*5,farmobject.getSize()*5)));
+//		
+//        this.add(ilabel);
+//        this.setLocation(50,50);
+//        this.setVisible(true);
+//        
+//	}
  
 	 private Image getScaledImage(Image srcImg, int w, int h){
 		    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -89,14 +108,31 @@ public class InfoPanel extends JPanel {
 
 		    return resizedImg;
 		}
+
 	 
-    private Info getInfo() {
-    	return jalse.getEntityAsType(Info.ID, Info.class);
-    }
-    
-    private void createEntities() {
-		// Create field
-		final Info info = jalse.newEntity(Info.ID, Info.class);
-		info.setSize(new Dimension(WIDTH, HEIGHT));
-    }
+//    private Info getInfo() {
+//    	return this.jalse.getEntityAsType(Info.ID, Info.class);
+//    }
+//    
+//    private void createEntities() {
+//		// Create field
+//		final Info info = this.jalse.newEntity(Info.ID, Info.class);
+//		info.setSize(new Dimension(WIDTH, HEIGHT));
+//		info.scheduleForActor(new GetStats(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
+//		
+//    }
+//
+//    @Override
+//    public void actionPerformed(final ActionEvent e) {
+//	// Tick model
+//	this.jalse.resume();
+//	// Request repaint
+//	repaint();
+//    }
+//    
+//    public void reset() {
+//	// Kill them all
+//	getInfo().killEntities();
+//
+//    }
 }

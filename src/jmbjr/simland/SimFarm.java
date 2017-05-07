@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import jmbjr.simland.panels.FarmPanel;
+import jmbjr.simland.panels.InfoPanel;
 
 /**
  * @author John Boyle, boylejm@gmail.com, https://github.com/jmbjr
@@ -23,7 +24,7 @@ public class SimFarm {
 	frame.setLayout(new BorderLayout());
 	final FarmPanel fieldPanel = new FarmPanel();
 	frame.add(fieldPanel, BorderLayout.CENTER);
-	//frame.add(new ControlPanel(zombiesPanel), BorderLayout.EAST);
+	frame.add(new InfoPanel(fieldPanel), BorderLayout.EAST);
 	frame.pack();
 	frame.setResizable(false);
 	frame.setLocationRelativeTo(null);
