@@ -126,12 +126,13 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     public Animal addAnimalAtSpecificPosition(Point pos) {
 	    Random rand = new Random();	
 	    int randInt = rand.nextInt(1000);
+	    int iinum = getField().getEntities().size();
 	    if (randInt > 667) 
-	    	return addAnimalAtPosition(Cow.class, Child.class, pos, "Cow");
+	    	return addAnimalAtPosition(Cow.class, Child.class, pos, "Cow"+iinum++);
 	    else if (randInt > 333)
-	    	return addAnimalAtPosition(Chicken.class, Child.class, pos, "Chicken");	    	
+	    	return addAnimalAtPosition(Chicken.class, Child.class, pos, "Chicken"+iinum++);	    	
 	    else
-	    	return addAnimalAtPosition(Pig.class, Child.class, pos, "Pig");
+	    	return addAnimalAtPosition(Pig.class, Child.class, pos, "Pig"+iinum++);
 	    
     }
         
@@ -177,6 +178,17 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     
     @Override
     public void mouseClicked(final MouseEvent e) {
+    	
+    	// Infect clicked person(s)
+    	final Point point = e.getPoint();
+    	final int size = FarmAnimalProperties.getSizeMaturityNormal();
+    	getField().streamAnimals().filter(p -> {
+    	    final Point pos = p.getPosition();
+    	    return pos.x - 5 <= point.x && pos.x + size + 5 >= point.x && pos.y - 5 <= point.y
+    		    && pos.y + size + 5 >= point.y;
+    	}).forEach(p -> {
+    		System.out.println(p.getName());
+    	});
 	// Add animal at random position
 //	final Point point = e.getPoint();
 //
@@ -247,21 +259,21 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	    if (i < 2)  //create two full grown animals
 	    	addAnimalAtPosition(Cow.class, Adult.class, randomPosition(),"COW" + i);
 	    else if (i == 3)
-	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf");
+	    	addAnimalAtPosition(Cow.class, Child.class, randomPosition(),"calf"+ i);
 	    else if (i >3 && i <= 4) {
-	    	addAnimalAtPosition(Chicken.class, Adult.class, randomPosition(), "CHICKEN");
+	    	addAnimalAtPosition(Chicken.class, Adult.class, randomPosition(), "CHICKEN"+ i);
 	    }
 	    else if (i >5 && i <= 6) {
-	    	addAnimalAtPosition(Chicken.class, Child.class, randomPosition(), "chick");
+	    	addAnimalAtPosition(Chicken.class, Child.class, randomPosition(), "chick"+ i);
 	    }	 
 	    else if (i >7 && i <= 8) {
-	    	addAnimalAtPosition(Pig.class, Adult.class, randomPosition(), "PIG");
+	    	addAnimalAtPosition(Pig.class, Adult.class, randomPosition(), "PIG"+ i);
 	    }	
 	    else if (i >9 && i <= 10) {
-	    	addAnimalAtPosition(Pig.class, Child.class, randomPosition(), "pig");
+	    	addAnimalAtPosition(Pig.class, Child.class, randomPosition(), "pig"+ i);
 	    }	
 	    else //fill with worms
-	    	addAnimalAtPosition(Worm.class, Child.class, randomPosition(),"WORM");
+	    	addAnimalAtPosition(Worm.class, Child.class, randomPosition(),"WORM"+ i);
 	}
 	for (int j = 0; j < plantPopulation; j++) {
 		addGrassAtRandomPosition();
