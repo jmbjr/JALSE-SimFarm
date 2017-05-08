@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -182,13 +183,14 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     	// Infect clicked person(s)
     	final Point point = e.getPoint();
     	final int size = FarmAnimalProperties.getSizeMaturityNormal();
-    	getField().streamAnimals().filter(p -> {
+    	Optional<Animal> animal = getField().streamAnimals().filter(p -> {
     	    final Point pos = p.getPosition();
     	    return pos.x - 5 <= point.x && pos.x + size + 5 >= point.x && pos.y - 5 <= point.y
     		    && pos.y + size + 5 >= point.y;
-    	}).forEach(p -> {
-    		System.out.println(p.getName());
-    	});
+    	}).findFirst();
+    	if (animal.isPresent())
+    		System.out.println(animal.get().getName());
+    }
 	// Add animal at random position
 //	final Point point = e.getPoint();
 //
@@ -203,7 +205,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 //	inspectFrame.setResizable(false);
 //	inspectFrame.setLocationRelativeTo(null);
 //	inspectFrame.setVisible(true);
-    }
+
 
     @Override
     public void mouseEntered(final MouseEvent e) {}
