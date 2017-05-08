@@ -23,8 +23,11 @@ public class SimFarm {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setLayout(new BorderLayout());
 	final FarmPanel fieldPanel = new FarmPanel();
+	//super dumb way to tell fieldPanel about infoPanel
+	final InfoPanel infoPanel = new InfoPanel(fieldPanel);
+	fieldPanel.setInfoPanel(infoPanel);
 	frame.add(fieldPanel, BorderLayout.CENTER);
-	frame.add(new InfoPanel(fieldPanel), BorderLayout.EAST);
+	frame.add(infoPanel, BorderLayout.EAST);
 	frame.pack();
 	frame.setResizable(false);
 	frame.setLocationRelativeTo(null);

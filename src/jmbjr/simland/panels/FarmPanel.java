@@ -3,6 +3,7 @@ package jmbjr.simland.panels;
 import static jalse.entities.Entities.isMarkedAsType;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -30,6 +31,7 @@ import jmbjr.simland.actions.animals.TunnelAnimals;
 import jmbjr.simland.actions.animals.WakeAnimals;
 import jmbjr.simland.actions.plants.GrowPlants;
 import jmbjr.simland.entities.Field;
+import jmbjr.simland.entities.Info;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
@@ -67,9 +69,18 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
      * HEIGHT = farm height in pixels
      */
     public static final int HEIGHT = 500;
-
     
-    //should there just be a single drawElement method? 
+    private InfoPanel infoPanel = null;
+    
+    public InfoPanel getInfoPanel() {
+		return infoPanel;
+	}
+
+	public void setInfoPanel(InfoPanel infoPanel) {
+		this.infoPanel = infoPanel;
+	}
+
+	//should there just be a single drawElement method? 
     private static void drawElement(final Graphics g, final Plant plant) {
 	final Point position = plant.getPosition();
 	int size = plant.getSize(); 
@@ -177,10 +188,15 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	return jalse.getEntityAsType(Field.ID, Field.class);
     }
     
+    public Info getInfo() {
+    	return this.jalse.getEntityAsType(Info.ID, Info.class);
+    }
+    
+    
     @Override
     public void mouseClicked(final MouseEvent e) {
     	
-    	// Infect clicked person(s)
+    	// click an animal
     	final Point point = e.getPoint();
     	final int size = FarmAnimalProperties.getSizeMaturityNormal();
     	Optional<Animal> animal = getField().streamAnimals().filter(p -> {
@@ -188,8 +204,11 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     	    return pos.x - 5 <= point.x && pos.x + size + 5 >= point.x && pos.y - 5 <= point.y
     		    && pos.y + size + 5 >= point.y;
     	}).findFirst();
-    	if (animal.isPresent())
-    		System.out.println(animal.get().getName());
+    	if (animal.isPresent()) {
+    		System.out.println("Clicked " + animal.get().getName() + ", Aged: " + animal.get().getAge());
+    		this.infoPanel.setCurrentAnimal(animal.get());
+    	}
+    	
     }
 	// Add animal at random position
 //	final Point point = e.getPoint();
