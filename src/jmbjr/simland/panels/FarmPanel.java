@@ -207,6 +207,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     	if (animal.isPresent()) {
     		System.out.println("Clicked " + animal.get().getName() + ", Aged: " + animal.get().getAge());
     		this.infoPanel.setCurrentAnimal(animal.get());
+    		this.infoPanel.updateButton.doClick();
     	}
     	
     }

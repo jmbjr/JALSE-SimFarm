@@ -47,7 +47,7 @@ public class InfoPanel extends JPanel {
 	JLabel labelDrowsiness = new JLabel("Sleepy = 0", SwingConstants.LEFT);
 	JLabel labelSize = new JLabel("Size = 0", SwingConstants.LEFT);
 	JLabel ilabel = new JLabel("No Image", SwingConstants.LEFT); 
-	
+	public final JButton updateButton = new JButton("UPDATE");
 	
     private static JLabel newLabel(final String text) {
 	final JLabel label = new JLabel(text, SwingConstants.LEFT);
@@ -86,7 +86,7 @@ public class InfoPanel extends JPanel {
     	});
     	add(resetButton);
     	
-    	final JButton updateButton = new JButton("UPDATE");
+    	
     	updateButton.setAlignmentX(Component.LEFT_ALIGNMENT);
     	updateButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
