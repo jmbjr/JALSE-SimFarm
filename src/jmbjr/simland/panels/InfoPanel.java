@@ -111,40 +111,6 @@ public class InfoPanel extends JPanel {
 		this.currentAnimal = currentAnimal;
 	}
 
-	//InfoPanel needs to Observe whenever our stats change.
-    //maybe use JALSE attribute listener?
-	 /**
-	 * @param farmobject
-	 */
-//	public InfoPanel(JALSE jalse, FarmObject farmobject) {
-//		this.farmImage = ((Animal) farmobject).getImage();
-//		this.jalse = jalse;
-//		
-//		createEntities();
-//		// Start ticking and rendering (30 FPS)
-//		new Timer(TICK_INTERVAL, this).start();
-//		reset();
-//		
-//		//need to generalize this
-//		this.farmobject = farmobject;
-//		//this.farmobject.setAge(farmobject.getAge());
-//		
-//		setPreferredSize(getInfo().getSize());
-//		
-//		JLabel labelName = new JLabel(farmobject.getName());
-//		this.add(labelName, BorderLayout.PAGE_END);
-//
-//		JLabel labelAge = new JLabel(String.valueOf(((Animal) farmobject).getAge()));
-//		this.add(labelAge, BorderLayout.PAGE_END);
-//		
-//		// check if animal
-//		JLabel ilabel = new JLabel(new ImageIcon(getScaledImage(farmImage,farmobject.getSize()*5,farmobject.getSize()*5)));
-//		
-//        this.add(ilabel);
-//        this.setLocation(50,50);
-//        this.setVisible(true);
-//        
-//	}
  
 	 private Image getScaledImage(Image srcImg, int w, int h){
 		    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -157,27 +123,4 @@ public class InfoPanel extends JPanel {
 		    return resizedImg;
 		}
 
-	
-//    
-//    private void createEntities() {
-//		// Create field
-//		final Info info = this.jalse.newEntity(Info.ID, Info.class);
-//		info.setSize(new Dimension(WIDTH, HEIGHT));
-//		info.scheduleForActor(new GetStats(), 0, TICK_INTERVAL, TimeUnit.MILLISECONDS);
-//		
-//    }
-//
-//    @Override
-//    public void actionPerformed(final ActionEvent e) {
-//	// Tick model
-//	this.jalse.resume();
-//	// Request repaint
-//	repaint();
-//    }
-//    
-//    public void reset() {
-//	// Kill them all
-//	getInfo().killEntities();
-//
-//    }
 }
