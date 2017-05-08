@@ -129,6 +129,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
 	jalse.resume();
 	// Request repaint
 	repaint();
+	infoPanel.updateButton.doClick();
     }
     
     private void addGrassAtRandomPosition() {
