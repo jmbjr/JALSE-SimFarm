@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import jalse.entities.Entity;
 import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.Fox;
 import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
 
@@ -105,6 +106,7 @@ public class FarmAnimalProperties {
     private static final int SIZE_WORM = 10;
     private static final int SIZE_CHICKEN = 20;
     private static final int SIZE_PIG = 40;
+    private static final int SIZE_FOX = 45;
     
     //AGES 
     private static final int AGE_INIT = 0;
@@ -124,6 +126,8 @@ public class FarmAnimalProperties {
     BufferedImage imgChickenChild = null;
     BufferedImage imgPig = null;
     BufferedImage imgPigChild = null;  
+    BufferedImage imgFox = null;
+    BufferedImage imgFoxChild = null;  
 	try {
 		imgCow = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow.png"));
 		imgCowChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\cow_child.png"));
@@ -132,7 +136,9 @@ public class FarmAnimalProperties {
 		imgChickenChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\chicken_child.png"));
 		imgPig = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\pig.png"));
 		imgPigChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\pig_child.png"));
-
+		imgFox = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\fox.png"));
+		imgFoxChild = ImageIO.read(new File("C:\\dev\\JALSE\\JALSE-SimLand\\img\\animals\\fox_child.png"));
+		
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -142,7 +148,8 @@ public class FarmAnimalProperties {
 	props.put(Worm.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHILD, SIZE_WORM, SIZE_MATURITY_SMALL, imgWorm, imgWorm, DROWSINESS_INIT, DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
 	props.put(Chicken.class, new AnimalProperties( SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_CHICKEN - 10, SIZE_CHICKEN, SIZE_MATURITY_SMALL, imgChickenChild, imgChicken, DROWSINESS_INIT, DROWSINESS_DELTA_NORMAL, DROWSINESS_LIMIT_LOW, ALERTNESS_DELTA_LOW, ALERTNESS_LIMIT_NORMAL, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
 	props.put(Pig.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_PIG - 20, SIZE_PIG, SIZE_MATURITY_NORMAL, imgPigChild, imgPig, DROWSINESS_INIT,DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_NORMAL, ALERTNESS_DELTA_NORMAL, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
-	
+	props.put(Fox.class, new AnimalProperties(SIGHTRANGE_FAR, SIGHTRANGE_NORMAL, SPEED_VERY_FAST, SPEED_NORMAL, SIZE_FOX - 20, SIZE_FOX, SIZE_MATURITY_NORMAL, imgFoxChild, imgFox, DROWSINESS_INIT,DROWSINESS_DELTA_LOW, DROWSINESS_LIMIT_NORMAL, ALERTNESS_DELTA_NORMAL, ALERTNESS_LIMIT_LOW, AGE_MATURITY_NORMAL, AGE_MATURITY_NORMAL));
+		
     }
    
     public static BufferedImage getImage(Class<? extends Entity> type) {

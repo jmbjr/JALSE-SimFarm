@@ -6,6 +6,7 @@ import jalse.entities.EntityTypeListener;
 import jmbjr.simland.entities.animals.Animal;
 import jmbjr.simland.entities.animals.Chicken;
 import jmbjr.simland.entities.animals.Cow;
+import jmbjr.simland.entities.animals.Fox;
 import jmbjr.simland.entities.animals.Pig;
 import jmbjr.simland.entities.animals.Worm;
 import jmbjr.simland.entities.animals.ability.Ager;
@@ -35,7 +36,8 @@ public class AnimalTransformationListener implements EntityTypeListener {
 	final Animal animal = event.getEntity().asType(Animal.class);
 	final Class<? extends Entity> type = event.getTypeChange();
 	
-	if (	type.equals(Cow.class) || 
+	if (	type.equals(Fox.class) ||
+			type.equals(Cow.class) || 
 			type.equals(Worm.class) || 
 			type.equals(Chicken.class)||
 			type.equals(Pig.class)) { //maybe add a new type Alive.class ? or something else to bucket these things so Rester and Grazer don't need defined
@@ -69,7 +71,7 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setAlertnessLimit(FarmAnimalProperties.getAlertnessLimit(type));
 		animal.setAge(FarmAnimalProperties.getAge(type));
 		animal.setAgeMaturity(FarmAnimalProperties.getAgeMaturity(type));
-
+		
 		//set abilities and state
 		animal.markAsType(Ager.class);
 		animal.markAsType(Grower.class);
@@ -104,9 +106,16 @@ public class AnimalTransformationListener implements EntityTypeListener {
 		animal.setSize(animal.getSizeAdult());	
 		animal.setImage(animal.getImageAdult());
 
-		animal.setTargetEntity(Grass.class);
-		animal.setTargetEntitySpecies(Grass.class);
-		animal.setFollowDistance(animal.getSize());
+		//dumb special casing for foxes for now
+		if (animal.isMarkedAsType(Fox.class)) {
+			animal.setTargetEntity(Child.class);
+			animal.setTargetEntitySpecies(Chicken.class);
+			animal.setFollowDistance(animal.getSize());
+		} else {
+			animal.setTargetEntity(Grass.class);
+			animal.setTargetEntitySpecies(Grass.class);
+			animal.setFollowDistance(animal.getSize());
+		}
 		
 	} else if ( type.equals(Child.class)) {
 		animal.setSightRange(animal.getSightRangeChild());
