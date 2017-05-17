@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -16,6 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import jalse.JALSE;
+import jmbjr.simland.actions.animals.TunnelAnimals;
+import jmbjr.simland.entities.Field;
+import jmbjr.simland.entities.Info;
 import jmbjr.simland.entities.animals.Animal;
 
 
@@ -24,9 +29,9 @@ import jmbjr.simland.entities.animals.Animal;
  * Main class for displaying the farm entities
  */
 @SuppressWarnings("serial")
-public class InfoPanel extends JPanel {
+public class InfoPanel extends JPanel implements ActionListener {
 
-	 //private final JALSE jalse;
+	 private  JALSE jalse = null;
     /**
      * TICK_INTERVAL should always be divided by 30 (fps)
      */
@@ -54,9 +59,13 @@ public class InfoPanel extends JPanel {
 	label.setAlignmentX(Component.LEFT_ALIGNMENT);
 	return label;
     }
+    
+    public Info getInfo() {
+    	return this.jalse.getEntityAsType(Info.ID, Info.class);
+    }
+    
     public InfoPanel(final FarmPanel farmPanel) {
     	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
     	
     	// Info
     	add(newLabel("Controls"));
@@ -101,10 +110,22 @@ public class InfoPanel extends JPanel {
     		}
     	});
     	add(updateButton);
-    	
+   	
     }
     
-    public Animal getCurrentAnimal() {
+    public JALSE getJalse() {
+		return jalse;
+	}
+    
+    public void setJalse(JALSE jalse) {
+		this.jalse = jalse;
+		final Info info = jalse.newEntity(Info.ID, Info.class);
+		info.scheduleForActor(new UpdateInfo(), 0, TICK_INTERVAL*3, TimeUnit.MILLISECONDS);
+	}
+    
+
+
+	public Animal getCurrentAnimal() {
 		return currentAnimal;
 	}
 	public void setCurrentAnimal(Animal currentAnimal) {
@@ -122,5 +143,10 @@ public class InfoPanel extends JPanel {
 
 		    return resizedImg;
 		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		repaint();
+	}
 
 }

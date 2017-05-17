@@ -187,11 +187,7 @@ public class FarmPanel extends JPanel implements ActionListener, MouseListener {
     private Field getField() {
 	return jalse.getEntityAsType(Field.ID, Field.class);
     }
-    
-    public Info getInfo() {
-    	return this.jalse.getEntityAsType(Info.ID, Info.class);
-    }
-    
+       
     
     @Override
     public void mouseClicked(final MouseEvent e) {
